@@ -6,26 +6,10 @@
 
 
 		<title>Tomorrow is...</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="../assets/css/main.css" />
-		<link href="//fonts.googleapis.com/css?family=Pattaya&subset=latin" rel="stylesheet" type="text/css">
-			<link rel="icon" type="image/png" href="../images/icons/favicon_main.ico"/>
 
 	</head>
 	<body>
 
-		<!-- Header -->
-			<header id="header">
-				<div class="inner">
-					<a href="Home.jsp" class="logo">Tomorrow is...</a>
-						<a href="MenuCheck.jsp">받은 편지함</a>
-						<a href="MenuCheck.jsp">보낸 편지함</a>
-						<a href="MenuCheck.jsp">To.오늘의 나</a>
-						<a href="3.QnA.jsp">QnA</a>
-						<a href="4.notice_list.jsp">Notice</a>
-				</div>
-			</header>
 
 		<!-- Banner -->
 			<section id="banner">
@@ -94,11 +78,6 @@
 
 		
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
 
 	</body>
 </html>
