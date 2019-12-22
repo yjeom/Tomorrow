@@ -111,8 +111,8 @@ public class MemberControllerImpl   implements MemberController {
 	private ModelAndView form(@RequestParam(value= "result", required=false) String result,
 						       HttpServletRequest request, 
 						       HttpServletResponse response) throws Exception {
-		//String viewName = getViewName(request);
-		String viewName = (String)request.getAttribute("viewName");
+		String viewName = getViewName(request);
+//		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result",result);
 		mav.setViewName(viewName);
