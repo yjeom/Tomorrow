@@ -11,6 +11,7 @@ import com.spring.tomorrow.member.vo.MemberVO;
 
 @Repository("memberDAO")
 public class MemberDAOImpl implements MemberDAO {
+	
 	@Autowired
 	private SqlSession sqlSession;
 
@@ -35,7 +36,7 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	@Override
 	public MemberVO login(MemberVO memberVO) throws DataAccessException{
-		  MemberVO vo = sqlSession.selectOne("mapper.member.loginById",memberVO);
+		  MemberVO vo = sqlSession.selectOne("mapper.member.login",memberVO);
 		return vo;
 	}
 }
