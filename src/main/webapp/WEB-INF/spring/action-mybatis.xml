@@ -25,16 +25,15 @@
 			value="classpath:mybatis/model/modelConfig.xml" />
 		<property name="mapperLocations" value="classpath:mybatis/mappers/*.xml" />
 	</bean>
+<!-- 
 
-	<bean id="sqlSession"
+	<bean id="memberDAO"
+		class="com.spring.tomorrow.member.dao.MemberDAOImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	-->
+<bean id="sqlSession"
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
-
-
-	<!-- <bean id="memberDAO"
-		class="com.spring.member.dao.MemberDAOImpl">
-		<property name="sqlSession" ref="sqlSession"></property>
-	</bean> -->
-
 </beans>
