@@ -88,10 +88,10 @@ public class MemberControllerImpl   implements MemberController {
 		    HttpSession session = request.getSession();
 		    session.setAttribute("member", memberVO);
 		    session.setAttribute("isLogOn", true);
-		    mav.setViewName("redirect:/member/listMembers.do");
+		    mav.setViewName("redirect:/");
 	}else {
 		    rAttr.addAttribute("result","loginFailed");
-		    mav.setViewName("redirect:/member/loginForm.do");
+		    mav.setViewName("redirect:/");
 	}
 	return mav;
 	}

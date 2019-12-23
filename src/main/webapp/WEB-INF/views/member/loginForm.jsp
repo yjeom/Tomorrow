@@ -8,7 +8,7 @@
 		<title>Login</title>
 	</head>
 	<body>
-<form class="login100-form validate-form" action="loginProcess.jsp" method="post">
+<form class="login100-form validate-form" action="${contextPath}/member/login.do" method="post">
 	<div class="container-login100">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30" >
 			<form class="login100-form validate-form">
@@ -22,7 +22,7 @@
 				</div>
 
 				<div class="wrap-input100 validate-input m-b-25" data-validate = "Enter password">
-					<input class="input100" type="password" name="password" id="password" placeholder="password">
+					<input class="input100" type="password" name="pwd" id="pwd" placeholder="password">
 					<span class="focus-input100"></span>
 				</div>
 

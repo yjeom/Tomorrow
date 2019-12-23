@@ -12,6 +12,10 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<link href="//fonts.googleapis.com/css?family=Pattaya&subset=latin" rel="stylesheet" type="text/css">
+		<link rel="icon" type="image/png" href="/images/icons/favicon_main.ico"/>
 <title>헤더</title>
 </head>
 <body>
