@@ -8,25 +8,48 @@
 		<title>Login</title>
 	</head>
 	<body>
+<form class="login100-form validate-form" action="loginProcess.jsp" method="post">
+	<div class="container-login100">
+		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30" >
+			<form class="login100-form validate-form">
+				<span class="login100-form-title p-b-37">
+					Login 
+				</span>
 
-		<!-- Banner -->
-	<section id="banner">
-		<div class="inner">
-
-			<div class="flex">
-					LOGIN
-				<form  action="loginProcess.jsp" method="post">
-					<input  type="text" name="id" id="id" placeholder="username or id">
-						</form>
-						
-						
-					<footer>
-						<input type="button" class="button" value="Login" onclick="location.href='${contextPath}/member/loginForm.do'" >
-						
-					</footer>
+				<div class="wrap-input100 validate-input m-b-20" data-validate="Enter username or id">
+					<input class="input100" type="text" name="id" id="id" placeholder="username or id">
+					<span class="focus-input100"></span>
 				</div>
-			</section>
 
+				<div class="wrap-input100 validate-input m-b-25" data-validate = "Enter password">
+					<input class="input100" type="password" name="password" id="password" placeholder="password">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="container-login100-form-btn">
+				<input type="submit" class="login100-form-btn" value="Login">
+				</div>
+				<br>
+				<br>
+				<div class="text-center">
+					<a href="index_join.html" class="txt2 hov1"><font="grey">
+						Sign Up
+					</a>
+					/
+					<a href="index_pw.html" class="txt2 hov1"><font="grey">
+						PW
+					</a>
+					</font>
+				</div>
+			</form>
+			
+		</div>
+	</div>
+	
+	
+
+	<div id="dropDownSelect1"></div>
+	
 
 
 	</body>
