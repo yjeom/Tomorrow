@@ -26,7 +26,7 @@
 					<a href="Home.jsp" class="logo">Tomorrow is...</a>
 						<a href="admin_report.jsp">신고관리</a>
 						<a href="3.QnA.jsp">QnA</a>
-						<a href="4.notice_list.jsp">Notice</a>
+						<a href="${contextPath}/notice/noticeList.do">Notice</a>
 						<a href="${contextPath}/member/logout.do"><font color="red">Logout</a> </font>
 				</div>
 			</header>
@@ -39,7 +39,7 @@
 						<a href="MenuCheck.jsp">보낸 편지함</a>
 						<a href="MenuCheck.jsp">To.오늘의 나</a>
 						<a href="3.QnA.jsp">QnA</a>
-						<a href="4.notice_list.jsp">Notice</a>
+						<a href="${contextPath}/notice/noticeList.do">Notice</a>
 				</div>
 			</header>
 	</c:when>

@@ -2,18 +2,24 @@ package com.spring.tomorrow.notice.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.spring.tomorrow.notice.dao.NoticeDAO;
 import com.spring.tomorrow.notice.vo.NoticeVO;
 
 @Service("noticeService")
 public class NoticeServiceImpl implements NoticeService{
 
+	@Autowired
+	private NoticeDAO noticeDAO;
+	
 	@Override
 	public List selectNoticeList(int page) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List noticeList = null;
+		noticeList = noticeDAO.selectNoticeList(page);
+		return noticeList;
 	}
 
 	@Override
