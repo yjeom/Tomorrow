@@ -38,18 +38,20 @@
 					    	<p>오늘의 나는 어떤 하루였나요?</p>
 						</div>
 					</div>
-				<c:if test="${isLogOn==true and not empty member}">
+			<c:choose>
+				<c:when test="${isLogOn==true and not empty member}">
 					<footer>
 						<input type="button" class="button" value="Logout" onclick="location.href='${contextPath}/member/logout.do'" >
 						
 					</footer>
-				</c:if>
-				<c:if test="${isLogOn==null and  empty member}">
+				</c:when>
+				<c:otherwise>
 					<footer>
 						<input type="button" class="button" value="Login" onclick="location.href='${contextPath}/member/loginForm.do'" >
 						
 					</footer>
-				</c:if>
+				</c:otherwise>
+			</c:choose>
 				</div>
 			</section>
 

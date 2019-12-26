@@ -20,9 +20,9 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO memberDAO;
 
 	@Override
-	public List listMembers() throws DataAccessException {
+	public List listMembers(int page) throws DataAccessException {
 		List membersList = null;
-		membersList = memberDAO.selectAllMemberList();
+		membersList = memberDAO.selectAllMemberList(page);
 		return membersList;
 	}
 

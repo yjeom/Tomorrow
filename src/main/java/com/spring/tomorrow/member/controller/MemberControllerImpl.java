@@ -33,16 +33,22 @@ public class MemberControllerImpl   implements MemberController {
 	MemberVO memberVO ;
 	
 	@Override
-	@RequestMapping(value="/member/listMembers.do" ,method = RequestMethod.GET)
+	@RequestMapping(value="/adminHome.do" ,method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = getViewName(request);
 //		String viewName = (String)request.getAttribute("viewName");
 		//System.out.println("viewName: " +viewName);
 //		logger.info("viewName: "+ viewName);
 //		logger.debug("viewName: "+ viewName);
-		List membersList = memberService.listMembers();
+		int page=0;
+		if(request.getParameter("page")==null)
+			page=1;
+		else
+		page=Integer.parseInt((String)request.getParameter("page"));
+		List memberList = memberService.listMembers(page);
 		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("membersList", membersList);
+		mav.addObject("memberList", memberList);
+		mav.setViewName("/adminHome");
 		return mav;
 	}
 
@@ -88,7 +94,10 @@ public class MemberControllerImpl   implements MemberController {
 		    HttpSession session = request.getSession();
 		    session.setAttribute("member", memberVO);
 		    session.setAttribute("isLogOn", true);
-		    mav.setViewName("redirect:/");
+		    if(memberVO.getId().equals("rhksflwk"))
+		    	mav.setViewName("redirect:/adminHome.do");
+		    else
+		    	mav.setViewName("redirect:/home.do");
 	}else {
 		    rAttr.addAttribute("result","loginFailed");
 		    mav.setViewName("redirect:/");
@@ -103,7 +112,7 @@ public class MemberControllerImpl   implements MemberController {
 		session.removeAttribute("member");
 		session.removeAttribute("isLogOn");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/member/listMembers.do");
+		mav.setViewName("redirect:/home.do");
 		return mav;
 	}	
 

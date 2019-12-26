@@ -19,6 +19,19 @@
 <title>헤더</title>
 </head>
 <body>
+<c:choose>
+	<c:when test="${member.id=='rhksflwk'}">
+						<header id="header">
+				<div class="inner">
+					<a href="Home.jsp" class="logo">Tomorrow is...</a>
+						<a href="admin_report.jsp">신고관리</a>
+						<a href="3.QnA.jsp">QnA</a>
+						<a href="4.notice_list.jsp">Notice</a>
+						<a href="${contextPath}/member/logout.do"><font color="red">Logout</a> </font>
+				</div>
+			</header>
+		</c:when>
+	<c:when test="${member.id!='rhksflwk' }">
 			<header id="header">
 				<div class="inner">
 					<a href="Home.jsp" class="logo">Tomorrow is...</a>
@@ -29,7 +42,7 @@
 						<a href="4.notice_list.jsp">Notice</a>
 				</div>
 			</header>
-
-
+	</c:when>
+</c:choose>
 </body>
 </html>
