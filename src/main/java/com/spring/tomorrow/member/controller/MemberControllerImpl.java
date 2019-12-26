@@ -33,9 +33,9 @@ public class MemberControllerImpl   implements MemberController {
 	MemberVO memberVO ;
 	
 	@Override
-	@RequestMapping(value="/adminHome.do" ,method = {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/adminHome.do" ,method = {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = getViewName(request);
+//		String viewName = getViewName(request);
 //		String viewName = (String)request.getAttribute("viewName");
 		//System.out.println("viewName: " +viewName);
 //		logger.info("viewName: "+ viewName);
@@ -46,7 +46,7 @@ public class MemberControllerImpl   implements MemberController {
 		else
 		page=Integer.parseInt((String)request.getParameter("page"));
 		List memberList = memberService.listMembers(page);
-		ModelAndView mav = new ModelAndView(viewName);
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberList", memberList);
 		mav.setViewName("/adminHome");
 		return mav;
@@ -65,7 +65,7 @@ public class MemberControllerImpl   implements MemberController {
 	
 	@Override
 	@RequestMapping(value="/member/removeMember.do" ,method = RequestMethod.GET)
-	public ModelAndView removeMember(@RequestParam("id") String id, 
+	public ModelAndView removeMember(@RequestParam("idx") String id, 
 			           HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("utf-8");
 		memberService.removeMember(id);
