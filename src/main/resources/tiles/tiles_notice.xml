@@ -9,4 +9,18 @@
       <put-attribute name="body" value="/WEB-INF/views/notice/noticeList.jsp" />
    </definition>
 
+ <definition name="/notice/noticeForm" extends="baseLayout">
+      <put-attribute name="title" value="Notice" />
+      <put-attribute name="body" value="/WEB-INF/views/notice/noticeForm.jsp" />
+   </definition>
+   
+    <definition name="/notice/getNotice" extends="baseLayout">
+      <put-attribute name="title" value="Notice" />
+      <put-attribute name="body" value="/WEB-INF/views/notice/getNotice.jsp" />
+   </definition>
+   
+       <definition name="/notice/noticeUpdate" extends="baseLayout">
+      <put-attribute name="title" value="Notice" />
+      <put-attribute name="body" value="/WEB-INF/views/notice/noticeUpdate.jsp" />
+   </definition>
 </tiles-definitions>

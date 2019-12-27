@@ -5,6 +5,7 @@
 
 <mapper namespace="mapper.notice">
 	<resultMap id="noticeVO" type="noticeVO">
+		<result property="rnum" column="rnum"/>
 		<result property="idx" column="idx"/>
 		<result property="title" column="title" />
         <result property="content" column="content" />
@@ -13,12 +14,16 @@
 	</resultMap> 
 	 
 
-     <select id="selectNoticeCount"  resultType="int"  >
+   <select id="selectNoticeCount"  resultType="int"  >
 	<![CDATA[
 		select count(*) from notice
 	]]>
   </select>
-  
+       <select id="getNotice" resultMap="noticeVO" parameterType="noticeVO"  >
+	<![CDATA[
+		select * from notice where idx=#{idx}
+	]]>
+  </select>
 	<select id="selectNoticeList" resultMap="noticeVO" parameterType="java.util.HashMap">
       <![CDATA[
          select rownum as rnum, idx, title,content,regdate,views
@@ -30,6 +35,25 @@
       ]]>
 	</select>
     
+	<insert id="insertNotice"  parameterType="noticeVO">
+		<![CDATA[
+		 insert into notice(idx,title,content)
+		 values(notice_seq.nextval,#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR})
+		]]>      
+	</insert>
 	
+	<update id="updateNotice"  parameterType="noticeVO" >
+     <![CDATA[
+	     update notice
+	     set title=#{title}, content=#{content}
+	     where
+	     idx=#{idx}
+      ]]>      
+   </update> 
    
+      <delete id="deleteNotice"  parameterType="int">
+	<![CDATA[
+	   delete from notice where idx=#{idx}
+	]]>      
+  </delete>
 </mapper>

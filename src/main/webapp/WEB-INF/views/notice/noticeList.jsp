@@ -42,16 +42,16 @@
 			<tbody>
 
   <c:choose>
-  	<c:when test="${noticeList==null}">
+  	<c:when test="${empty noticeList}">
 		<tr>
 			<td colspan="4" align="center">등록된 공지사항이 없습니다 .</td>
 		</tr>
 	</c:when>
-	<c:when test="${noticeList !=null}">
+	<c:when test="${not empty noticeList}">
 	<c:forEach  var="noticeList" items="${noticeList}" varStatus="rNum" >
 		<tr>
 			<td>${rNum.count}</td>
-			<td>${noticeList.title }</td>
+			<td><a href="${contextPath}/notice/getNotice.do?idx=${noticeList.idx}">${noticeList.title }</a></td>
 			<td>${noticeList.regdate}</td>
 			<td>${noticeList.views}</td>
 		</tr>
@@ -61,6 +61,10 @@
 			</tbody>
 		</table>
 		  <br><center>  
+		  
+		  <c:if test="${not empty member and member.id eq 'rhksflwk'}">
+		  		<input type ="button" class="button" value="작성하기" onclick="location='${contextPath}/notice/noticeForm.do'">
+		  </c:if>
          
       
 </body>

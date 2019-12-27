@@ -35,32 +35,34 @@ public class NoticeDAOImpl implements NoticeDAO{
 		map.put("endPage", endPage);	
 		List<NoticeVO> noticeList = null;
 		noticeList = sqlSession.selectList("mapper.notice.selectNoticeList",map);
-		System.out.println(noticeList.size()+"noticeList");
 		return noticeList;
 	}
 
 	@Override
 	public int insertNotice(NoticeVO noticeVO) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		result=sqlSession.insert("mapper.notice.insertNotice",noticeVO);
+		return result;
 	}
 
 	@Override
 	public int deleteNotice(int idx) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		result=sqlSession.delete("mapper.notice.deleteNotice",idx);
+		return result;
 	}
 
 	@Override
-	public int updateNotice(int idx) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateNotice(NoticeVO noticeVO) throws DataAccessException {
+		int result=sqlSession.update("mapper.notice.updateNotice",noticeVO);
+		return result;
 	}
 
 	@Override
-	public int getNotice(int idx) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return 0;
+	public NoticeVO getNotice(NoticeVO noticeVO) throws DataAccessException {
+		
+		noticeVO=sqlSession.selectOne("mapper.notice.getNotice", noticeVO);
+		return noticeVO;
 	}
 
 }

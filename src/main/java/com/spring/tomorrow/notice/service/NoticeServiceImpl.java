@@ -24,26 +24,30 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public int insertNotice(NoticeVO noticeVO) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		result=noticeDAO.insertNotice(noticeVO);
+		return result;
 	}
 
 	@Override
 	public int deleteNotice(int idx) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		result=noticeDAO.deleteNotice(idx);
+		return result;
 	}
 
 	@Override
-	public int updateNotice(int idx) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateNotice(NoticeVO noticeVO) throws DataAccessException {
+		int result=0;
+		result =noticeDAO.updateNotice(noticeVO);
+		return result;
 	}
 
 	@Override
-	public int getNotice(int idx) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return 0;
+	public NoticeVO getNotice(NoticeVO noticeVO) throws DataAccessException {
+		
+		noticeVO=noticeDAO.getNotice(noticeVO);
+		return noticeVO;
 	}
 
 }

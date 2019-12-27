@@ -6,14 +6,19 @@ import org.springframework.stereotype.Component;
 
 @Component("noticeVO")
 public class NoticeVO {
-	
+	private int rnum;
 	private int idx;
 	private String title;
 	private String content;
-	private Date regDate;
+	private Date regdate;
 	private int views;
 	
-	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public int getIdx() {
 		return idx;
 	}
@@ -32,11 +37,11 @@ public class NoticeVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegDate() {
-		return regDate;
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setRegdate(Date regDate) {
+		this.regdate = regDate;
 	}
 	public int getViews() {
 		return views;
