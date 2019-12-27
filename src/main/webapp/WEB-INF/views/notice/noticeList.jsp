@@ -66,6 +66,7 @@
 		  		<input type ="button" class="button" value="작성하기" onclick="location='${contextPath}/notice/noticeForm.do'">
 		  </c:if>
          
-      
+      <br>
+      <br>
 </body>
 </html>
