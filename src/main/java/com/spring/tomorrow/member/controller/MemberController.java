@@ -18,4 +18,5 @@ public interface MemberController {
                               RedirectAttributes rAttr,
                               HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView idCheck(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

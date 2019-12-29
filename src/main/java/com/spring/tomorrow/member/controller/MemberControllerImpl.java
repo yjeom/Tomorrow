@@ -58,8 +58,15 @@ public class MemberControllerImpl   implements MemberController {
 			                  HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
+		ModelAndView mav = new ModelAndView();
 		result = memberService.addMember(member);
-		ModelAndView mav = new ModelAndView("redirect:/home.do");
+		if(result>0) {
+			mav.addObject("msg", "환영합니다!");
+			mav.setViewName("redirect:/home.do");
+		}
+		else {
+			mav.setViewName("redirect:/home.do");
+		}
 		return mav;
 	}
 	
@@ -116,6 +123,24 @@ public class MemberControllerImpl   implements MemberController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/member/idCheck.do", method =  {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView idCheck(@RequestParam String id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		boolean result=true;
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/idCheck");
+			if(memberService.idCheck(id)!=null) {
+				result=true;
+				mav.addObject("result", result);
+				mav.addObject("id", id);
+			}
+			else {
+				result=false;
+				mav.addObject("result", result);
+				mav.addObject("id", id);
+			}
+		return mav;
+	}
+
 
 	private String getViewName(HttpServletRequest request) throws Exception {
 		String contextPath = request.getContextPath();
@@ -147,6 +172,7 @@ public class MemberControllerImpl   implements MemberController {
 		}
 		return viewName;
 	}
+
 
 
 }

@@ -45,7 +45,7 @@ public class MemberDAOImpl implements MemberDAO {
 		return vo;
 	}
 
-	public String joinIDCheck(String id) throws DataAccessException {
+	public String idCheck(String id) throws DataAccessException {
 		id=sqlSession.selectOne("mapper.member.joinIdCheck", id);
 		return id;
 	}

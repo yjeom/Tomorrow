@@ -13,6 +13,6 @@ public interface MemberDAO {
 	 public int insertMember(MemberVO memberVO) throws DataAccessException ;
 	 public int deleteMember(String id) throws DataAccessException;
 	 public MemberVO login(MemberVO memberVO) throws DataAccessException;
-	 public String joinIDCheck(String id) throws DataAccessException;
+	 public String idCheck(String id) throws DataAccessException;
 
 }

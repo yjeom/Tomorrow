@@ -7,6 +7,9 @@
 <head>
 <script type="text/javascript">
 
+if(${msg !=null}){
+	alert("${msg}}");
+	}
 function idCheck() {
 	if (document.regFrm.id.value== "") {
 		alert("아이디를 입력해 주세요.");
@@ -15,7 +18,7 @@ function idCheck() {
 	}
 	
 		var uid = document.regFrm.id.value;
-		var url = "confirmId.jsp?id=" + uid;
+		var url = "${contextPath}/member/idCheck.do?id=" + uid;
 		window.open(url, "IDCheck","left=600, top=100, width=500, height=400, resizable=no, toolbar=no, manubar=no ");
 	
 	
@@ -74,7 +77,7 @@ function check() {
 </head>
 
 <body>	
- <form name="regFrm" method="post" onsubmit="return check()" action="joinProcess.jsp">
+ <form name="regFrm" method="post" onsubmit="return check()" action="${contextPath}/member/addMember.do">
 	<div class="container-login100">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30" >
 			<form class="login100-form validate-form">
@@ -94,7 +97,7 @@ function check() {
 				</div>
 
 				<div class="wrap-input100 validate-input m-b-25"  >
-					<input class="input100" type="password" name="password" placeholder="password (more than 6 letters)">
+					<input class="input100" type="password" name="pwd" placeholder="password (more than 6 letters)">
 					<span class="focus-input100"></span>
 				</div>
 				<div class="wrap-input100 validate-input m-b-25" >

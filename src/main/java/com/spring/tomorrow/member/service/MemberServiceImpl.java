@@ -29,19 +29,19 @@ public class MemberServiceImpl implements MemberService {
 		return membersList;
 	}
 
-	@Override
 	public int addMember(MemberVO member) throws DataAccessException {
 		return memberDAO.insertMember(member);
 	}
 
-	@Override
 	public int removeMember(String id) throws DataAccessException {
 		return memberDAO.deleteMember(id);
 	}
 	
-	@Override
 	public MemberVO login(MemberVO memberVO) throws Exception{
 		return memberDAO.login(memberVO);
+	}
+	public String idCheck(String id) throws DataAccessException {
+		return memberDAO.idCheck(id);
 	}
 
 
