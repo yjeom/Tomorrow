@@ -12,7 +12,8 @@ import com.spring.tomorrow.notice.vo.NoticeVO;
 
 public interface NoticeController {
 
-	public ModelAndView noticeList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView noticeList(@RequestParam(defaultValue="1") int curPage,
+			HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView addNotice(@ModelAttribute("notice") NoticeVO notice,HttpServletRequest request, 
 			HttpServletResponse response) throws Exception;
 	public ModelAndView getNotice(@ModelAttribute("notice") NoticeVO notice,HttpServletRequest request, 

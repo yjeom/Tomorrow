@@ -19,10 +19,13 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 
-	@Override
-	public List listMembers(int page) throws DataAccessException {
+	public int membersCount() throws DataAccessException {
+		int totalCount=memberDAO.selectMemberCount();
+		return totalCount;
+	}
+	public List listMembers(int curPage) throws DataAccessException {
 		List membersList = null;
-		membersList = memberDAO.selectAllMemberList(page);
+		membersList = memberDAO.selectAllMemberList(curPage);
 		return membersList;
 	}
 
@@ -40,5 +43,6 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO login(MemberVO memberVO) throws Exception{
 		return memberDAO.login(memberVO);
 	}
+
 
 }

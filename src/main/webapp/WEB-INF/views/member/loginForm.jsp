@@ -32,7 +32,7 @@
 				<br>
 				<br>
 				<div class="text-center">
-					<a href="index_join.html" class="txt2 hov1"><font="grey">
+					<a href="${contextPath}/member/joinForm.do" class="txt2 hov1"><font="grey">
 						Sign Up
 					</a>
 					/

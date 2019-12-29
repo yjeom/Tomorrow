@@ -36,9 +36,9 @@
 			</div>
 			<br>
 				<center>
+				<input type ="button" class="button" value="목록으로" onclick="location='${contextPath}/notice/noticeList.do'">
 	<c:if test="${not empty member and member.id eq 'rhksflwk'}">
 	
-		<input type ="button" class="button" value="목록으로" onclick="location='${contextPath}/notice/noticeList.do'">
 		<input type ="button" class="button" value="수정하기" onclick="location='${contextPath}/notice/noticeForm.do?idx=${notice.idx}'">
 		<input type ="button" class="button" value="삭제하기" onclick="location='${contextPath}/notice/noticeDelete.do?idx=${notice.idx }'">
 	</c:if>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.tomorrow.Paging;
 import com.spring.tomorrow.notice.service.NoticeService;
 import com.spring.tomorrow.notice.vo.NoticeVO;
 
@@ -26,16 +27,14 @@ public class NoticeControllerImpl implements NoticeController{
 	
 	
 	@RequestMapping(value = "/notice/noticeList.do", method = RequestMethod.GET)
-	public ModelAndView noticeList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		int page=0;
-		if(request.getParameter("page")==null)
-			page=1;
-		else
-		page=Integer.parseInt((String)request.getParameter("page"));
-		List noticeList=noticeService.selectNoticeList(page);
+	public ModelAndView noticeList(@RequestParam(defaultValue="1") int curPage,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int totalCount=noticeService.selectNoticeCount();
+		Paging paging=new Paging(totalCount, curPage);
+		List noticeList=noticeService.selectNoticeList(curPage);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("noticeList",noticeList);
+		mav.addObject("paging",paging);
 		mav.setViewName("/notice/noticeList");
 		return mav;
 	}
@@ -73,6 +72,7 @@ public class NoticeControllerImpl implements NoticeController{
 	public ModelAndView getNotice(@ModelAttribute("notice") NoticeVO notice, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		ModelAndView mav=new ModelAndView();
+		noticeService.updateNoticeViews(notice.getIdx());
 		notice=noticeService.getNotice(notice);
 		mav.addObject("notice", notice);
 		mav.setViewName("/notice/getNotice");

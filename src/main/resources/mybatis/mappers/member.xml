@@ -32,7 +32,7 @@
 	]]>
   </select>
   
-    <select id="joinIdCheck"  resultType="memberVO"   parameterType="memberVO" >
+    <select id="joinIdCheck"  resultType="String"   parameterType="String" >
 	<![CDATA[
 		select id from member where id = #{id}
 	]]>
@@ -47,14 +47,15 @@
 		select count(*) from member
 	]]>
   </select>
-	<select id="selectAllMemberList" resultMap="memList" parameterType="java.util.HashMap">
+	<select id="selectAllMemberList" resultMap="memList" parameterType="int">
       <![CDATA[
-         select rownum as rnum, id, pwd,email,join_date,report_count,report_check
-		from (
-    			select id,pwd,email,join_date,report_count,report_check
+         select member.*
+  		FROM(
+       			select rownum as rnum,member.*
     			from member
-    			order by idx desc) member
-		where rownum between #{startPage}and #{endPage}	 	
+    			order by idx desc
+      		)member
+ 		WHERE member.rnum >=#{curPage} and member.rnum <=10	
       ]]>
 	</select>
     

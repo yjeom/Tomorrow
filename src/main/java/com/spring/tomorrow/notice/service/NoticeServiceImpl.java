@@ -15,39 +15,44 @@ public class NoticeServiceImpl implements NoticeService{
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	@Override
 	public List selectNoticeList(int page) throws DataAccessException {
 		List noticeList = null;
 		noticeList = noticeDAO.selectNoticeList(page);
 		return noticeList;
 	}
 
-	@Override
 	public int insertNotice(NoticeVO noticeVO) throws DataAccessException {
 		int result=0;
 		result=noticeDAO.insertNotice(noticeVO);
 		return result;
 	}
 
-	@Override
 	public int deleteNotice(int idx) throws DataAccessException {
 		int result=0;
 		result=noticeDAO.deleteNotice(idx);
 		return result;
 	}
 
-	@Override
 	public int updateNotice(NoticeVO noticeVO) throws DataAccessException {
 		int result=0;
 		result =noticeDAO.updateNotice(noticeVO);
 		return result;
 	}
 
-	@Override
 	public NoticeVO getNotice(NoticeVO noticeVO) throws DataAccessException {
 		
 		noticeVO=noticeDAO.getNotice(noticeVO);
 		return noticeVO;
+	}
+
+	public void updateNoticeViews(int idx) throws DataAccessException {
+		noticeDAO.noticeViewsUpdate(idx);
+		
+	}
+
+	public int selectNoticeCount() throws DataAccessException {
+		int totalCount=noticeDAO.selectNoticeCount();
+		return totalCount;
 	}
 
 }

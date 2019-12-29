@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.tomorrow.Paging;
 import com.spring.tomorrow.member.service.MemberService;
 import com.spring.tomorrow.member.vo.MemberVO;
 
@@ -34,36 +35,34 @@ public class MemberControllerImpl   implements MemberController {
 	
 	@Override
 	@RequestMapping(value="/adminHome.do" ,method = {RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView listMembers(@RequestParam(defaultValue="1") int curPage,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 //		String viewName = getViewName(request);
 //		String viewName = (String)request.getAttribute("viewName");
 		//System.out.println("viewName: " +viewName);
 //		logger.info("viewName: "+ viewName);
 //		logger.debug("viewName: "+ viewName);
-		int page=0;
-		if(request.getParameter("page")==null)
-			page=1;
-		else
-		page=Integer.parseInt((String)request.getParameter("page"));
-		List memberList = memberService.listMembers(page);
+		int totalCount=memberService.membersCount();
+		Paging paging=new Paging(totalCount, curPage);
+		
+		List memberList = memberService.listMembers(curPage);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberList", memberList);
+		mav.addObject("paging", paging);
 		mav.setViewName("/adminHome");
 		return mav;
 	}
 
-	@Override
 	@RequestMapping(value="/member/addMember.do" ,method = RequestMethod.POST)
 	public ModelAndView addMember(@ModelAttribute("member") MemberVO member,
 			                  HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
 		result = memberService.addMember(member);
-		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
+		ModelAndView mav = new ModelAndView("redirect:/home.do");
 		return mav;
 	}
 	
-	@Override
 	@RequestMapping(value="/member/removeMember.do" ,method = RequestMethod.GET)
 	public ModelAndView removeMember(@RequestParam("idx") String id, 
 			           HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -72,18 +71,7 @@ public class MemberControllerImpl   implements MemberController {
 		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
 		return mav;
 	}
-	/*
-	@RequestMapping(value = { "/member/loginForm.do", "/member/memberForm.do" }, method =  RequestMethod.GET)
-	@RequestMapping(value = "/member/*Form.do", method =  RequestMethod.GET)
-	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = getViewName(request);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		return mav;
-	}
-	*/
 	
-	@Override
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("member") MemberVO member,
 				              RedirectAttributes rAttr,

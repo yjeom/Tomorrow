@@ -24,14 +24,16 @@
 		select * from notice where idx=#{idx}
 	]]>
   </select>
-	<select id="selectNoticeList" resultMap="noticeVO" parameterType="java.util.HashMap">
+	<select id="selectNoticeList" resultMap="noticeVO" parameterType="int">
       <![CDATA[
-         select rownum as rnum, idx, title,content,regdate,views
+         select notice.*
 		from (
-    			select idx, title,content,regdate,views
+    			select rownum as rnum,notice.*
     			from notice
     			order by idx desc) notice
-		where rownum between #{startPage}and #{endPage}	 	
+		where notice.rnum>=#{curPage} and notice.rnum <=10 
+		
+	
       ]]>
 	</select>
     
@@ -48,6 +50,13 @@
 	     set title=#{title}, content=#{content}
 	     where
 	     idx=#{idx}
+      ]]>      
+   </update>
+    
+   	<update id="updateNoticeViews"  parameterType="int" >
+     <![CDATA[
+	     update notice set views=views+1
+	     where idx=#{idx}
       ]]>      
    </update> 
    
