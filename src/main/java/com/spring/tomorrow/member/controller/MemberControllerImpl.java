@@ -10,6 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,20 +57,30 @@ public class MemberControllerImpl   implements MemberController {
 	}
 
 	@RequestMapping(value="/member/addMember.do" ,method = RequestMethod.POST)
-	public ModelAndView addMember(@ModelAttribute("member") MemberVO member,
+	public ResponseEntity addMember(@ModelAttribute("member") MemberVO member,
 			                  HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setCharacterEncoding("utf-8");
-		int result = 0;
-		ModelAndView mav = new ModelAndView();
-		result = memberService.addMember(member);
-		if(result>0) {
-			mav.addObject("msg", "환영합니다!");
-			mav.setViewName("redirect:/home.do");
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			memberService.addMember(member);
+		    message  = "<script>";
+		    message +=" alert('가입을 환영합니다.로그인창으로 이동합니다.');";
+		    message += " location.href='"+request.getContextPath()+"/member/loginForm.do';";
+		    message += " </script>";
+		    
+		}catch(Exception e) {
+			message  = "<script>";
+		    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+		    message += " location.href='"+request.getContextPath()+"/member/joinForm.do';";
+		    message += " </script>";
+			e.printStackTrace();
 		}
-		else {
-			mav.setViewName("redirect:/home.do");
-		}
-		return mav;
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		return resEntity;
+		
+		
 	}
 	
 	@RequestMapping(value="/member/removeMember.do" ,method = RequestMethod.GET)
@@ -80,7 +93,7 @@ public class MemberControllerImpl   implements MemberController {
 	}
 	
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute("member") MemberVO member,
+	public ModelAndView login(@ModelAttribute MemberVO member,
 				              RedirectAttributes rAttr,
 		                       HttpServletRequest request, HttpServletResponse response) throws Exception {
 	ModelAndView mav = new ModelAndView();
@@ -89,13 +102,17 @@ public class MemberControllerImpl   implements MemberController {
 		    HttpSession session = request.getSession();
 		    session.setAttribute("member", memberVO);
 		    session.setAttribute("isLogOn", true);
-		    if(memberVO.getId().equals("rhksflwk"))
+		    if(memberVO.getId().equals("rhksflwk")) {
 		    	mav.setViewName("redirect:/adminHome.do");
-		    else
+		    }
+		    else {
 		    	mav.setViewName("redirect:/home.do");
+		    }
 	}else {
 		    rAttr.addAttribute("result","loginFailed");
-		    mav.setViewName("redirect:/");
+		    String msg="아이디 또는 비밀번호가 틀립니다.";
+		    mav.addObject("msg",msg);
+		    mav.setViewName("/member/loginForm");
 	}
 	return mav;
 	}
@@ -115,8 +132,7 @@ public class MemberControllerImpl   implements MemberController {
 	private ModelAndView form(@RequestParam(value= "result", required=false) String result,
 						       HttpServletRequest request, 
 						       HttpServletResponse response) throws Exception {
-		String viewName = getViewName(request);
-//		String viewName = (String)request.getAttribute("viewName");
+		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result",result);
 		mav.setViewName(viewName);
@@ -142,36 +158,6 @@ public class MemberControllerImpl   implements MemberController {
 	}
 
 
-	private String getViewName(HttpServletRequest request) throws Exception {
-		String contextPath = request.getContextPath();
-		String uri = (String) request.getAttribute("javax.servlet.include.request_uri");
-		if (uri == null || uri.trim().equals("")) {
-			uri = request.getRequestURI();
-		}
-
-		int begin = 0;
-		if (!((contextPath == null) || ("".equals(contextPath)))) {
-			begin = contextPath.length();
-		}
-
-		int end;
-		if (uri.indexOf(";") != -1) {
-			end = uri.indexOf(";");
-		} else if (uri.indexOf("?") != -1) {
-			end = uri.indexOf("?");
-		} else {
-			end = uri.length();
-		}
-
-		String viewName = uri.substring(begin, end);
-		if (viewName.indexOf(".") != -1) {
-			viewName = viewName.substring(0, viewName.lastIndexOf("."));
-		}
-		if (viewName.lastIndexOf("/") != -1) {
-			viewName = viewName.substring(viewName.lastIndexOf("/", 1), viewName.length());
-		}
-		return viewName;
-	}
 
 
 

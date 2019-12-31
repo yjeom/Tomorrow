@@ -20,7 +20,7 @@
 </head>
 <body>
 <c:choose>
-	<c:when test="${member.id eq 'rhksflwk'}">
+	<c:when test="${isLogOn==true and member.id eq 'rhksflwk'}">
 						<header id="header">
 				<div class="inner">
 					<a href="${contextPath}/adminHome.do" class="logo">Tomorrow is...</a>
@@ -40,6 +40,14 @@
 						<a href="MenuCheck.jsp">To.오늘의 나</a>
 						<a href="3.QnA.jsp">QnA</a>
 						<a href="${contextPath}/notice/noticeList.do">Notice</a>
+					<c:choose>
+						<c:when test="${isLogOn==true}">
+							<a href="${contextPath}/member/logout.do"><font color="red">Logout</a> </font>
+						</c:when>
+						<c:otherwise>
+							<a href="${contextPath}/member/loginForm.do">Login</a>
+						</c:otherwise>
+					</c:choose>	
 				</div>
 			</header>
 	</c:when>

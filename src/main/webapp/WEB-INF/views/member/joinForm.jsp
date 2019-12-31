@@ -7,9 +7,6 @@
 <head>
 <script type="text/javascript">
 
-if(${msg !=null}){
-	alert("${msg}}");
-	}
 function idCheck() {
 	if (document.regFrm.id.value== "") {
 		alert("아이디를 입력해 주세요.");

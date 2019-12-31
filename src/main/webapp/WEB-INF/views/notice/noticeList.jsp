@@ -86,12 +86,7 @@ function logout()
 			</tbody>
 		</table>
 		  <br><center>  
-		  
-		  <c:if test="${not empty member and member.id eq 'rhksflwk'}">
-		  		<input type ="button" class="button" value="작성하기" onclick="location='${contextPath}/notice/noticeForm.do'">
-		  </c:if>
          
-      <br>
       <div>
                     <c:if test="${pagig.curBlock > 1 }">
                         <a href="javascript:block('${curBlock-1}')">[이전]</a> 
@@ -111,6 +106,10 @@ function logout()
                     </c:if>
                 </div>	
    <br>
-   <br>  
+   		  <c:if test="${not empty member and member.id eq 'rhksflwk'}">
+		  		<input type ="button" class="button" value="작성하기" onclick="location='${contextPath}/notice/noticeForm.do'">
+		  </c:if>
+	<br>
+	<br>
 </body>
 </html>
