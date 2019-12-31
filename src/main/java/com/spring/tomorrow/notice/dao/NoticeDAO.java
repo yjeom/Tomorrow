@@ -9,7 +9,7 @@ import com.spring.tomorrow.notice.vo.NoticeVO;
 
 public interface NoticeDAO {
 	
-	 public List selectNoticeList(int curPage) throws DataAccessException;
+	 public List<NoticeVO> selectNoticeList(int curPage) throws DataAccessException;
 	 public int selectNoticeCount() throws DataAccessException;
 	 public int insertNotice(NoticeVO noticeVO) throws DataAccessException ;
 	 public int deleteNotice(int idx) throws DataAccessException;

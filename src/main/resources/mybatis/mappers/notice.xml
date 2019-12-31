@@ -32,8 +32,6 @@
     			from notice
     			order by idx desc) notice
 		where notice.rnum>=#{curPage} and notice.rnum <=10 
-		
-	
       ]]>
 	</select>
     

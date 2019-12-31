@@ -18,7 +18,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List selectNoticeList(int curPage) throws DataAccessException {
+	public List<NoticeVO> selectNoticeList(int curPage) throws DataAccessException {
 		List<NoticeVO> noticeList = null;
 		noticeList = sqlSession.selectList("mapper.notice.selectNoticeList",curPage);
 		return noticeList;

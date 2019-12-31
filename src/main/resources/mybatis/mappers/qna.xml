@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.notice">
+	<resultMap id="noticeVO" type="noticeVO">
+		<result property="level" column="level"/>
+		<result property="rnum" column="rnum"/>
+		<result property="idx" column="idx"/>
+		<result property="parent_idx" column="parent_idx" />
+		<result property="writer_idx" column="writer_idx" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="secret_yn" column="secret_yn" />
+        <result property="pwd" column="pwd" />
+        <result property="regdate" column="regdate" />
+        <result property="views" column="views" />
+	</resultMap> 
+	 
+
+	<select id="selectQnaList" resultMap="QnaVO" parameterType="int">
+      <![CDATA[
+   		select qna.*
+ 		 from(
+    			select level, rownum as rnum, qna.*
+   				from qna
+  			    start with idx=1
+    			connect by prior idx=parent_idx
+    			order siblings by idx desc
+      		)qna
+ 		where qna.rnum >=1 and qna.rnum <=10;
+      ]]>
+	</select>
+    
+	<select id="selectQnaCount" resultMap="int" >
+      <![CDATA[
+   		select count(*) from qna
+      ]]>
+	</select>
+
+</mapper>
