@@ -29,7 +29,8 @@ public class QnaControllerImpl implements QnaController{
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int totalCount=qnaService.selectQnaCount();
 		Paging paging=new Paging(totalCount, curPage);
-		List<QnaVO> qnaList=qnaService.selectQnaList(curPage);
+		List<QnaVO> qnaList=null;
+		qnaList=qnaService.selectQnaList(curPage);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("qnaList",qnaList);
 		mav.addObject("paging",paging);

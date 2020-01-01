@@ -10,6 +10,22 @@
 
 <!DOCTYPE html>
 <html>
+<script type="text/javascript">
+function logout()
+{
+	if(confirm("로그아웃 하시겠습니까?")==true)
+{
+
+	location.href="${contextPath}/member/logout.do";
+}
+	else
+{
+	return;
+}
+}
+
+
+</script>
 <head>
   <meta charset="UTF-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,7 +43,7 @@
 						<a href="admin_report.jsp">신고관리</a>
 						<a href="${contextPath}/qna/qnaList.do">QnA</a>
 						<a href="${contextPath}/notice/noticeList.do">Notice</a>
-						<a href="${contextPath}/member/logout.do"><font color="red">Logout</a> </font>
+						<a href="javascript:logout()"><font color="red">Logout</a> </font>
 				</div>
 			</header>
 		</c:when>
@@ -42,7 +58,7 @@
 						<a href="${contextPath}/notice/noticeList.do">Notice</a>
 					<c:choose>
 						<c:when test="${isLogOn==true}">
-							<a href="${contextPath}/member/logout.do"><font color="red">Logout</a> </font>
+							<a href="javascript:logout()"><font color="red">Logout</a> </font>
 						</c:when>
 						<c:otherwise>
 							<a href="${contextPath}/member/loginForm.do">Login</a>

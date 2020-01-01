@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class QnaVO {
 	
 	private int level;
+	private int rnum;
 	private int idx;
 	private int parent_idx;
 	private int writer_idx;
@@ -23,6 +24,12 @@ public class QnaVO {
 	}
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 	public int getIdx() {
 		return idx;

@@ -6,6 +6,6 @@
 	<typeAliases>
 		<typeAlias type="com.spring.tomorrow.member.vo.MemberVO"  alias="memberVO" />
 		<typeAlias type="com.spring.tomorrow.notice.vo.NoticeVO"  alias="noticeVO" />
-		<typeAlias type="com.spring.tomorrow.qna.vo.QnaVO"  alias="QnaVO" />
+		<typeAlias type="com.spring.tomorrow.qna.vo.QnaVO"  alias="qnaVO" />
 	</typeAliases>
 </configuration>

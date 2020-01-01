@@ -9,25 +9,13 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 
-function pageing(page) {
+function paging(page) {
 		location.href="${contextPath}/notice/noticeList.do?curPage="+page;
 		}
 function block(value) {
 		var pagePerBlock=${paging.blockSize} * (value-1) + 1;
 		location.href="${contextPath}/notice/noticeList.do?nowPage="+pagePerBlock;
 
-		}
-function logout()
-		{
-			if(confirm("로그아웃 하시겠습니까?")==true)
-		{
-
-			location.href="${contextPath}/member/logout.do";
-		}
-			else
-		{
-			return;
-		}
 		}
 
 
@@ -97,7 +85,7 @@ function logout()
                               <font color="blue"><Strong>${pageNum}</Strong></font> 
                             </c:when>
                             <c:otherwise>
-                                <a href="javascript:pageing('${pageNum}')">${pageNum }</a> 
+                                <a href="javascript:paging('${pageNum}')">${pageNum }</a> 
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>

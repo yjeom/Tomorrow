@@ -14,6 +14,22 @@ function result(){
 	alert("${msg}");
 }
 </script>
+<script type="text/javascript">
+function logout()
+{
+	if(confirm("로그아웃 하시겠습니까?")==true)
+{
+
+	location.href="${contextPath}/member/logout.do";
+}
+	else
+{
+	return;
+}
+}
+
+
+</script>
 </c:if>
 <head>
 
@@ -52,7 +68,7 @@ function result(){
 			<c:choose>
 				<c:when test="${isLogOn==true and not empty member}">
 					<footer>
-						<input type="button" class="button" value="Logout" onclick="location.href='${contextPath}/member/logout.do'" >
+						<input type="button" class="button" value="Logout" onclick="location.href='javascript:logout()'" >
 						
 					</footer>
 				</c:when>

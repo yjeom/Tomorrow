@@ -4,6 +4,22 @@
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<script type="text/javascript">
+
+function paging(page) {
+	location.href="${contextPath}/qna/qnaList.do?curPage="+page;
+	}
+function block(value) {
+	var pagePerBlock=${paging.blockSize} * (value-1) + 1;
+	location.href="${contextPath}/qna/qnaList.do?nowPage="+pagePerBlock;
+
+	}
+
+function login(){
+	alert("로그인후 작성할 수 있습니다.");
+	location.href="${contextPath}/member/loginForm.do";
+	}
+</script>
 <head>
 	<meta charset="utf-8" />
 
@@ -29,9 +45,9 @@
 		<table>
 			<colgroup>
 			<col width="10%" />
-			<col width="80%" />
-			<col width="7%" />
-			<col width="3%" />
+			<col width="70%" />
+			<col width="10%" />
+			<col width="10%" />
 			</colgroup>
 			<thead>
 				<tr>
@@ -44,7 +60,7 @@
 
 			<tbody>
 	<c:choose>
-		<c:when test="${qnaList !=null}">
+		<c:when test="${not empty qnaList}">
 			<c:forEach var="qnaList" items="${qnaList}" varStatus="rNum">
 				<tr>
 					<td>${rNum.count}</td>
@@ -67,7 +83,8 @@
 						</c:otherwise>
 					</c:choose>	
 					<td>${qnaList.regdate}</td>			
-					<td>${qnaList.views}</td>			
+					<td>${qnaList.views}</td>
+					</tr>		
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
@@ -75,13 +92,40 @@
 			<td colspan="4" align="center">등록된 게시물이 없습니다 .</td>
 			</tr>
 		</c:otherwise>
+		</c:choose>
 			</tbody>
 		</table>
-	</c:choose>
 			<center>
 			
+	      <div>
+                    <c:if test="${pagig.curBlock > 1 }">
+                        <a href="javascript:block('${curBlock-1}')">[이전]</a> 
+                    </c:if>
+                    <c:forEach var="pageNum" begin="${paging.startPage }" end="${paging.endPage}">
+                        <c:choose>
+                            <c:when test="${pageNum  eq  paging.curPage}">
+                              <font color="blue"><Strong>${pageNum}</Strong></font> 
+                            </c:when>
+                            <c:otherwise>
+                                <a href="javascript:paging('${pageNum}')">${pageNum }</a> 
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <c:if test="${paging.curPage ne paging.totalPage && paging.totalPage> 0}">
+                        <a href="javascript:block('${curBlock+ 1}')">[다음]</a> 
+                    </c:if>
+                </div>			
 
-		
+	<br>
+		<c:choose>
+			<c:when test="${isLogOn!=null}">
+			<input type="button" value="글 작성" onclick="location='${contextPath}/qna/qnaForm.do'">
+			</c:when>
+			<c:otherwise>
+			<input type="button" value="글 작성" onclick="location='javascript:login()'">
+			</c:otherwise>
+			
+		</c:choose>
 		<br><br>
 		
 
