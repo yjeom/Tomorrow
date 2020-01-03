@@ -5,11 +5,11 @@
 
 <mapper namespace="mapper.qna">
 	<resultMap id="qnaVO" type="qnaVO">
-		<result property="level" column="level"/>
+		<result property="reply_count" column="reply_count"/>
 		<result property="rnum" column="rnum"/>
 		<result property="idx" column="idx"/>
-		<result property="parent_idx" column="parent_idx" />
 		<result property="writer_idx" column="writer_idx" />
+		<result property="writer" column="writer" />
         <result property="title" column="title" />
         <result property="content" column="content" />
         <result property="secret_yn" column="secret_yn" />
@@ -17,19 +17,43 @@
         <result property="regdate" column="regdate" />
         <result property="views" column="views" />
 	</resultMap> 
+	
+	<resultMap id="replyVO" type="replyVO">
+		<result property="rnum" column="rnum"/>
+		<result property="idx" column="idx"/>
+		<result property="qna_idx" column="qna_idx"/>
+		<result property="writer_idx" column="writer_idx" />
+		<result property="writer" column="writer" />
+        <result property="content" column="content" />
+        <result property="regdate" column="regdate" />
+        <result property="views" column="views" />
+	</resultMap> 
 	 
 
 	<select id="selectQnaList" resultMap="qnaVO" parameterType="int">
       <![CDATA[
-   		select qna.*
- 		 from(
-    			select level, rownum as rnum, qna.*
-   				from qna
-  			    start with idx=1
-    			connect by prior idx=parent_idx
-    			order siblings by idx desc
+		select qna.*
+  		from(
+    		select (select count(*) from qnareply where qnareply.qna_idx=qna.idx)as reply_count, 
+    		rownum as rnum, qna.*
+    		from qna
+    		order  by idx desc
       		)qna
  		where qna.rnum >=#{curPage} and qna.rnum <=10
+      ]]>
+	</select>
+    
+    <select id="selectReplyList" resultMap="replyVO" parameterType="java.util.HashMap">
+      <![CDATA[
+		select qnareply.*
+  		from(
+       	select 
+        (select id from member where member.idx=qnareply.writer_idx) as writer,
+        rownum as rnum,qnareply.*
+    	from qnareply where qna_idx=#{qna_idx}
+  		order by idx desc
+      	)qnareply
+		where qnareply.rnum >=#{curPage} and qnareply.rnum <=10
       ]]>
 	</select>
     
@@ -38,5 +62,54 @@
    		select count(*) from qna
       ]]>
 	</select>
-
+	
+	<select id="selectQna" resultType="qnaVO" parameterType="int">
+      <![CDATA[
+   		select qna.* ,
+   		(select id from member where member.idx=(select writer_idx from qna where idx=#{idx})) as writer 
+		from qna where idx=#{idx}
+      ]]>
+	</select>
+	
+	<select id="selectReplyCount" resultType="int" parameterType="int">
+      <![CDATA[
+   		select count(*) from qnareply where qna_idx=#{qna_idx}
+      ]]>
+	</select>
+	
+	<select id="passwordCheck" resultMap="qnaVO" parameterType="java.util.HashMap">
+      <![CDATA[
+   		select * from qna where idx=#{idx} and pwd=#{pwd}
+      ]]>
+	</select>
+	
+	<insert id="insertQna" parameterType="qnaVO" >
+      <![CDATA[
+   		insert into qna
+   		(idx,writer_idx,title,content,secret_yn,pwd)
+   		values(qna_seq.nextval,#{writer_idx},#{title}
+   		,#{content},#{secret_yn},#{pwd})
+      ]]>
+	</insert>
+	
+	<insert id="insertReply" parameterType="replyVO" >
+      <![CDATA[
+   		insert into qnareply
+   		(idx,qna_idx,writer_idx,content)
+   		values(qnareply_seq.nextval,#{qna_idx},#{writer_idx},#{content})
+      ]]>
+	</insert>
+	
+	<update id="updateQna" parameterType="qnaVO" >
+      <![CDATA[
+			update qna set title=#{title},content=#{content}
+			,secret_yn=#{secret_yn},pwd=#{pwd}
+	    	where idx=#{idx}
+      ]]>
+	</update>
+	<update id="deleteQna" parameterType="int" >
+      <![CDATA[
+			delete from qna where idx=#{idx}
+      ]]>
+	</update>
 </mapper>

@@ -5,8 +5,24 @@
 <tiles-definitions>
 
  <definition name="/qna/qnaList" extends="baseLayout">
-      <put-attribute name="title" value="Notice" />
+      <put-attribute name="title" value="QnA" />
       <put-attribute name="body" value="/WEB-INF/views/qna/qnaList.jsp" />
    </definition>
+   
+    <definition name="/qna/qnaForm" extends="baseLayout">
+      <put-attribute name="title" value="QnA" />
+      <put-attribute name="body" value="/WEB-INF/views/qna/qnaForm.jsp" />
+   </definition>
+   
+     <definition name="/qna/getQna" extends="baseLayout">
+      <put-attribute name="title" value="QnA" />
+      <put-attribute name="body" value="/WEB-INF/views/qna/getQna.jsp" />
+   </definition>
+   
+     <definition name="/qna/passwordForm" extends="baseLayout">
+      <put-attribute name="title" value="QnA" />
+      <put-attribute name="body" value="/WEB-INF/views/qna/passwordForm.jsp" />
+   </definition>
+   
 
 </tiles-definitions>

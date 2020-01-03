@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,7 +11,7 @@ function paging(page) {
 	}
 function block(value) {
 	var pagePerBlock=${paging.blockSize} * (value-1) + 1;
-	location.href="${contextPath}/qna/qnaList.do?nowPage="+pagePerBlock;
+	location.href="${contextPath}/qna/qnaList.do?curPage="+pagePerBlock;
 
 	}
 
@@ -19,6 +19,12 @@ function login(){
 	alert("로그인후 작성할 수 있습니다.");
 	location.href="${contextPath}/member/loginForm.do";
 	}
+function read(){
+	alert("로그인후 작성할 수 있습니다.");
+	location.href="${contextPath}/member/loginForm.do";
+
+	}
+
 </script>
 <head>
 	<meta charset="utf-8" />
@@ -64,24 +70,23 @@ function login(){
 			<c:forEach var="qnaList" items="${qnaList}" varStatus="rNum">
 				<tr>
 					<td>${rNum.count}</td>
+					<td>
 					<c:choose>
-						<c:when test="${qnaList.level >1 }">
-							<c:forEach begin="1" end="${qnsList.level}" step="1">
-								<span style=padding-left:20px></span>
-							</c:forEach>
-							<span style="font-size:12px;">[답변]</span>
-							<c:if test="${qnaList.secret_yn=1}">
-								<img src="/images/icons/lock.png" width="15px"/><span style=padding-left:20px></span>
-							</c:if>
-							<a href="javascript:read('${qnaList.idx}')">${qnaList.title}</a>
+						<c:when test="${qnaList.secret_yn==1}">
+							<img src="/images/icons/lock.png" width="15px"/><span style=padding-left:10px></span>
+							<a href="${contextPath}/qna/passwordForm.do?idx=${qnaList.idx}">${qnaList.title}</a>
 						</c:when>
 						<c:otherwise>
-							<c:if test="${qnaList.secret_yn=1}">
-									<img src="/images/icons/lock.png" width="15px"/><span style=padding-left:20px></span>
-							</c:if>
-							<a href="javascript:read('${qnaList.idx}')">${qnaList.title}</a>
+							<a href="${contextPath}/qna/getQna.do?idx=${qnaList.idx}">${qnaList.title}</a>
 						</c:otherwise>
-					</c:choose>	
+					</c:choose>
+						<c:if test="${qnaList.reply_count>0 }">
+						<span style=padding-left:5px></span>
+						<img src="/images/icons/comment.png" width="15px"/>
+						<span style=padding-left:3px></span>${qnaList.reply_count}
+						</c:if>
+						
+					</td>
 					<td>${qnaList.regdate}</td>			
 					<td>${qnaList.views}</td>
 					</tr>		
