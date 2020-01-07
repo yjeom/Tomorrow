@@ -34,11 +34,8 @@ public class QnaServiceImpl implements QnaService{
 		return qnaDAO.insertQna(qnaVO);
 	}
 
-	public List<ReplyVO> selectReplyList(int qna_idx, int curPage) throws DataAccessException {
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("qna_idx", qna_idx);
-		map.put("curPage", curPage);
-		List<ReplyVO> replyList=qnaDAO.selectReplyList(qna_idx, curPage);
+	public List<ReplyVO> selectReplyList(int qna_idx, int start,int end) throws DataAccessException {
+		List<ReplyVO> replyList=qnaDAO.selectReplyList(qna_idx, start,end);
 		return replyList;
 	}
 

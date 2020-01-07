@@ -36,10 +36,11 @@ public class QnaDAOImpl implements QnaDAO{
 		
 	}
 
-	public List<ReplyVO> selectReplyList(int qna_idx, int curPage) throws DataAccessException {
+	public List<ReplyVO> selectReplyList(int qna_idx, int start,int end) throws DataAccessException {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("qna_idx", qna_idx);
-		map.put("curPage", curPage);
+		map.put("start", start);
+		map.put("end", end);
 		List<ReplyVO> replyList=sqlSession.selectList("mapper.qna.selectReplyList",map);
 		return replyList;
 	}

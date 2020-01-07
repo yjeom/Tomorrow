@@ -12,7 +12,7 @@ public interface QnaService {
 	public List<QnaVO> selectQnaList(int curPage)throws DataAccessException;
 	public int selectQnaCount()throws DataAccessException;
 	public int insertQna(QnaVO qnaVO)throws DataAccessException;
-	public List<ReplyVO> selectReplyList(int qna_idx,int curPage)throws DataAccessException;
+	public List<ReplyVO> selectReplyList(int qna_idx,int start,int end)throws DataAccessException;
 	public int selectReplyCount(int qna_idx)throws DataAccessException;
 	public QnaVO getQna(int idx)throws DataAccessException;
 	public int insertReply(ReplyVO replyVO)throws DataAccessException;

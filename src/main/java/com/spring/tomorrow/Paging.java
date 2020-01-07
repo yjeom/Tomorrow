@@ -11,6 +11,24 @@ public class Paging {
 	private int totalBlock;
 	private int startPage=1;
 	private int endPage=1;
+	private int startIndex;
+	private int endIndex;
+
+	public int getStartIndex() {
+		return startIndex;
+	}
+
+	public void setStartIndex(int curPage) {
+		this.startIndex = (curPage-1)*pageSize+1;
+	}
+
+	public int getEndIndex() {
+		return endIndex;
+	}
+
+	public void setEndIndex(int curPage) {
+		this.endIndex = curPage*pageSize;
+	}
 
 	public Paging(int totalCount, int curPage) {
 		setTotalCount(totalCount);
@@ -20,6 +38,8 @@ public class Paging {
 		setCurBlock(curPage);
 		setStartPage(curBlock);
 		setEndPage(startPage);
+		setStartIndex(curPage);
+		setEndIndex(curPage);
 
 	}
 
@@ -52,7 +72,7 @@ public class Paging {
 	}
 
 	public void setCurBlock(int curPage) {
-		this.curBlock = (int)Math.ceil((double)(curPage-1)/blockSize)+1;
+		this.curBlock = (int)(curPage-1)/blockSize+1;
 	}
 
 	public int getTotalCount() {
@@ -76,7 +96,7 @@ public class Paging {
 	}
 
 	public void setTotalBlock(int totalPage) {
-		this.totalBlock = (int)Math.ceil((double)totalCount/blockSize);
+		this.totalBlock = (int)Math.ceil((double)totalPage/blockSize);
 	}
 
 	public int getStartPage() {

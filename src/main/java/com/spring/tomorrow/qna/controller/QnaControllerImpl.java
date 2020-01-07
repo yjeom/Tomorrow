@@ -96,8 +96,8 @@ public class QnaControllerImpl implements QnaController{
 		mav.addObject("qna", qna);
 		System.out.println("getQna.do cotroller idx:"+idx);
 		int totalCount=qnaService.selectReplyCount(idx);
-		List<ReplyVO> replyList=qnaService.selectReplyList(idx, curPage);
 		Paging paging=new Paging(totalCount, curPage);
+		List<ReplyVO> replyList=qnaService.selectReplyList(idx, paging.getStartIndex(),paging.getEndIndex());
 		mav.addObject("reList", replyList);
 		mav.addObject("paging", paging);
 		

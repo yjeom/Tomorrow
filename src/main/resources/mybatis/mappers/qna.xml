@@ -45,15 +45,11 @@
     
     <select id="selectReplyList" resultMap="replyVO" parameterType="java.util.HashMap">
       <![CDATA[
-		select qnareply.*
-  		from(
-       	select 
-        (select id from member where member.idx=qnareply.writer_idx) as writer,
-        rownum as rnum,qnareply.*
-    	from qnareply where qna_idx=#{qna_idx}
-  		order by idx desc
-      	)qnareply
-		where qnareply.rnum >=#{curPage} and qnareply.rnum <=10
+	select * from(
+    select qnareply.*,rownum as rnum, 
+    	(select id from member where member.idx=qnareply.writer_idx) as writer
+    from qnareply where qna_idx=#{qna_idx} order by idx desc
+	)where rnum between #{start} and #{end}
       ]]>
 	</select>
     

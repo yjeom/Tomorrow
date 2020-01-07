@@ -60,8 +60,8 @@ function list() {
 	document.listFrm.submit();
 	}
 	function paging(value) {
-		var page=(value-1)*${paging.pageSize};
-		location.href="${contextPath}/qna/getQna.do?idx=${qna.idx}&curPage="+page;
+		
+		location.href="${contextPath}/qna/getQna.do?idx=${qna.idx}&curPage="+value;
 		}
 	function block(value) {
 		var pagePerBlock=${paging.blockSize} * (value-1) + 1;
@@ -167,8 +167,8 @@ function list() {
 
 		<center>
 <div>
-                    <c:if test="${pagig.curBlock > 1 }">
-                        <a href="javascript:block('${curBlock-1}')">[이전]</a> 
+                    <c:if test="${paging.curPage > 1 }">
+                        <a href="javascript:paging('${paging.curPage-1}')">[이전]</a> 
                     </c:if>
                     <c:forEach var="pageNum" begin="${paging.startPage }" end="${paging.endPage}">
                         <c:choose>
@@ -180,9 +180,8 @@ function list() {
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
-                    ${paging.curPage}/${paging.totalPage }
-                    <c:if test="${paging.curPage < paging.totalPage && paging.totalPage> 0}">
-                        <a href="javascript:block('${curBlock+ 1}')">[다음]</a> 
+                    <c:if test="${paging.curPage != paging.totalPage && paging.totalPage> 0}">
+                        <a href="javascript:paging('${paging.curPage+1}')">[다음]</a> 
                     </c:if>
                 </div>		
 			
