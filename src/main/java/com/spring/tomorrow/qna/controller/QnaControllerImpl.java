@@ -87,14 +87,16 @@ public class QnaControllerImpl implements QnaController{
 		return resEntity;
 	}
 	
-	@RequestMapping(value="/qna/getQna.do",method=RequestMethod.GET)
+	@RequestMapping(value= {"/qna/getQna.do","/qna/updateForm.do"},method=RequestMethod.GET)
 	public ModelAndView getQnA(@RequestParam int idx,@RequestParam(defaultValue="1")int curPage, 
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("컨트롤러 들어옴");
 		ModelAndView mav=new ModelAndView();
+		if(request.getServletPath().equals("/qna/updateForm.do")) {
+			mav.addObject("isUpdate", request.getParameter("re"));
+		}
+		
 		QnaVO qna=qnaService.getQna(idx);
 		mav.addObject("qna", qna);
-		System.out.println("getQna.do cotroller idx:"+idx);
 		int totalCount=qnaService.selectReplyCount(idx);
 		Paging paging=new Paging(totalCount, curPage);
 		List<ReplyVO> replyList=qnaService.selectReplyList(idx, paging.getStartIndex(),paging.getEndIndex());
@@ -182,7 +184,7 @@ public class QnaControllerImpl implements QnaController{
 	}
 
 	@RequestMapping(value="/qna/deleteQna.do",method=RequestMethod.GET)
-	public ResponseEntity deleteQna(int idx, HttpServletRequest request, HttpServletResponse response)
+	public ResponseEntity deleteQna(@RequestParam int idx, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String message = null;
 		ResponseEntity resEntity = null;
@@ -199,6 +201,59 @@ public class QnaControllerImpl implements QnaController{
 			message  = "<script>";
 		    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
 		    message += " location.href='"+request.getContextPath()+"/qna/qnaForm.do?idx="+idx+"';";
+		    message += " </script>";
+			e.printStackTrace();
+		}
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
+	}
+	
+	@RequestMapping(value="/qna/updateReply.do",method=RequestMethod.GET)
+	public ResponseEntity updateReply(@ModelAttribute ReplyVO replyVO,HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			qnaService.updateReply(replyVO);
+		    message  = "<script>";
+		    message +=" alert('답변을 수정했습니다');";
+		    message += " location.href='"+request.getContextPath()+"/qna/getQna.do?idx="+replyVO.getQna_idx()+"&curPage="
+		    			+request.getParameter("curPage")+"';";
+		    message += " </script>";
+		    
+		}catch(Exception e) {
+			message  = "<script>";
+		    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+		    message += " location.href='"+request.getContextPath()+"/qna/updateForm.do?idx="+replyVO.getQna_idx()+
+		    			"&curPage="+request.getParameter("curPage")+"&re="+replyVO.getIdx()+"';";
+		    message += " </script>";
+			e.printStackTrace();
+		}
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
+	}
+	
+	@RequestMapping(value="/qna/deleteReply.do",method=RequestMethod.GET)
+	public ResponseEntity deleteReply(@RequestParam int idx, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			qnaService.deleteReply(idx);
+		    message  = "<script>";
+		    message +=" alert('답변을 삭제했습니다');";
+		    message += " location.href='"+request.getContextPath()+"/qna/getQna.do?idx="+request.getParameter("qna_idx")+"';";
+		    message += " </script>";
+		    
+		}catch(Exception e) {
+			message  = "<script>";
+		    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+		    message += " location.href='"+request.getContextPath()+"/qna/getQna.do?idx="+request.getParameter("qna_idx")
+		    			+"&curPage="+request.getParameter("curPage")+"';";
 		    message += " </script>";
 			e.printStackTrace();
 		}

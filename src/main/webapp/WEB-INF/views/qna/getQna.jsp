@@ -21,15 +21,14 @@
 <script type="text/javascript">
 
 function inputCheck() {
-	if (document.reFrm.reply.value=="") {
+	if (document.reFrm.content.value=="") {
 		alert("내용을 입력해주세요.");
-		document.reFrm.reply.value = "";
-		document.reFrm.reply.focus();
+		document.reFrm.content.value = "";
+		document.reFrm.content.focus();
 		return false;
 	}
 	else {
-		document.reFrm.action="${contextPath}/qna/insertReply.do";
-		document.reFrm.submit();
+		return true;
 	}
 }
 function delete_(){
@@ -41,19 +40,18 @@ function delete_(){
 function update_(){
 	location.href="${contextPath}/qna/qnaForm.do?idx=${qna.idx}";
 }
-function ReplyDel(idx){
-
-	document.delReFrm.ridx.value=idx;
-	if (confirm("댓글을 삭제 하시겠습니까?")) {
-		document.delReFrm.action = "${contextPath}/qna/deleteReply.do?idx="+idx;
-		document.delReFrm.submit();
+function deleteReply(idx){
+	var delRe=confirm("답변을 삭제 하시겠습니까?");
+	if (delRe) {
+		document.deleteReFrm.action = "${contextPath}/qna/deleteReply.do?idx="+idx;
+		document.deleteReFrm.submit();
 	} 
 }
-function updateRe_(idx){
-	alert("댓글을 수정하시겠습니까?");
-	document.updateReFrm.idx.value=idx;
-	document.updateReFrm.action="${contextPath}/qna/updateReply.do?idx="+idx;
-	document.updateReFrm.submit();
+function updateReply(){
+	var upRe=confirm("답변을 수정하시겠습니까?");
+	if(upRe){
+		return true;
+	}
 }
 function list() {
 	document.listFrm.action= "3.QnARead.jsp";
@@ -70,7 +68,6 @@ function list() {
 		}
 
 </script>
-
 </head>
 <body>
 
@@ -144,14 +141,39 @@ function list() {
 					<td align="right"><br>${reList.writer}</td>
 					</c:otherwise>
 				</c:choose>
-				<td align="right"><textarea style="background-color:white; border:solid 2px #6cc091; color:black" rows="2" 
-					name="content" id="content" readonly>${reList.content}</textarea></td>
-				<td align="center">${reList.regdate }<br><br>
-				<c:if test='${member.idx==reList.writer_idx}'>
-					<a href="javascript:updateRe_('${reList.idx }')"><font color="grey" size="4pt">수정</a></font>
-					<a href="javascript:ReplyDel('${reList.idx }')"><font color="red" size="4pt">삭제</a></font>
-				</c:if>
-				</td>
+				<c:choose>
+					<c:when test="${isUpdate!=null and isUpdate==reList.idx}">
+					<form name="updateReFrm" action="${contextPath}/qna/updateReply.do" method="get" onsubmit="return updateReply()">
+							<td align="right"><textarea style="background-color:white; border:solid 2px #FFF612; color:black" rows="2" 
+								name="content" id="content">${reList.content}</textarea></td>
+					<input type="hidden" name="idx" value="${reList.idx}">
+					<input type="hidden" name="qna_idx" value="${qna.idx}">
+					<input type="hidden" name="curPage" value="${paging.curPage }">
+							<td align="center">${reList.regdate }<br><br>
+							<c:if test='${member.idx==reList.writer_idx}'>
+							<input type="submit" value="수정">
+							<input type=button value="취소" onClick="location.href='${contextPath}/qna/getQna.do?idx=${qna.idx}&curPage=${paging.curPage}'">
+							</c:if>
+					</form>
+							</td>
+					</c:when>
+					<c:when test="${isUpdate==null or isUpdate!=reList.idx}">
+						<td align="right"><textarea style="background-color:white; border:solid 2px #6cc091; color:black" rows="2" 
+							name="content" id="content" readonly>${reList.content}</textarea></td>
+						<td align="center">${reList.regdate }<br><br>
+						<form name="deleteReFrm" action="${contextPath}/qna/deleteReply.do" method="get" onsubmit="return deleteReply()">
+						<c:if test='${member.idx==reList.writer_idx}'>
+							<input type="button" value="수정"
+							onClick="location.href='${contextPath}/qna/updateForm.do?idx=${qna.idx}&curPage=${paging.curPage}&re=${reList.idx}'">
+								<input type="submit" value="삭제" >
+								<input type="hidden" name="qna_idx" value="${qna.idx}">
+								<input type="hidden" name="idx" value="${reList.idx}">
+								<input type="hidden" name="curPage" value="${paging.curPage }">
+						</c:if>
+						</form>	
+						</td>
+					</c:when>
+				</c:choose>
 			</tr>
 			</c:forEach>
 		</c:when>
@@ -187,7 +209,7 @@ function list() {
 			
 
 
-<form name="reFrm" action="${contextPath}/qna/insertReply.do" method="post" >
+<form name="reFrm" action="${contextPath}/qna/insertReply.do" method="post" onsubmit="return inputCheck()" >
 <center><br><br>
 			<table>
 			<colgroup>
@@ -196,7 +218,7 @@ function list() {
 			</colgroup>
 			<tr style="background-color:white; border:0px;"><td align="left">
 				<textarea style="background-color:white; color:black; border:solid 1px grey; width:100%;" rows="3" name="content" id="content"></textarea>
-				</td><td align="left"><br><input type="submit" value="등록" onclick="inputCheck()"></td>
+				</td><td align="left"><br><input type="submit" value="등록" ></td>
 					
 				</table><br>
 					
@@ -206,14 +228,7 @@ function list() {
 <input type="hidden" name="writer_idx" value="${member.idx}">
 </form>	
 		
-<form name="updateReFrm" method="get">
-<input type="hidden" name="qna_idx" value="${qna.idx}">
-<input type="hidden" name="curPage" value="${paging.curPage }">
-</form>
-<form name="delReFrm" method="get">
-<input type="hidden" name="qna_idx" value="${qna.idx}">
-<input type="hidden" name="curPage" value="${paging.curPage }">
-</form>		
+
 
 	<script type="text/javascript">
 		window.history.forward();

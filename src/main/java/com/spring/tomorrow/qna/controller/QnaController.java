@@ -29,4 +29,6 @@ public interface QnaController {
 			HttpServletResponse response) throws Exception;
 	public ResponseEntity deleteQna(@RequestParam int idx,HttpServletRequest request, 
 			HttpServletResponse response) throws Exception;
+	public ResponseEntity updateReply(@ModelAttribute ReplyVO replyVO,HttpServletRequest request,HttpServletResponse response) throws Exception;
+	public ResponseEntity deleteReply(@RequestParam int idx,HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

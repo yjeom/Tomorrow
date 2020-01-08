@@ -74,4 +74,12 @@ public class QnaDAOImpl implements QnaDAO{
 		return sqlSession.delete("mapper.qna.deleteQna",idx);
 	}
 
+	public int updateReply(ReplyVO replyVO) throws DataAccessException {
+		return sqlSession.update("mapper.qna.updateReply",replyVO);
+	}
+
+	public int deleteReply(int idx) throws DataAccessException {
+		return sqlSession.delete("mapper.qna.deleteReply",idx);
+	}
+
 }

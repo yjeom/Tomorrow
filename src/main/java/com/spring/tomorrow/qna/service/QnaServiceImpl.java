@@ -67,4 +67,12 @@ public class QnaServiceImpl implements QnaService{
 	public int deleteQna(int idx) throws DataAccessException {
 		return qnaDAO.deleteQna(idx);
 	}
+
+	public int updateReply(ReplyVO replyVO) throws DataAccessException {
+		return qnaDAO.updateReply(replyVO);
+	}
+
+	public int deleteReply(int idx) throws DataAccessException {
+		return qnaDAO.deleteReply(idx);
+	}
 }

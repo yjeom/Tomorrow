@@ -19,4 +19,6 @@ public interface QnaService {
 	public QnaVO passwordCheck(int idx,int pwd)throws DataAccessException;
 	public int updateQna(QnaVO qnaVO)throws DataAccessException;
 	public int deleteQna(int idx)throws DataAccessException;
+	public int updateReply(ReplyVO replyVO)throws DataAccessException;
+	public int deleteReply(int idx)throws DataAccessException;
 }

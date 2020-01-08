@@ -103,9 +103,20 @@
 	    	where idx=#{idx}
       ]]>
 	</update>
-	<update id="deleteQna" parameterType="int" >
+	<update id="updateReply" parameterType="replyVO" >
+      <![CDATA[
+			update qnareply set content=#{content}
+	    	where idx=#{idx}
+      ]]>
+	</update>
+	<delete id="deleteQna" parameterType="int" >
       <![CDATA[
 			delete from qna where idx=#{idx}
       ]]>
-	</update>
+	</delete>
+		<delete id="deleteReply" parameterType="int" >
+      <![CDATA[
+			delete from qnareply where idx=#{idx}
+      ]]>
+	</delete>
 </mapper>
