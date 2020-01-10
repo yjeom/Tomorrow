@@ -34,7 +34,7 @@ public class NoticeControllerImpl implements NoticeController{
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int totalCount=noticeService.selectNoticeCount();
 		Paging paging=new Paging(totalCount, curPage);
-		List noticeList=noticeService.selectNoticeList(curPage);
+		List noticeList=noticeService.selectNoticeList(paging.getStartIndex(),paging.getEndIndex());
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("noticeList",noticeList);
 		mav.addObject("paging",paging);

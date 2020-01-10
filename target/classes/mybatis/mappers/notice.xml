@@ -24,14 +24,12 @@
 		select * from notice where idx=#{idx}
 	]]>
   </select>
-	<select id="selectNoticeList" resultMap="noticeVO" parameterType="int">
+	<select id="selectNoticeList" resultMap="noticeVO" parameterType="java.util.HashMap">
       <![CDATA[
-         select notice.*
-		from (
-    			select rownum as rnum,notice.*
-    			from notice
-    			order by idx desc) notice
-		where notice.rnum>=#{curPage} and notice.rnum <=10 
+ 	 select * from(
+    	select rownum as rnum ,notice.* from notice
+  	  order by idx desc
+   	 )where rnum between #{start} and #{end}
       ]]>
 	</select>
     

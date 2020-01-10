@@ -9,7 +9,7 @@ import com.spring.tomorrow.qna.vo.ReplyVO;
 
 public interface QnaService {
 	
-	public List<QnaVO> selectQnaList(int curPage)throws DataAccessException;
+	public List<QnaVO> selectQnaList(int start,int end)throws DataAccessException;
 	public int selectQnaCount()throws DataAccessException;
 	public int insertQna(QnaVO qnaVO)throws DataAccessException;
 	public List<ReplyVO> selectReplyList(int qna_idx,int start,int end)throws DataAccessException;
@@ -21,4 +21,5 @@ public interface QnaService {
 	public int deleteQna(int idx)throws DataAccessException;
 	public int updateReply(ReplyVO replyVO)throws DataAccessException;
 	public int deleteReply(int idx)throws DataAccessException;
+	public int updateViews(int idx)throws DataAccessException;
 }

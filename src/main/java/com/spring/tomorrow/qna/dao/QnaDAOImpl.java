@@ -18,10 +18,12 @@ public class QnaDAOImpl implements QnaDAO{
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<QnaVO> selectQnaList(int curPage) throws DataAccessException {
+	public List<QnaVO> selectQnaList(int start,int end) throws DataAccessException {
 		List<QnaVO> qnaList=null;
-				
-		qnaList=sqlSession.selectList("mapper.qna.selectQnaList", curPage);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);		
+		qnaList=sqlSession.selectList("mapper.qna.selectQnaList", map);
 		return qnaList;
 	}
 
@@ -80,6 +82,10 @@ public class QnaDAOImpl implements QnaDAO{
 
 	public int deleteReply(int idx) throws DataAccessException {
 		return sqlSession.delete("mapper.qna.deleteReply",idx);
+	}
+
+	public int updateViews(int idx) throws DataAccessException {
+		return sqlSession.update("mapper.qna.updateViews",idx);
 	}
 
 }

@@ -15,9 +15,9 @@ public class NoticeServiceImpl implements NoticeService{
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	public List selectNoticeList(int page) throws DataAccessException {
+	public List selectNoticeList(int start,int end) throws DataAccessException {
 		List noticeList = null;
-		noticeList = noticeDAO.selectNoticeList(page);
+		noticeList = noticeDAO.selectNoticeList(start,end);
 		return noticeList;
 	}
 

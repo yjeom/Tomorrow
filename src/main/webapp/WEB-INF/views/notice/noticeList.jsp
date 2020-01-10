@@ -63,7 +63,7 @@ function block(value) {
 	<c:when test="${not empty noticeList}">
 	<c:forEach  var="noticeList" items="${noticeList}" varStatus="rNum" >
 		<tr>
-			<td>${rNum.count}</td>
+			<td>${noticeList.rnum}</td>
 			<td><a href="${contextPath}/notice/getNotice.do?idx=${noticeList.idx}">${noticeList.title }</a></td>
 			<td>${noticeList.regdate}</td>
 			<td>${noticeList.views}</td>
@@ -75,9 +75,9 @@ function block(value) {
 		</table>
 		  <br><center>  
          
-      <div>
-                    <c:if test="${pagig.curBlock > 1 }">
-                        <a href="javascript:block('${curBlock-1}')">[이전]</a> 
+   <div>
+                    <c:if test="${paging.curPage > 1 }">
+                        <a href="javascript:paging('${paging.curPage-1}')">[이전]</a> 
                     </c:if>
                     <c:forEach var="pageNum" begin="${paging.startPage }" end="${paging.endPage}">
                         <c:choose>
@@ -89,10 +89,11 @@ function block(value) {
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
-                    <c:if test="${paging.curPage ne paging.totalPage && paging.totalPage> 0}">
-                        <a href="javascript:block('${curBlock+ 1}')">[다음]</a> 
+                    <c:if test="${paging.curPage != paging.totalPage && paging.totalPage> 0}">
+                        <a href="javascript:paging('${paging.curPage+1}')">[다음]</a> 
                     </c:if>
-                </div>	
+            </div>			
+
    <br>
    		  <c:if test="${not empty member and member.id eq 'rhksflwk'}">
 		  		<input type ="button" class="button" value="작성하기" onclick="location='${contextPath}/notice/noticeForm.do'">

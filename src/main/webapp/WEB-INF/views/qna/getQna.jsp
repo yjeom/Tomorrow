@@ -2,15 +2,7 @@
     pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-<!--  
-<c:if test="${isLogOn ==null}">
-  <script type="text/javascript">
-    alert("세션만료로 로그아웃되었습니다.");
-    location.href = "${contextPath}/member/logout.do";
-    </script>
- </c:if>
--->
-
+  
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -21,6 +13,11 @@
 <script type="text/javascript">
 
 function inputCheck() {
+	if(${empty member}){
+		alert("로그인후 작성할 수 있습니다.");
+		location.href="${contextPath}/member/loginForm.do";
+		return false;
+	}
 	if (document.reFrm.content.value=="") {
 		alert("내용을 입력해주세요.");
 		document.reFrm.content.value = "";
@@ -61,11 +58,7 @@ function list() {
 		
 		location.href="${contextPath}/qna/getQna.do?idx=${qna.idx}&curPage="+value;
 		}
-	function block(value) {
-		var pagePerBlock=${paging.blockSize} * (value-1) + 1;
-		location.href="${contextPath}/qna/getQna.do?idx=${qna.idx}&curPage="+pagePerBlock;
 
-		}
 
 </script>
 </head>
@@ -125,8 +118,8 @@ function list() {
 		<table>
 			<colgroup>
 				<col width="10%" />
-				<col width="82%" />
-				<col width="8%" />
+				<col width="80%" />
+				<col width="10%" />
 			</colgroup>	
 			<tbody>
 	<c:choose>
@@ -135,10 +128,10 @@ function list() {
 			<tr style="background-color:white; border:0px;">
 				<c:choose>
 					<c:when test="${reList.writer=='rhksflwk' }">
-						<td align="right"><br>관리자</td>
+						<td align="right"><br>관리자<br>(${reList.regdate })</td>
 					</c:when>
 					<c:otherwise>
-					<td align="right"><br>${reList.writer}</td>
+					<td align="right"><br>${reList.writer}<br>(${reList.regdate })</td>
 					</c:otherwise>
 				</c:choose>
 				<c:choose>
@@ -149,10 +142,11 @@ function list() {
 					<input type="hidden" name="idx" value="${reList.idx}">
 					<input type="hidden" name="qna_idx" value="${qna.idx}">
 					<input type="hidden" name="curPage" value="${paging.curPage }">
-							<td align="center">${reList.regdate }<br><br>
+							<td align="center">
 							<c:if test='${member.idx==reList.writer_idx}'>
-							<input type="submit" value="수정">
-							<input type=button value="취소" onClick="location.href='${contextPath}/qna/getQna.do?idx=${qna.idx}&curPage=${paging.curPage}'">
+							<input type="submit" value="수정하기" class="tag">
+							<input type=button value="취소" class="tag"
+							onClick="location.href='${contextPath}/qna/getQna.do?idx=${qna.idx}&curPage=${paging.curPage}'">
 							</c:if>
 					</form>
 							</td>
@@ -160,12 +154,12 @@ function list() {
 					<c:when test="${isUpdate==null or isUpdate!=reList.idx}">
 						<td align="right"><textarea style="background-color:white; border:solid 2px #6cc091; color:black" rows="2" 
 							name="content" id="content" readonly>${reList.content}</textarea></td>
-						<td align="center">${reList.regdate }<br><br>
+						<td align="center">
 						<form name="deleteReFrm" action="${contextPath}/qna/deleteReply.do" method="get" onsubmit="return deleteReply()">
 						<c:if test='${member.idx==reList.writer_idx}'>
-							<input type="button" value="수정"
+							<input type="button" value="수정" class="tag"
 							onClick="location.href='${contextPath}/qna/updateForm.do?idx=${qna.idx}&curPage=${paging.curPage}&re=${reList.idx}'">
-								<input type="submit" value="삭제" >
+								<input type="submit" value="삭제" class="tag">
 								<input type="hidden" name="qna_idx" value="${qna.idx}">
 								<input type="hidden" name="idx" value="${reList.idx}">
 								<input type="hidden" name="curPage" value="${paging.curPage }">

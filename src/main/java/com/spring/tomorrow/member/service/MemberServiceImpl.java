@@ -23,9 +23,9 @@ public class MemberServiceImpl implements MemberService {
 		int totalCount=memberDAO.selectMemberCount();
 		return totalCount;
 	}
-	public List listMembers(int curPage) throws DataAccessException {
+	public List listMembers(int start,int end) throws DataAccessException {
 		List membersList = null;
-		membersList = memberDAO.selectAllMemberList(curPage);
+		membersList = memberDAO.selectAllMemberList(start,end);
 		return membersList;
 	}
 

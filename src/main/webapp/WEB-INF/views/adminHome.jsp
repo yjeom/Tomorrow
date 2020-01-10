@@ -19,13 +19,8 @@ function result(){
 </c:if>
 <script type="text/javascript">
 
-function pageing(page) {
+function paging(page) {
 		location.href="${contextPath}/adminHome.do?curPage="+page;
-		}
-function block(value) {
-		var pagePerBlock=${paging.blockSize} * (value-1) + 1;
-		location.href="${contextPath}/adminHome.do?nowPage="+pagePerBlock;
-
 		}
 function logout()
 		{
@@ -56,12 +51,12 @@ function logout()
 							
 						</div>
 						<div>
-							<input type="image" src="/images/icons/question2.png" width="35px" onclick="location.href='3.QnA.jsp'"/>
+							<input type="image" src="/images/icons/question2.png" width="35px" onclick="location.href='${contextPath}/qna/qnaList.do'"/>
 							<h3>QnA관리</h3>
 						</div>
 
 						<div>
-							<input type="image" src="/images/icons/microphone.png" width="35px"  onclick="location.href='4.notice_list.jsp'"/>
+							<input type="image" src="/images/icons/microphone.png" width="35px"  onclick="location.href='${contextPath}/notice/noticeList.do'"/>
 							<h3>공지사항</h3>
 						</div>
 					</div>
@@ -99,7 +94,7 @@ function logout()
 	<c:when test="${not empty memberList}">
 	<c:forEach  var="memberList" items="${memberList}" varStatus="rNum" >
 		<tr>
-			<td>${rNum.count}</td>
+			<td>${memberList.rnum}</td>
 			<td>${memberList.id }</td>
 			<td>${memberList.pwd }</td>
 			<td>${memberList.email }</td>
@@ -112,25 +107,24 @@ function logout()
 		</table>
 		
 			<br><center>
-		       <div>
-                    <c:if test="${pagig.curBlock > 1 }">
-                        <a href="javascript:block('${curBlock-1}')">[이전]</a> 
+	<div>
+                    <c:if test="${paging.curPage > 1 }">
+                        <a href="javascript:paging('${paging.curPage-1}')">[이전]</a> 
                     </c:if>
-               
                     <c:forEach var="pageNum" begin="${paging.startPage }" end="${paging.endPage}">
                         <c:choose>
                             <c:when test="${pageNum  eq  paging.curPage}">
                               <font color="blue"><Strong>${pageNum}</Strong></font> 
                             </c:when>
                             <c:otherwise>
-                                <a href="javascript:pageing('${pageNum}')">${pageNum }</a> 
+                                <a href="javascript:paging('${pageNum}')">${pageNum }</a> 
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
-                    <c:if test="${paging.curPage ne paging.totalPage && paging.totalPage> 0}">
-                        <a href="javascript:block('${curBlock+ 1}')">[다음]</a> 
+                    <c:if test="${paging.curPage != paging.totalPage && paging.totalPage> 0}">
+                        <a href="javascript:paging('${paging.curPage+1}')">[다음]</a> 
                     </c:if>
-                </div>	
+                </div>		
 
 	</body>
 </html>

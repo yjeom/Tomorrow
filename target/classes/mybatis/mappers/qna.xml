@@ -30,16 +30,14 @@
 	</resultMap> 
 	 
 
-	<select id="selectQnaList" resultMap="qnaVO" parameterType="int">
+	<select id="selectQnaList" resultMap="qnaVO" parameterType="java.util.HashMap">
       <![CDATA[
-		select qna.*
-  		from(
-    		select (select count(*) from qnareply where qnareply.qna_idx=qna.idx)as reply_count, 
-    		rownum as rnum, qna.*
-    		from qna
-    		order  by idx desc
-      		)qna
- 		where qna.rnum >=#{curPage} and qna.rnum <=10
+		select * from(
+    		select rownum as rnum ,qna.* ,
+    		(select count(*) from qnareply where qnareply.qna_idx=qna.idx)as reply_count
+   			 from qna
+   			 order by idx desc
+   		 )where rnum between #{start} and #{end}
       ]]>
 	</select>
     
@@ -106,6 +104,12 @@
 	<update id="updateReply" parameterType="replyVO" >
       <![CDATA[
 			update qnareply set content=#{content}
+	    	where idx=#{idx}
+      ]]>
+	</update>
+	<update id="updateViews" parameterType="int" >
+      <![CDATA[
+			update qna set views=views+1
 	    	where idx=#{idx}
       ]]>
 	</update>

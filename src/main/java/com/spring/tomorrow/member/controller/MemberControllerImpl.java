@@ -36,7 +36,6 @@ public class MemberControllerImpl   implements MemberController {
 	@Autowired
 	MemberVO memberVO ;
 	
-	@Override
 	@RequestMapping(value="/adminHome.do" ,method = {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView listMembers(@RequestParam(defaultValue="1") int curPage,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -48,7 +47,7 @@ public class MemberControllerImpl   implements MemberController {
 		int totalCount=memberService.membersCount();
 		Paging paging=new Paging(totalCount, curPage);
 		
-		List memberList = memberService.listMembers(curPage);
+		List memberList = memberService.listMembers(paging.getStartIndex(),paging.getEndIndex());
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberList", memberList);
 		mav.addObject("paging", paging);
@@ -121,8 +120,9 @@ public class MemberControllerImpl   implements MemberController {
 	@RequestMapping(value = "/member/logout.do", method =  RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
-		session.removeAttribute("member");
-		session.removeAttribute("isLogOn");
+		//session.removeAttribute("member");
+		//session.removeAttribute("isLogOn");
+		session.invalidate();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/home.do");
 		return mav;

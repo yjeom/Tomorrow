@@ -7,7 +7,7 @@ import org.springframework.dao.DataAccessException;
 import com.spring.tomorrow.member.vo.MemberVO;
 
 public interface MemberService {
-	 public List listMembers(int curPage) throws DataAccessException;
+	 public List listMembers(int start,int end) throws DataAccessException;
 	 public int membersCount() throws DataAccessException;
 	 public int addMember(MemberVO memberVO) throws DataAccessException;
 	 public String idCheck(String id)throws DataAccessException;

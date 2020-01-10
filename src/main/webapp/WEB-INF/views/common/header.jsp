@@ -26,6 +26,32 @@ function logout()
 
 
 </script>
+<style>
+		input[type="submit"].tag,
+		input[type="reset"].tag,
+		input[type="button"].tag,
+		button.tag,
+		.button.tag {
+			color:red !important;
+			border-radius: 10px;
+			font-size: 0.85em;
+			box-shadow: inset 0 0 0 1px #ffffff;
+			line-height: 1;
+			height:1.75em;
+			text-align: center;
+			display: inline-block;	
+			clear:both;
+			
+		}
+			input[type="submit"].tag:hover,
+			input[type="reset"].tag:hover,
+			input[type="button"].tag:hover,
+			button.tag:hover,
+			.button.tag:hover {
+				background-color: transparent;
+				color:#6cc091 !important;
+			}
+</style>
 <head>
   <meta charset="UTF-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -57,7 +83,7 @@ function logout()
 						<a href="${contextPath}/qna/qnaList.do">QnA</a>
 						<a href="${contextPath}/notice/noticeList.do">Notice</a>
 					<c:choose>
-						<c:when test="${isLogOn==true}">
+						<c:when test="${not empty member and isLogOn==true}">
 							<a href="javascript:logout()"><font color="red">Logout</a> </font>
 						</c:when>
 						<c:otherwise>

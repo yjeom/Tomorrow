@@ -2,7 +2,7 @@ package com.spring.tomorrow;
 
 public class Paging {
 
-	private int pageSize = 10;
+	private int pageSize = 5;
 	private int blockSize = 10;
 	private int curPage=1;
 	private int curBlock=1;

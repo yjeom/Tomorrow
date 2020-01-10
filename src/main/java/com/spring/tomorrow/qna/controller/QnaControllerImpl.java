@@ -39,7 +39,7 @@ public class QnaControllerImpl implements QnaController{
 		int totalCount=qnaService.selectQnaCount();
 		Paging paging=new Paging(totalCount, curPage);
 		List<QnaVO> qnaList=null;
-		qnaList=qnaService.selectQnaList(curPage);
+		qnaList=qnaService.selectQnaList(paging.getStartIndex(),paging.getEndIndex());
 		System.out.println(qnaList.isEmpty());
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("qnaList",qnaList);
@@ -96,6 +96,7 @@ public class QnaControllerImpl implements QnaController{
 		}
 		
 		QnaVO qna=qnaService.getQna(idx);
+		qnaService.updateViews(idx);
 		mav.addObject("qna", qna);
 		int totalCount=qnaService.selectReplyCount(idx);
 		Paging paging=new Paging(totalCount, curPage);

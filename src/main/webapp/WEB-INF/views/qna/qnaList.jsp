@@ -9,11 +9,6 @@
 function paging(page) {
 	location.href="${contextPath}/qna/qnaList.do?curPage="+page;
 	}
-function block(value) {
-	var pagePerBlock=${paging.blockSize} * (value-1) + 1;
-	location.href="${contextPath}/qna/qnaList.do?curPage="+pagePerBlock;
-
-	}
 
 function login(){
 	alert("로그인후 작성할 수 있습니다.");
@@ -69,7 +64,7 @@ function read(){
 		<c:when test="${not empty qnaList}">
 			<c:forEach var="qnaList" items="${qnaList}" varStatus="rNum">
 				<tr>
-					<td>${rNum.count}</td>
+					<td>${qnaList.rnum}</td>
 					<td>
 					<c:choose>
 						<c:when test="${qnaList.secret_yn==1}">
@@ -102,9 +97,9 @@ function read(){
 		</table>
 			<center>
 			
-	      <div>
-                    <c:if test="${pagig.curBlock > 1 }">
-                        <a href="javascript:block('${curBlock-1}')">[이전]</a> 
+<div>
+                    <c:if test="${paging.curPage > 1 }">
+                        <a href="javascript:paging('${paging.curPage-1}')">[이전]</a> 
                     </c:if>
                     <c:forEach var="pageNum" begin="${paging.startPage }" end="${paging.endPage}">
                         <c:choose>
@@ -116,8 +111,8 @@ function read(){
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
-                    <c:if test="${paging.curPage ne paging.totalPage && paging.totalPage> 0}">
-                        <a href="javascript:block('${curBlock+ 1}')">[다음]</a> 
+                    <c:if test="${paging.curPage != paging.totalPage && paging.totalPage> 0}">
+                        <a href="javascript:paging('${paging.curPage+1}')">[다음]</a> 
                     </c:if>
                 </div>			
 

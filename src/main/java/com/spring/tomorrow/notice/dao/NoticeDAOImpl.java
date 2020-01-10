@@ -18,9 +18,12 @@ public class NoticeDAOImpl implements NoticeDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<NoticeVO> selectNoticeList(int curPage) throws DataAccessException {
+	public List<NoticeVO> selectNoticeList(int start,int end) throws DataAccessException {
 		List<NoticeVO> noticeList = null;
-		noticeList = sqlSession.selectList("mapper.notice.selectNoticeList",curPage);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		noticeList = sqlSession.selectList("mapper.notice.selectNoticeList",map);
 		return noticeList;
 	}
 

@@ -18,9 +18,9 @@ public class QnaServiceImpl implements QnaService{
 	@Autowired
 	private QnaDAO qnaDAO;
 	
-	public List<QnaVO> selectQnaList(int curPage) throws DataAccessException {
+	public List<QnaVO> selectQnaList(int start,int end) throws DataAccessException {
 		List<QnaVO> qnaList=null;
-		qnaList=qnaDAO.selectQnaList(curPage);
+		qnaList=qnaDAO.selectQnaList(start,end);
 		return qnaList;
 	}
 
@@ -74,5 +74,9 @@ public class QnaServiceImpl implements QnaService{
 
 	public int deleteReply(int idx) throws DataAccessException {
 		return qnaDAO.deleteReply(idx);
+	}
+
+	public int updateViews(int idx) throws DataAccessException {
+		return qnaDAO.updateViews(idx);
 	}
 }

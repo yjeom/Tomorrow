@@ -8,7 +8,7 @@ import com.spring.tomorrow.notice.vo.NoticeVO;
 
 public interface NoticeService {
 	
-	 public List selectNoticeList(int page) throws DataAccessException;
+	 public List selectNoticeList(int start,int end) throws DataAccessException;
 	 public int selectNoticeCount() throws DataAccessException;
 	 public int insertNotice(NoticeVO noticeVO) throws DataAccessException ;
 	 public int deleteNotice(int idx) throws DataAccessException;

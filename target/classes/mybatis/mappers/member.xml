@@ -47,15 +47,12 @@
 		select count(*) from member
 	]]>
   </select>
-	<select id="selectAllMemberList" resultMap="memList" parameterType="int">
+	<select id="selectAllMemberList" resultMap="memList" parameterType="java.util.HashMap">
       <![CDATA[
-         select member.*
-  		FROM(
-       			select rownum as rnum,member.*
-    			from member
-    			order by idx desc
-      		)member
- 		WHERE member.rnum >=#{curPage} and member.rnum <=10	
+        select * from(
+ 			select rownum as rnum, member.* from member
+ 			order by idx desc
+			)where rnum between #{start} and #{end}
       ]]>
 	</select>
     
