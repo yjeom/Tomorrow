@@ -8,27 +8,35 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <script type="text/javascript">
-
 function paging(page) {
-		location.href="${contextPath}/notice/noticeList.do?curPage="+page;
+		location.href="${contextPath}/mail/sendReplyList.do?curPage="+page;
 		}
-
+function sendWorry(){
+	var isLogOn ='<c:out value="${isLogOn}"/>';
+	if(isLogOn){
+		location.href="${contextPath}/mail/sendWorryList.do";
+	}
+	else{
+	alert("로그인후 작성할 수 있습니다.");
+	location.href="${contextPath}/member/loginForm.do";
+	}
+}
 	</script>
 </head>
 <body>
      <!-- Banner -->
-         <section id="banner">
-            <div class="inner">
-               <div class="flex">               
-                  <div>
-                     <img src="/images/icons/microphone.png" width="30px" /><br><br>
-                     <h3>공 지 사 항</h3>
-                        <p>관리자가 소통하는 방법입니다.<br>
-                      </p>                  
-                  </div>
-               </div>               
-            </div>
-         </section>
+   			<section id="banner">
+				<div class="inner">
+					<div class="flex">					
+						<div>
+							<img src="/images/icons/paper-plane.png" width="35px" /><br><br>
+							<h3>보 낸 답 장 함</h3>
+								<p>당신이 누군가에게 보낸 따뜻한 위로입니다<br>
+							 </p>						
+						</div>
+					</div>					
+				</div>
+			</section>
          <br>
      <table>
 			<colgroup>
@@ -49,18 +57,18 @@ function paging(page) {
 			<tbody>
 
   <c:choose>
-  	<c:when test="${empty noticeList}">
+  	<c:when test="${empty sendReplyList}">
 		<tr>
-			<td colspan="4" align="center">등록된 공지사항이 없습니다 .</td>
+			<td colspan="4" align="center">보낸 답장 편지가 없습니다.</td>
 		</tr>
 	</c:when>
-	<c:when test="${not empty noticeList}">
-	<c:forEach  var="noticeList" items="${noticeList}" varStatus="rNum" >
+	<c:when test="${not empty sendReplyList}">
+	<c:forEach  var="sendReplyList" items="${sendReplyList}" varStatus="rNum" >
 		<tr>
-			<td>${noticeList.rnum}</td>
-			<td><a href="${contextPath}/notice/getNotice.do?idx=${noticeList.idx}">${noticeList.title }</a></td>
-			<td>${noticeList.regdate}</td>
-			<td>${noticeList.views}</td>
+			<td>${sendReplyList.rnum}</td>
+			<td><a href="${contextPath}/mail/getSendReply.do?idx=${sendReplyList.idx}">${sendReplyList.title }</a></td>
+			<td>${sendReplyList.regdate}</td>
+			<td>${sendReplyList.views}</td>
 		</tr>
 		</c:forEach>
 	</c:when>
@@ -73,6 +81,7 @@ function paging(page) {
                     <c:if test="${paging.curPage > 1 }">
                         <a href="javascript:paging('${paging.curPage-1}')">[이전]</a> 
                     </c:if>
+                   <c:if test="${paging.totalCount>0 }">
                     <c:forEach var="pageNum" begin="${paging.startPage }" end="${paging.endPage}">
                         <c:choose>
                             <c:when test="${pageNum  eq  paging.curPage}">
@@ -83,15 +92,14 @@ function paging(page) {
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
+                   </c:if>
                     <c:if test="${paging.curPage != paging.totalPage && paging.totalPage> 0}">
                         <a href="javascript:paging('${paging.curPage+1}')">[다음]</a> 
                     </c:if>
             </div>			
 
    <br>
-   		  <c:if test="${not empty member and member.id eq 'rhksflwk'}">
-		  		<input type ="button" class="button" value="작성하기" onclick="location='${contextPath}/notice/noticeForm.do'">
-		  </c:if>
+   		  		<input type="button" class="button" value="보낸 고민함" onclick="location='javascript:sendWorry()'">
 	<br>
 	<br>
 </body>

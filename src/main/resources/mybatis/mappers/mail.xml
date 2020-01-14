@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.mail">
+	<resultMap id="mailVO" type="mailVO">
+		<result property="rnum" column="rnum"/>
+		<result property="idx" column="idx"/>
+		<result property="sender_idx" column="sender_idx"/>
+		<result property="receiver_idx" column="receiver_idx"/>
+		<result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="mail_idx" column="mail_idx" />
+        <result property="reply_yn" column="reply_yn" />
+        <result property="regdate" column="regdate" />
+        <result property="views" column="views" />
+	</resultMap> 
+	 
+	 <select id="sendWorryList" resultMap="mailVO" parameterType="java.util.HashMap">
+	  <![CDATA[
+	 	select * from(
+ 			select rownum as rnum,sendmail.* from sendmail
+ 			where sender_idx=#{sender_idx} and reply_yn=0
+ 			order by idx desc
+		)where rnum between #{start}and #{end}
+	]]>
+	 </select>
+	 
+	<select id="sendWorryCount" resultType="int" parameterType="int">
+	 <![CDATA[
+	select count(*) from sendmail where sender_idx=#{sender_idx} and reply_yn=0
+	]]>
+	</select>
+	
+		 <select id="sendReplyList" resultMap="mailVO" parameterType="java.util.HashMap">
+	  <![CDATA[
+	 	select * from(
+ 			select rownum as rnum,sendmail.* from sendmail
+ 			where sender_idx=#{sender_idx} and reply_yn=1
+ 			order by idx desc
+		)where rnum between #{start}and #{end}
+	]]>
+	 </select>
+	 
+	<select id="sendReplyCount" resultType="int" parameterType="int">
+	 <![CDATA[
+	select count(*) from sendmail where sender_idx=#{sender_idx} and reply_yn=1
+	]]>
+	</select>
+	
+	<select id="getRandomReceiver" resultType="int" parameterType="int">
+	 <![CDATA[
+		select idx from(
+			select idx from member 
+			where id not in('rhksflwk') and idx not in(#{sender_idx})
+			order by dbms_random.value
+		)where rownum<=1
+	]]>
+	</select>
+	<select id="getSend_idx" resultType="int">
+		<![CDATA[
+			select sendmail_seq.currval from dual
+		]]>
+	</select>
+	
+	<select id="receiveWorryList" resultMap="mailVO" parameterType="java.util.HashMap">
+	  <![CDATA[
+	 	select * from(
+ 			select rownum as rnum,receivemail.* from receivemail
+ 			where receiver_idx=#{receiver_idx} and reply_yn=0
+ 			order by idx desc
+		)where rnum between #{start}and #{end}
+	]]>
+	 </select>
+	 
+	<select id="receiveWorryCount" resultType="int" parameterType="int">
+	 <![CDATA[
+	select count(*) from receivemail where receiver_idx=#{receiver_idx} and reply_yn=0
+	]]>
+	</select>
+	
+	<select id="receiveReplyList" resultMap="mailVO" parameterType="java.util.HashMap">
+	  <![CDATA[
+	 	select * from(
+ 			select rownum as rnum,receivemail.* from receivemail
+ 			where receiver_idx=#{receiver_idx} and reply_yn=1
+ 			order by idx desc
+		)where rnum between #{start}and #{end}
+	]]>
+	 </select>
+	 
+	<select id="receiveReplyCount" resultType="int" parameterType="int">
+	 <![CDATA[
+	select count(*) from receivemail where receiver_idx=#{receiver_idx} and reply_yn=1
+	]]>
+	</select>
+	
+	<select id="getReceiveMail" resultMap="mailVO" parameterType="int">
+	 <![CDATA[
+		select * from receivemail where idx=#{idx}
+	]]>
+	</select>
+	<select id="getSendMail" resultMap="mailVO" parameterType="int">
+	 <![CDATA[
+		select * from sendmail where idx=#{idx}
+	]]>
+	</select>
+	
+	<insert id="insertSendMail" parameterType="mailVO">
+		<![CDATA[
+			insert into sendmail (idx,sender_idx,receiver_idx,title,content
+				,mail_idx,reply_yn)
+			values(sendmail_seq.nextval,#{sender_idx},#{receiver_idx},#{title}
+				,#{content},#{mail_idx},#{reply_yn})
+		
+		]]>
+	</insert>
+	<insert id="insertReceiveMail" parameterType="mailVO">
+		<![CDATA[
+			insert into receivemail (idx,sender_idx,receiver_idx,title,content
+				,mail_idx,reply_yn)
+			values(receivemail_seq.nextval,#{sender_idx},#{receiver_idx},#{title}
+				,#{content},#{mail_idx},#{reply_yn})
+		
+		]]>
+	</insert>
+	<insert id="sendReply" parameterType="mailVO">
+		<![CDATA[
+			insert into sendmail (idx,sender_idx,receiver_idx,title,content
+				,mail_idx,reply_yn)
+			values(sendmail_seq.nextval,#{sender_idx},#{receiver_idx},#{title}
+				,#{content},#{mail_idx},#{reply_yn})
+		
+		]]>
+	</insert>
+	<insert id="receiveReply" parameterType="mailVO">
+		<![CDATA[
+			insert into receivemail (idx,sender_idx,receiver_idx,title,content
+				,mail_idx,reply_yn)
+			values(receivemail_seq.nextval,#{sender_idx},#{receiver_idx},#{title}
+				,#{content},#{mail_idx},#{reply_yn})
+		
+		]]>
+	</insert>
+	<delete id="sendReplyAfter" parameterType="int">
+		<![CDATA[
+		 delete from receivemail where idx=#{idx}
+		]]>
+	</delete>
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+ <definition name="/mail/sendWorryList" extends="baseLayout">
+      <put-attribute name="title" value="Mail" />
+      <put-attribute name="body" value="/WEB-INF/views/mail/sendWorryList.jsp" />
+ </definition>
+ <definition name="/mail/sendReplyList" extends="baseLayout">
+      <put-attribute name="title" value="Mail" />
+      <put-attribute name="body" value="/WEB-INF/views/mail/sendReplyList.jsp" />
+  </definition>
+  
+  <definition name="/mail/receiveReplyList" extends="baseLayout">
+      <put-attribute name="title" value="Mail" />
+      <put-attribute name="body" value="/WEB-INF/views/mail/receiveReplyList.jsp" />
+  </definition>
+   <definition name="/mail/receiveWorryList" extends="baseLayout">
+      <put-attribute name="title" value="Mail" />
+      <put-attribute name="body" value="/WEB-INF/views/mail/receiveWorryList.jsp" />
+  </definition>
+  
+    <definition name="/mail/sendWorryForm" extends="baseLayout">
+      <put-attribute name="title" value="Mail" />
+      <put-attribute name="body" value="/WEB-INF/views/mail/sendWorryForm.jsp" />
+  </definition>
+  
+    <definition name="/mail/getReceiveWorry" extends="baseLayout">
+      <put-attribute name="title" value="Mail" />
+      <put-attribute name="body" value="/WEB-INF/views/mail/getReceiveWorry.jsp" />
+  </definition>
+  
+    <definition name="/mail/getReceiveReply" extends="baseLayout">
+      <put-attribute name="title" value="Mail" />
+      <put-attribute name="body" value="/WEB-INF/views/mail/getReceiveReply.jsp" />
+  </definition>
+    <definition name="/mail/getSendWorry" extends="baseLayout">
+      <put-attribute name="title" value="Mail" />
+      <put-attribute name="body" value="/WEB-INF/views/mail/getSendWorry.jsp" />
+  </definition>
+    <definition name="/mail/getSendReply" extends="baseLayout">
+      <put-attribute name="title" value="Mail" />
+      <put-attribute name="body" value="/WEB-INF/views/mail/getSendReply.jsp" />
+  </definition>
+</tiles-definitions>

@@ -27,8 +27,27 @@ function logout()
 	return;
 }
 }
-
-
+function sendMail(){
+	var isLogOn ='<c:out value="${isLogOn}"/>';
+	if(isLogOn){
+		alert(isLogOn);
+		location.href="${contextPath}/mail/sendWorryList.do";
+	}
+	if(isLogOn ==null || isLogOn==''){
+	alert("로그인후 이용할 수 있습니다.");
+	location.href="${contextPath}/member/loginForm.do";
+	}
+}
+function receiveMail(){
+	var isLogOn ='<c:out value="${isLogOn}"/>';
+	if(isLogOn){
+		location.href="${contextPath}/mail/receiveWorryList.do";
+	}
+	else{
+	alert("로그인후 이용할 수 있습니다.");
+	location.href="${contextPath}/member/loginForm.do";
+	}
+}
 </script>
 </c:if>
 <head>
@@ -47,14 +66,14 @@ function logout()
 					<div class="flex">
 
 						<div>
-							<input type="image" src="/images/icons/contact.png" width="40px" onclick="location.href='MenuCheck.jsp'"/>
+							<input type="image" src="/images/icons/contact.png" width="40px" onclick="location.href='javascript:receiveMail()'"/>
 							<h3>받은 편지함</h3>
 							<p>새로 받은 편지를 확인해보세요.</p>
 							
 						</div>
 
 						<div>
-							<input type="image" src="/images/icons/paper-plane.png" width="40px" onclick="location.href='MenuCheck.jsp'"/>
+							<input type="image" src="/images/icons/paper-plane.png" width="40px" onclick="location.href='javascript:sendMail()'"/>
 							<h3>보낸 편지함</h3>
 							<p>내가 보내 고민을 확인해보세요.</p>							
 						</div>

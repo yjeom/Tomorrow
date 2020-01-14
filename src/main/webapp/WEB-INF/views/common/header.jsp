@@ -23,8 +23,26 @@ function logout()
 	return;
 }
 }
-
-
+function sendMail(){
+	var isLogOn ='<c:out value="${isLogOn}"/>';
+	if(isLogOn){
+		location.href="${contextPath}/mail/sendWorryList.do";
+	}
+	else{
+	alert("로그인후 이용할 수 있습니다."+isLogOn);
+	location.href="${contextPath}/member/loginForm.do";
+	}
+}
+function receiveMail(){
+	var isLogOn ='<c:out value="${isLogOn}"/>';
+	if(isLogOn){
+		location.href="${contextPath}/mail/receiveWorryList.do";
+	}
+	else{
+	alert("로그인후 이용할 수 있습니다."+isLogOn);
+	location.href="${contextPath}/member/loginForm.do";
+	}
+}
 </script>
 <style>
 		input[type="submit"].tag,
@@ -77,8 +95,8 @@ function logout()
 			<header id="header">
 				<div class="inner">
 					<a href="${contextPath}/home.do" class="logo">Tomorrow is...</a>
-						<a href="MenuCheck.jsp">받은 편지함</a>
-						<a href="MenuCheck.jsp">보낸 편지함</a>
+						<a href="javascript:receiveMail()">받은 편지함</a>
+						<a href="javascript:sendMail()">보낸 편지함</a>
 						<a href="MenuCheck.jsp">To.오늘의 나</a>
 						<a href="${contextPath}/qna/qnaList.do">QnA</a>
 						<a href="${contextPath}/notice/noticeList.do">Notice</a>

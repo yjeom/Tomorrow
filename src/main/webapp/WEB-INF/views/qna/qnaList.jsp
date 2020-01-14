@@ -11,11 +11,17 @@ function paging(page) {
 	}
 
 function login(){
-	alert("로그인후 작성할 수 있습니다.");
+	var isLogOn ='<c:out value="${isLogOn}"/>';
+	if(isLogOn){
+		location.href="${contextPath}/qna/qnaForm.do";
+	}
+	else{
+	alert("로그인후 작성할 수 있습니다."+isLogOn);
 	location.href="${contextPath}/member/loginForm.do";
 	}
+}
 function read(){
-	alert("로그인후 작성할 수 있습니다.");
+	alert("로그인후 조회할 수 있습니다.");
 	location.href="${contextPath}/member/loginForm.do";
 
 	}
@@ -117,15 +123,8 @@ function read(){
                 </div>			
 
 	<br>
-		<c:choose>
-			<c:when test="${isLogOn!=null}">
-			<input type="button" value="글 작성" onclick="location='${contextPath}/qna/qnaForm.do'">
-			</c:when>
-			<c:otherwise>
 			<input type="button" value="글 작성" onclick="location='javascript:login()'">
-			</c:otherwise>
 			
-		</c:choose>
 		<br><br>
 		
 

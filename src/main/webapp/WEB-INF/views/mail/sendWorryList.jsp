@@ -10,25 +10,44 @@
 <script type="text/javascript">
 
 function paging(page) {
-		location.href="${contextPath}/notice/noticeList.do?curPage="+page;
+		location.href="${contextPath}/mail/sendWorryList.do?curPage="+page;
 		}
-
+function sendWorry(){
+	var isLogOn ='<c:out value="${isLogOn}"/>';
+	if(isLogOn){
+		location.href="${contextPath}/mail/sendWorryForm.do";
+	}
+	else{
+	alert("로그인후 작성할 수 있습니다.");
+	location.href="${contextPath}/member/loginForm.do";
+	}
+}
+function sendReply(){
+	var isLogOn ='<c:out value="${isLogOn}"/>';
+	if(isLogOn){
+		location.href="${contextPath}/mail/sendReplyList.do";
+	}
+	else{
+	alert("로그인후 이용할 수 있습니다.");
+	location.href="${contextPath}/member/loginForm.do";
+	}
+}
 	</script>
 </head>
 <body>
      <!-- Banner -->
-         <section id="banner">
-            <div class="inner">
-               <div class="flex">               
-                  <div>
-                     <img src="/images/icons/microphone.png" width="30px" /><br><br>
-                     <h3>공 지 사 항</h3>
-                        <p>관리자가 소통하는 방법입니다.<br>
-                      </p>                  
-                  </div>
-               </div>               
-            </div>
-         </section>
+   			<section id="banner">
+				<div class="inner">
+					<div class="flex">					
+						<div>
+							<img src="/images/icons/paper-plane.png" width="35px" /><br><br>
+							<h3>보 낸 고 민 함</h3>
+								<p>고민을 비워내니 좀 어떤가요?<br>
+							 </p>						
+						</div>
+					</div>					
+				</div>
+			</section>
          <br>
      <table>
 			<colgroup>
@@ -49,18 +68,18 @@ function paging(page) {
 			<tbody>
 
   <c:choose>
-  	<c:when test="${empty noticeList}">
+  	<c:when test="${empty sendWorryList}">
 		<tr>
-			<td colspan="4" align="center">등록된 공지사항이 없습니다 .</td>
+			<td colspan="3" align="center">보낸 고민 편지가 없습니다.</td>
 		</tr>
 	</c:when>
-	<c:when test="${not empty noticeList}">
-	<c:forEach  var="noticeList" items="${noticeList}" varStatus="rNum" >
+	<c:when test="${not empty sendWorryList}">
+	<c:forEach  var="sendWorryList" items="${sendWorryList}" varStatus="rNum" >
 		<tr>
-			<td>${noticeList.rnum}</td>
-			<td><a href="${contextPath}/notice/getNotice.do?idx=${noticeList.idx}">${noticeList.title }</a></td>
-			<td>${noticeList.regdate}</td>
-			<td>${noticeList.views}</td>
+			<td>${sendWorryList.rnum}</td>
+			<td><a href="${contextPath}/mail/getSendWorry.do?idx=${sendWorryList.idx}">${sendWorryList.title }</a></td>
+			<td>${sendWorryList.regdate}</td>
+			<td>${sendWorryList.views}</td>
 		</tr>
 		</c:forEach>
 	</c:when>
@@ -73,6 +92,7 @@ function paging(page) {
                     <c:if test="${paging.curPage > 1 }">
                         <a href="javascript:paging('${paging.curPage-1}')">[이전]</a> 
                     </c:if>
+                   <c:if test="${paging.totalCount>0 }">
                     <c:forEach var="pageNum" begin="${paging.startPage }" end="${paging.endPage}">
                         <c:choose>
                             <c:when test="${pageNum  eq  paging.curPage}">
@@ -83,15 +103,15 @@ function paging(page) {
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
+                   </c:if>
                     <c:if test="${paging.curPage != paging.totalPage && paging.totalPage> 0}">
                         <a href="javascript:paging('${paging.curPage+1}')">[다음]</a> 
                     </c:if>
             </div>			
 
    <br>
-   		  <c:if test="${not empty member and member.id eq 'rhksflwk'}">
-		  		<input type ="button" class="button" value="작성하기" onclick="location='${contextPath}/notice/noticeForm.do'">
-		  </c:if>
+   		  		<input type="button" class="button" value="고민 비우기" onclick="location='javascript:sendWorry()'">
+   		  		<input type="button" class="button" value="보낸 답장함" onclick="location='javascript:sendReply()'">
 	<br>
 	<br>
 </body>
