@@ -47,6 +47,7 @@ function logout()
 					<div class="flex">
 
 						<div>
+						<input type="image" src="/images/icons/alarm_rhksflwk.png" width="40px" onclick="location.href='admin_report.jsp'"/>
 							<h3>신고관리</h3>
 							
 						</div>
@@ -124,7 +125,9 @@ function logout()
                     <c:if test="${paging.curPage != paging.totalPage && paging.totalPage> 0}">
                         <a href="javascript:paging('${paging.curPage+1}')">[다음]</a> 
                     </c:if>
-                </div>		
+                </div>	
+                
+                <br><br><br>	
 
 	</body>
 </html>

@@ -32,4 +32,6 @@ public interface MailController {
 			throws DataAccessException;
 	public ModelAndView getSendReply(@RequestParam int idx,HttpServletRequest request, HttpServletResponse response)
 			throws DataAccessException;
+	public ResponseEntity deleteReceiveMail(int idx,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ResponseEntity deleteSendMail(int idx,HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

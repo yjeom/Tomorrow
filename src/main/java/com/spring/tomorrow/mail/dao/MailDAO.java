@@ -20,9 +20,14 @@ public interface MailDAO {
 	public List<MailVO> receiveWorryList(int idx,int start,int end)throws DataAccessException;
 	public int receiveReplyCount(int idx)throws DataAccessException;
 	public List<MailVO> receiveReplyList(int idx,int start,int end)throws DataAccessException;
-	public int getSendMailSeq()throws DataAccessException;
 	public MailVO getReceiveMail(int idx)throws DataAccessException;
 	public MailVO getSendMail(int idx)throws DataAccessException;
-	public void sendReplyAfter(int idx)throws DataAccessException;
+	public void deleteReceiveMail(int idx)throws DataAccessException;
+	public void deleteSendMail(int idx)throws DataAccessException;
+	public int getNewReceiveWorry(int idx)throws DataAccessException;
+	public int getNewReceiveReply(int idx)throws DataAccessException;
+	public void updateViewsSend(int idx)throws DataAccessException;
+	public void updateViewsReceive(int idx)throws DataAccessException;
+	
 
 }

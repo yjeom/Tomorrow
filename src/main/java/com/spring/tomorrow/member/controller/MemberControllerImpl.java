@@ -30,7 +30,6 @@ import com.spring.tomorrow.member.vo.MemberVO;
 @Controller("memberController")
 @EnableAspectJAutoProxy
 public class MemberControllerImpl   implements MemberController {
-//	private static final Logger logger = LoggerFactory.getLogger(MemberControllerImpl.class);
 	@Autowired
 	private MemberService memberService;
 	@Autowired
@@ -39,11 +38,6 @@ public class MemberControllerImpl   implements MemberController {
 	@RequestMapping(value="/adminHome.do" ,method = {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView listMembers(@RequestParam(defaultValue="1") int curPage,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		String viewName = getViewName(request);
-//		String viewName = (String)request.getAttribute("viewName");
-		//System.out.println("viewName: " +viewName);
-//		logger.info("viewName: "+ viewName);
-//		logger.debug("viewName: "+ viewName);
 		int totalCount=memberService.membersCount();
 		Paging paging=new Paging(totalCount, curPage);
 		

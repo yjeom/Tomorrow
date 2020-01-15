@@ -65,7 +65,12 @@ function receiveReply(){
 	<c:forEach  var="receiveWorryList" items="${receiveWorryList}" varStatus="rNum" >
 		<tr>
 			<td>${receiveWorryList.rnum}</td>
-			<td><a href="${contextPath}/mail/getReceiveWorry.do?idx=${receiveWorryList.idx}">${receiveWorryList.title }</a></td>
+			<td>
+			  <c:if test="${receiveReplyList.views==0 }">
+				<input type="image" src="/images/icons/newMessage.jpg"" width="10px" />
+			  </c:if>
+			<a href="${contextPath}/mail/getReceiveWorry.do?idx=${receiveWorryList.idx}">${receiveWorryList.title }</a>
+			</td>
 			<td>${receiveWorryList.regdate}</td>
 		</tr>
 		</c:forEach>
@@ -96,8 +101,13 @@ function receiveReply(){
                     </c:if>
             </div>			
 
-   <br>
+   <br>			<div style="postion:absolute;">
    		  		<input type="button" class="button" value="받은 답장함" onclick="location='javascript:receiveReply()'">
+   		  		<c:if test="${newReply >0 }">
+   		  		<div style="position:relative; top:-35px; left:47px;">
+							<input type="image" src="/images/icons/newMessage.jpg"" width="10px" /></div>
+   		  		</c:if>
+   		  		</div>
 	<br>
 	<br>
 </body>

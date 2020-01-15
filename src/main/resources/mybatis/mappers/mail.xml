@@ -11,7 +11,6 @@
 		<result property="receiver_idx" column="receiver_idx"/>
 		<result property="title" column="title" />
         <result property="content" column="content" />
-        <result property="mail_idx" column="mail_idx" />
         <result property="reply_yn" column="reply_yn" />
         <result property="regdate" column="regdate" />
         <result property="views" column="views" />
@@ -58,11 +57,6 @@
 		)where rownum<=1
 	]]>
 	</select>
-	<select id="getSend_idx" resultType="int">
-		<![CDATA[
-			select sendmail_seq.currval from dual
-		]]>
-	</select>
 	
 	<select id="receiveWorryList" resultMap="mailVO" parameterType="java.util.HashMap">
 	  <![CDATA[
@@ -106,22 +100,31 @@
 		select * from sendmail where idx=#{idx}
 	]]>
 	</select>
-	
+	<select id="newReceiveWorry" resultType="int" parameterType="int">
+	 <![CDATA[
+		select count(*) from receivemail where receiver_idx=#{idx} and reply_yn=0 and views=0
+	]]>
+	</select>
+	<select id="newReceiveReply" resultType="int" parameterType="int">
+	 <![CDATA[
+		select count(*) from receivemail where receiver_idx=#{idx} and reply_yn=1 and views=0
+	]]>
+	</select>
 	<insert id="insertSendMail" parameterType="mailVO">
 		<![CDATA[
 			insert into sendmail (idx,sender_idx,receiver_idx,title,content
-				,mail_idx,reply_yn)
+				,reply_yn)
 			values(sendmail_seq.nextval,#{sender_idx},#{receiver_idx},#{title}
-				,#{content},#{mail_idx},#{reply_yn})
+				,#{content},#{reply_yn})
 		
 		]]>
 	</insert>
 	<insert id="insertReceiveMail" parameterType="mailVO">
 		<![CDATA[
 			insert into receivemail (idx,sender_idx,receiver_idx,title,content
-				,mail_idx,reply_yn)
+				,reply_yn)
 			values(receivemail_seq.nextval,#{sender_idx},#{receiver_idx},#{title}
-				,#{content},#{mail_idx},#{reply_yn})
+				,#{content},#{reply_yn})
 		
 		]]>
 	</insert>
@@ -143,9 +146,25 @@
 		
 		]]>
 	</insert>
-	<delete id="sendReplyAfter" parameterType="int">
+	<delete id="deleteSendMail" parameterType="int">
+		<![CDATA[
+		 delete from sendmail where idx=#{idx}
+		]]>
+	</delete>
+	<delete id="deleteReceiveMail" parameterType="int">
 		<![CDATA[
 		 delete from receivemail where idx=#{idx}
 		]]>
 	</delete>
+	<update id="updateViewsSend" parameterType="int">
+		<![CDATA[
+		 update sendmail set views=views+1 where idx=#{idx}
+		]]>
+	</update>
+	<update id="updateViewsReceive" parameterType="int">
+		<![CDATA[
+		  update receivemail set views=views+1 where idx=#{idx}
+		]]>
+	</update>
+	
 </mapper>

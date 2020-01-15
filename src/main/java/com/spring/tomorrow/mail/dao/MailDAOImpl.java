@@ -80,10 +80,6 @@ public class MailDAOImpl implements MailDAO{
 		return sqlSession.selectList("mapper.mail.receiveReplyList",map);
 	}
 
-	public int getSendMailSeq() throws DataAccessException {
-		return sqlSession.selectOne("mapper.mail.getSend_idx");
-	}
-
 	public MailVO getReceiveMail(int idx) throws DataAccessException {
 		
 		return sqlSession.selectOne("mapper.mail.getReceiveMail",idx);
@@ -92,8 +88,28 @@ public class MailDAOImpl implements MailDAO{
 		
 		return sqlSession.selectOne("mapper.mail.getSendMail",idx);
 	}
-	public void sendReplyAfter(int idx) throws DataAccessException {
-		sqlSession.delete("mapper.mail.sendReplyAfter",idx);
+	public void deleteReceiveMail(int idx) throws DataAccessException {
+		sqlSession.delete("mapper.mail.deleteReceiveMail",idx);
+	}
+	public void deleteSendMail(int idx) throws DataAccessException {
+		sqlSession.delete("mapper.mail.deleteSendMail",idx);
+	}
+
+	public int getNewReceiveWorry(int idx) throws DataAccessException {
+		return sqlSession.selectOne("mapper.mail.newReceiveWorry", idx);
+	}
+
+	public int getNewReceiveReply(int idx) throws DataAccessException {
+		return sqlSession.selectOne("mapper.mail.newReceiveReply", idx);
+	}
+
+	public void updateViewsSend(int idx) throws DataAccessException {
+		sqlSession.update("mapper.mail.updateViewsSend",idx);
+	}
+
+	public void updateViewsReceive(int idx) throws DataAccessException {
+		sqlSession.update("mapper.mail.updateViewsReceive",idx);
+		
 	}
 
 

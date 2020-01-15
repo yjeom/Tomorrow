@@ -75,7 +75,6 @@ public class MailControllerImpl implements MailController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-			mailVO.setMail_idx(0);
 			mailService.sendWorryMail(mailVO);
 			
 		    message  = "<script>";
@@ -103,6 +102,8 @@ public class MailControllerImpl implements MailController {
 		Paging paging=new Paging(totalCount, curPage);
 		List<MailVO>receiveWorryList=mailService.receiveWorryList(member.getIdx(), paging.getStartIndex(), paging.getEndIndex());
 		mav.addObject("receiveWorryList", receiveWorryList);
+		int newReply=mailService.getNewReceiveReply(member.getIdx());
+		mav.addObject("newReply", newReply);
 		mav.setViewName("/mail/receiveWorryList");
 		return mav;
 	}
@@ -140,8 +141,8 @@ public class MailControllerImpl implements MailController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-			mailService.sendReplyMail(mailVO);
-			
+			String worryContent=request.getParameter("receiveWorry_content");
+			mailService.sendReplyMail(mailVO,worryContent);
 		    message  = "<script>";
 		    message +=" alert('답장이 전송되었습니다');";
 		    message += " location.href='"+request.getContextPath()+"/mail/sendReplyList.do';";
@@ -173,10 +174,8 @@ public class MailControllerImpl implements MailController {
 			throws DataAccessException {
 		ModelAndView mav =new ModelAndView();
 		MailVO receiveReply=mailService.getReceiveMail(idx);
-		MailVO sendWorry=mailService.getSendMail(receiveReply.getMail_idx());
 		
 		mav.addObject("receiveReply", receiveReply);
-		mav.addObject("sendWorry", sendWorry);
 		
 		mav.setViewName("/mail/getReceiveReply");
 		
@@ -191,6 +190,78 @@ public class MailControllerImpl implements MailController {
 		mav.addObject("sendReply", sendReply);
 		mav.setViewName("/mail/getSendReply");
 		return mav;
+	}
+
+	@RequestMapping(value="/mail/deleteReceiveReply.do",method=RequestMethod.POST)
+	public ResponseEntity deleteReceiveMail(@RequestParam int idx, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			mailService.deleteReceiveMail(idx);
+			
+		    message  = "<script>";
+		    message +=" alert('삭제되었습니다');";
+		    message += " location.href='"+request.getContextPath()+"/mail/receiveReplyList.do';";
+		    message += " </script>";
+		    
+		}catch(Exception e) {
+			message  = "<script>";
+		    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+		    message += " location.href='"+request.getContextPath()+"/mail/getReceiveReply.do?idx="+idx+"';";
+		    message += " </script>";
+			e.printStackTrace();
+		}
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
+	}
+	@RequestMapping(value= {"/mail/deleteSendWorry.do","/mail/deleteSendReply.do"},method=RequestMethod.POST)
+	public ResponseEntity deleteSendMail(@RequestParam int idx, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		if(request.getServletPath().equals("/mail/deleteSendWorry.do")) {
+			try {
+				mailService.deleteSendMail(idx);
+			
+				message  = "<script>";
+				message +=" alert('보낸 고민이 삭제되었습니다');";
+				message += " location.href='"+request.getContextPath()+"/mail/sendWorryList.do';";
+				message += " </script>";
+		    
+			}catch(Exception e) {
+				message  = "<script>";
+				message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+				message += " location.href='"+request.getContextPath()+"/mail/getSendWorry.do?idx="+idx+"';";
+				message += " </script>";
+				e.printStackTrace();
+			}
+		
+		}
+		else {
+			try {
+				mailService.deleteSendMail(idx);
+			
+				message  = "<script>";
+				message +=" alert('보낸 답장이 삭제되었습니다');";
+				message += " location.href='"+request.getContextPath()+"/mail/sendReplyList.do';";
+				message += " </script>";
+		    
+			}catch(Exception e) {
+				message  = "<script>";
+				message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+				message += " location.href='"+request.getContextPath()+"/mail/getSendReply.do?idx="+idx+"';";
+				message += " </script>";
+				e.printStackTrace();
+			}
+		
+		}
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
 	}
 
 }

@@ -13,7 +13,6 @@ public class MailVO {
 	private int receiver_idx;
 	private String title;
 	private String content;
-	private int mail_idx;
 	private int reply_yn;
 	private Date regdate;
 	private int views;
@@ -53,12 +52,6 @@ public class MailVO {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public int getMail_idx() {
-		return mail_idx;
-	}
-	public void setMail_idx(int mail_idx) {
-		this.mail_idx = mail_idx;
 	}
 	public int getReply_yn() {
 		return reply_yn;

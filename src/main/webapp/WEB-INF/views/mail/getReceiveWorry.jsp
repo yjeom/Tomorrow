@@ -82,20 +82,17 @@ function inputCheck()
 		<br> 
 	
 
-				<footer>
 						<center><input type="submit" class="button" value="답장하기">
 						<input type="button" class="button" value="목록으로" onclick="location='${contextPath}/mail/receiveWorryList.do'">
 						</center>
 					<input type="hidden" id="idx" name="idx" value="${receiveWorry.idx }"> 
 					<input type="hidden" id="receiver_idx" name="receiver_idx" value="${receiveWorry.sender_idx }"> 
 					<input type="hidden" id="sender_idx" name="sender_idx" value="${member.idx}"> 
-					<input type="hidden" id="mail_idx" name="mail_idx" value="${receiveWorry.mail_idx }"> 
 					<input type="hidden" id="reply_yn" name="reply_yn" value=1>
-						
-					</footer>
-
+					<input type="hidden" id="receiveWorry_content" name="receiveWorry_content" value="${receiveWorry.content}">
 	
 	</form>
+	<br><br><br>
 
 </body>
 </html>

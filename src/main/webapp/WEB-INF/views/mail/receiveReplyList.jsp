@@ -65,7 +65,12 @@ function receiveWorry(){
 	<c:forEach  var="receiveReplyList" items="${receiveReplyList}" varStatus="rNum" >
 		<tr>
 			<td>${receiveReplyList.rnum}</td>
-			<td><a href="${contextPath}/mail/getReceiveReply.do?idx=${receiveReplyList.idx}">${receiveReplyList.title }</a></td>
+			<td>
+			<c:if test="${receiveReplyList.views==0 }">
+				<input type="image" src="/images/icons/newMessage.jpg"" width="10px" />
+			</c:if>
+			<a href="${contextPath}/mail/getReceiveReply.do?idx=${receiveReplyList.idx}">${receiveReplyList.title }</a>
+			</td>
 			<td>${receiveReplyList.regdate}</td>
 		</tr>
 		</c:forEach>

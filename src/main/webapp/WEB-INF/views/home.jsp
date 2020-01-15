@@ -66,7 +66,15 @@ function receiveMail(){
 					<div class="flex">
 
 						<div>
+						<c:choose>
+							<c:when test="${newWorry >0}">
+							<input type="image" src="/images/icons/new.gif" width="40px" onclick="location.href='javascript:receiveMail()'">
+							</c:when>
+							<c:otherwise>
 							<input type="image" src="/images/icons/contact.png" width="40px" onclick="location.href='javascript:receiveMail()'"/>
+							</c:otherwise>
+						</c:choose>
+						
 							<h3>받은 편지함</h3>
 							<p>새로 받은 편지를 확인해보세요.</p>
 							

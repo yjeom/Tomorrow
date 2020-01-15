@@ -40,8 +40,6 @@ public class MailServiceImpl implements MailService{
 		int receiver=mailDAO.getRandomReceiver(mailVO.getSender_idx());//랜덤으로 회원 추첨
 		mailVO.setReceiver_idx(receiver);
 		mailDAO.insertSendMail(mailVO);//보내는 메일함 DB에 저장
-		int mail_idx=mailDAO.getSendMailSeq();//직전에 저장한 보내는 메일함 idx받아오기
-		mailVO.setMail_idx(mail_idx);
 		mailDAO.insertReceiveMail(mailVO);//받는 메일함 DB에 저장
 	}
 	public int receiveWorryCount(int idx) throws DataAccessException {
@@ -64,17 +62,39 @@ public class MailServiceImpl implements MailService{
 	}
 
 	public MailVO getReceiveMail(int idx) throws DataAccessException {
+		mailDAO.updateViewsReceive(idx);
 		return mailDAO.getReceiveMail(idx);
 	}
 	public MailVO getSendMail(int idx) throws DataAccessException {
+		mailDAO.updateViewsSend(idx);
 		return mailDAO.getSendMail(idx);
 	}
 
-	public void sendReplyMail(MailVO mailVO) throws DataAccessException {
+	public void sendReplyMail(MailVO mailVO,String worryContent) throws DataAccessException {
 		mailDAO.insertSendMail(mailVO);
+		String content="========== 내가 보냈던 고민 =========="
+				+"\n\n"+worryContent
+				  +"\n\n=============================\n\n";
+		mailVO.setContent(content+mailVO.getContent());
 		mailDAO.insertReceiveMail(mailVO);
-		mailDAO.sendReplyAfter(mailVO.getIdx());
+		mailDAO.deleteReceiveMail(mailVO.getIdx());
 		
+	}
+
+	public int getNewReceiveWorry(int idx) throws DataAccessException {
+		return mailDAO.getNewReceiveWorry(idx);
+	}
+
+	public int getNewReceiveReply(int idx) throws DataAccessException {
+		return mailDAO.getNewReceiveReply(idx);
+	}
+
+	public void deleteSendMail(int idx) throws DataAccessException {
+		mailDAO.deleteSendMail(idx);
+	}
+
+	public void deleteReceiveMail(int idx) throws DataAccessException {
+		mailDAO.deleteReceiveMail(idx);
 	}
 
 }

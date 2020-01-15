@@ -45,23 +45,6 @@ function del()
 		</section>
 <br>
 	<br><br>
-	<div class="inner">
-			<div class="field">
-					
-					<label for="name">°í¹Î Á¦¸ñ</label>
-					<div style="position:absolute">
-							<div style="position:relative; top:-40px; left:20px;">
-							<img src="/images/icons/alarm.png" width="20px" onclick="report()"/>
-						</div></div> 
-					<input type="text" size="248" value="${sendWorry.title }" readonly>
-			
-				<br>
-							<label for="contents">°í¹Î ³»¿ë</label>
-							<textarea rows="15" readonly>${sendWorry.content }</textarea>
-			</div>		
-	</div>
-			
-	<br><br><br>
 		
 			<center>
 	<form name="deleRe" class="form" action="${contextPath }/mail/deleteReceiveReply.do" method="post" onsubmit="return del()">
