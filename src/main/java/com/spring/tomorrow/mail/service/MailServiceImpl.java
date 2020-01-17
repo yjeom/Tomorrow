@@ -97,4 +97,21 @@ public class MailServiceImpl implements MailService{
 		mailDAO.deleteReceiveMail(idx);
 	}
 
+	public void report(MailVO mailVO) throws DataAccessException {
+		mailDAO.reportAdmin(mailVO);
+		mailDAO.deleteReceiveMail(mailVO.getIdx());
+	}
+
+	public List<MailVO> reportList(int idx, int start, int end) throws DataAccessException {
+		return mailDAO.reportList(idx, start, end);
+	}
+
+	public int reportCount(int idx) throws DataAccessException {
+		return mailDAO.reportCount(idx);
+	}
+
+	public int newReport(int idx) throws DataAccessException {
+		return mailDAO.newReport(idx);
+	}
+
 }

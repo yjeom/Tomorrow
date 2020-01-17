@@ -38,8 +38,8 @@ public class MemberDAOImpl implements MemberDAO {
 		return result;
 	}
 
-	public int deleteMember(String id) throws DataAccessException {
-		int result = sqlSession.delete("mapper.member.deleteMember", id);
+	public int deleteMember(int idx) throws DataAccessException {
+		int result = sqlSession.delete("mapper.member.deleteMember", idx);
 		return result;
 	}
 	
@@ -51,6 +51,15 @@ public class MemberDAOImpl implements MemberDAO {
 	public String idCheck(String id) throws DataAccessException {
 		id=sqlSession.selectOne("mapper.member.joinIdCheck", id);
 		return id;
+	}
+
+	public void updateReportCount(int idx) throws DataAccessException {
+		sqlSession.update("mapper.member.updateReportCount",idx);
+	}
+
+	public void updateReportCheck(int idx) throws DataAccessException {
+		sqlSession.update("mapper.member.updateReportCheck",idx);
+		
 	}
 
 

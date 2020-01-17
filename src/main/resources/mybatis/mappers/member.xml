@@ -72,25 +72,22 @@
 	     id=#{id}
       ]]>      
    </update> 
-   <update id="updateReportCount"  parameterType="memberVO">
+   <update id="updateReportCount"  parameterType="int">
      <![CDATA[
 	    update member 
 	    set report_count=report_count+1 
-	    where id=#{id}
+	    where idx=#{idx}
       ]]>      
    </update> 
-   <update id="updateReportCheck"  parameterType="memberVO">
+   <update id="updateReportCheck"  parameterType="int">
      <![CDATA[
 	   update member 
-	   set report_check=report_check+1 where id=#{id}
+	   set report_check=report_check+1 where idx=#{idx}
       ]]>      
    </update> 
-     
-   <delete id="deleteMember"  parameterType="String">
+   <delete id="deleteMember"  parameterType="int">
 	<![CDATA[
-	   delete from  member
-	   where
-	   id=#{id}
+	   delete from  member where idx=#{idx}
 	]]>      
   </delete>
 </mapper>

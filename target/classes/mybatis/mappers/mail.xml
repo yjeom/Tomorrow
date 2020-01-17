@@ -12,15 +12,29 @@
 		<result property="title" column="title" />
         <result property="content" column="content" />
         <result property="reply_yn" column="reply_yn" />
+        <result property="reporter_idx" column="reporter_idx" />
         <result property="regdate" column="regdate" />
         <result property="views" column="views" />
 	</resultMap> 
-	 
+	 	<resultMap id="reportMailVO" type="mailVO">
+		<result property="rnum" column="rnum"/>
+		<result property="idx" column="idx"/>
+		<result property="sender_idx" column="sender_idx"/>
+		<result property="receiver_idx" column="receiver_idx"/>
+		<result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="reply_yn" column="reply_yn" />
+        <result property="reporter_idx" column="reporter_idx" />
+        <result property="regdate" column="regdate" />
+        <result property="views" column="views" />
+        <result property="reporter" column="reporter" />
+        <result property="sender" column="sender" />
+	</resultMap> 
 	 <select id="sendWorryList" resultMap="mailVO" parameterType="java.util.HashMap">
 	  <![CDATA[
 	 	select * from(
  			select rownum as rnum,sendmail.* from sendmail
- 			where sender_idx=#{sender_idx} and reply_yn=0
+ 			where sender_idx=#{sender_idx} and reply_yn=0 
  			order by idx desc
 		)where rnum between #{start}and #{end}
 	]]>
@@ -28,7 +42,7 @@
 	 
 	<select id="sendWorryCount" resultType="int" parameterType="int">
 	 <![CDATA[
-	select count(*) from sendmail where sender_idx=#{sender_idx} and reply_yn=0
+	select count(*) from sendmail where sender_idx=#{sender_idx} and reply_yn=0 
 	]]>
 	</select>
 	
@@ -36,7 +50,7 @@
 	  <![CDATA[
 	 	select * from(
  			select rownum as rnum,sendmail.* from sendmail
- 			where sender_idx=#{sender_idx} and reply_yn=1
+ 			where sender_idx=#{sender_idx} and reply_yn=1 
  			order by idx desc
 		)where rnum between #{start}and #{end}
 	]]>
@@ -44,7 +58,7 @@
 	 
 	<select id="sendReplyCount" resultType="int" parameterType="int">
 	 <![CDATA[
-	select count(*) from sendmail where sender_idx=#{sender_idx} and reply_yn=1
+	select count(*) from sendmail where sender_idx=#{sender_idx} and reply_yn=1 
 	]]>
 	</select>
 	
@@ -62,7 +76,7 @@
 	  <![CDATA[
 	 	select * from(
  			select rownum as rnum,receivemail.* from receivemail
- 			where receiver_idx=#{receiver_idx} and reply_yn=0
+ 			where receiver_idx=#{receiver_idx} and reply_yn=0 
  			order by idx desc
 		)where rnum between #{start}and #{end}
 	]]>
@@ -78,7 +92,7 @@
 	  <![CDATA[
 	 	select * from(
  			select rownum as rnum,receivemail.* from receivemail
- 			where receiver_idx=#{receiver_idx} and reply_yn=1
+ 			where receiver_idx=#{receiver_idx} and reply_yn=1 
  			order by idx desc
 		)where rnum between #{start}and #{end}
 	]]>
@@ -86,7 +100,7 @@
 	 
 	<select id="receiveReplyCount" resultType="int" parameterType="int">
 	 <![CDATA[
-	select count(*) from receivemail where receiver_idx=#{receiver_idx} and reply_yn=1
+	select count(*) from receivemail where receiver_idx=#{receiver_idx} and reply_yn=1 
 	]]>
 	</select>
 	
@@ -102,12 +116,36 @@
 	</select>
 	<select id="newReceiveWorry" resultType="int" parameterType="int">
 	 <![CDATA[
-		select count(*) from receivemail where receiver_idx=#{idx} and reply_yn=0 and views=0
+		select count(*) from receivemail where receiver_idx=#{idx} and reply_yn=0 and views=0 
 	]]>
 	</select>
 	<select id="newReceiveReply" resultType="int" parameterType="int">
 	 <![CDATA[
-		select count(*) from receivemail where receiver_idx=#{idx} and reply_yn=1 and views=0
+		select count(*) from receivemail where receiver_idx=#{idx} and reply_yn=1 and views=0 
+	]]>
+	</select>
+	
+	<select id="newReport" resultType="int" parameterType="int">
+	 <![CDATA[
+		select count(*) from receivemail where receiver_idx=#{idx} and  views=0 
+	]]>
+	</select>
+	
+	<select id="reportList" resultMap="reportMailVO" parameterType="java.util.HashMap">
+	 <![CDATA[
+		select * from(
+ 			select rownum as rnum,receivemail.*,
+            (select id from member where idx=reporter_idx)as reporter,
+            (select id from member where idx=sender_idx)as sender
+            from receivemail
+ 			where receiver_idx=#{idx}
+ 			order by idx desc
+		)where rnum between #{start} and #{end}
+	]]>
+	</select>
+	<select id="reportCount" resultType="int" parameterType="int">
+	 <![CDATA[
+		select count(*) from receivemail where receiver_idx=#{idx}
 	]]>
 	</select>
 	<insert id="insertSendMail" parameterType="mailVO">
@@ -128,21 +166,12 @@
 		
 		]]>
 	</insert>
-	<insert id="sendReply" parameterType="mailVO">
-		<![CDATA[
-			insert into sendmail (idx,sender_idx,receiver_idx,title,content
-				,mail_idx,reply_yn)
-			values(sendmail_seq.nextval,#{sender_idx},#{receiver_idx},#{title}
-				,#{content},#{mail_idx},#{reply_yn})
-		
-		]]>
-	</insert>
-	<insert id="receiveReply" parameterType="mailVO">
+	<insert id="reportAdmin" parameterType="mailVO">
 		<![CDATA[
 			insert into receivemail (idx,sender_idx,receiver_idx,title,content
-				,mail_idx,reply_yn)
+				,reply_yn,reporter_idx)
 			values(receivemail_seq.nextval,#{sender_idx},#{receiver_idx},#{title}
-				,#{content},#{mail_idx},#{reply_yn})
+				,#{content},#{reply_yn},#{reporter_idx})
 		
 		]]>
 	</insert>

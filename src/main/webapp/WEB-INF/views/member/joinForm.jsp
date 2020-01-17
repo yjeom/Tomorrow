@@ -6,7 +6,7 @@
 <html>
 <head>
 <script type="text/javascript">
-
+var contextPath= '<c:out value="${contextPath}"/>';
 function idCheck() {
 	if (document.regFrm.id.value== "") {
 		alert("아이디를 입력해 주세요.");
@@ -15,7 +15,7 @@ function idCheck() {
 	}
 	
 		var uid = document.regFrm.id.value;
-		var url = "${contextPath}/member/idCheck.do?id=" + uid;
+		var url = contextPath+"/member/idCheck.do?id=" + uid;
 		window.open(url, "IDCheck","left=600, top=100, width=500, height=400, resizable=no, toolbar=no, manubar=no ");
 	
 	

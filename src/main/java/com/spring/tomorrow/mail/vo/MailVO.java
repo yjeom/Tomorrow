@@ -14,9 +14,24 @@ public class MailVO {
 	private String title;
 	private String content;
 	private int reply_yn;
+	private int reporter_idx;
 	private Date regdate;
 	private int views;
+	private String reporter;
+	private String sender;
 	
+	public String getReporter() {
+		return reporter;
+	}
+	public void setReporter(String reporter) {
+		this.reporter = reporter;
+	}
+	public String getSender() {
+		return sender;
+	}
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
 	public int getRnum() {
 		return rnum;
 	}
@@ -58,6 +73,12 @@ public class MailVO {
 	}
 	public void setReply_yn(int reply_yn) {
 		this.reply_yn = reply_yn;
+	}
+	public int getReporter_idx() {
+		return reporter_idx;
+	}
+	public void setReporter_idx(int reporter_idx) {
+		this.reporter_idx = reporter_idx;
 	}
 	public Date getRegdate() {
 		return regdate;

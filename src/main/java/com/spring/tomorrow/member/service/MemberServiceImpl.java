@@ -33,15 +33,23 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.insertMember(member);
 	}
 
-	public int removeMember(String id) throws DataAccessException {
-		return memberDAO.deleteMember(id);
+	public int removeMember(int idx) throws DataAccessException {
+		return memberDAO.deleteMember(idx);
 	}
 	
-	public MemberVO login(MemberVO memberVO) throws Exception{
+	public MemberVO login(MemberVO memberVO) throws DataAccessException{
 		return memberDAO.login(memberVO);
 	}
 	public String idCheck(String id) throws DataAccessException {
 		return memberDAO.idCheck(id);
+	}
+	public void reportMember(int idx) throws DataAccessException {
+		memberDAO.updateReportCount(idx);
+		
+	}
+	public void reportCheck(int idx) throws DataAccessException {
+		memberDAO.updateReportCheck(idx);
+		
 	}
 
 

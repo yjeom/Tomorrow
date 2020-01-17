@@ -1,19 +1,40 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"   pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<c:if test='${not empty msg }'>
+<c:if test='${isLogOn==true}'>
 <script>
 window.onload=function()
 {
-  result();
+	var report = '<c:out value="${member.report_count}"/>';
+	var check = '<c:out value="${member.report_check}"/>';
+	var contextPath= '<c:out value="${contextPath}"/>';
+	if(5<=report && report<10 && check==0)
+		{
+			alert("현재 회원님은 5회 이상 신고가 들어왔습니다. \n10회 이상시 자동으로 탈퇴처리 됩니다.");
+			location.href=contextPath+"/member/reportCheck.do";
+
+		}
+	if(7<=report && report<10 && check==1)
+		{
+
+				alert("현재 회원님은 7회 이상 신고가 들어왔습니다. \n10회 이상시 자동으로 탈퇴처리 됩니다.");
+				location.href=contextPath+"/member/reportCheck.do";
+
+	    }
+	
+ if(report>=10){
+		alert("현재 회원님은 10회 이상 신고가 들어와 회원님의 계정을 삭제하겠습니다.");
+		location.href=contextPath+"/member/removeMember.do";
+
+	}
 }
 function result(){
 	alert("${msg}");
 }
 </script>
+</c:if>
 <script type="text/javascript">
 function logout()
 {
@@ -49,15 +70,14 @@ function receiveMail(){
 	}
 }
 </script>
-</c:if>
 <head>
 
 
 		<title>Tomorrow is...</title>
 
 	</head>
-	<body>
-
+	<body >
+	
 
 		<!-- Banner -->
 			<section id="banner">

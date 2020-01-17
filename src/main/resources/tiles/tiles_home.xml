@@ -15,9 +15,9 @@
       <put-attribute name="body" value="/WEB-INF/views/home.jsp" />
    </definition>
 
-   <definition name="/adminHome" extends="baseLayout">
+   <definition name="/admin/adminHome" extends="baseLayout">
       <put-attribute name="title" value="Tomorrow is..." />
-      <put-attribute name="body" value="/WEB-INF/views/adminHome.jsp" />
+      <put-attribute name="body" value="/WEB-INF/views/admin/adminHome.jsp" />
    </definition>
 
 </tiles-definitions>

@@ -44,4 +44,13 @@
       <put-attribute name="title" value="Mail" />
       <put-attribute name="body" value="/WEB-INF/views/mail/getSendReply.jsp" />
   </definition>
+  
+     <definition name="/admin/reportList" extends="baseLayout">
+      <put-attribute name="title" value="Report" />
+      <put-attribute name="body" value="/WEB-INF/views/admin/reportList.jsp" />
+  </definition>
+     <definition name="/admin/getReport" extends="baseLayout">
+      <put-attribute name="title" value="Report" />
+      <put-attribute name="body" value="/WEB-INF/views/admin/getReport.jsp" />
+  </definition>
 </tiles-definitions>

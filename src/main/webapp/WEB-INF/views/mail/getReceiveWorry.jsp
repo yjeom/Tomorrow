@@ -10,13 +10,13 @@
 <meta charset="utf-8" />
 </head>
 <script type="text/javascript">
-
+var contextPath= '<c:out value="${contextPath}"/>';
 function inputCheck()
 {
 	var isLogOn='<c:out value="${isLogOn}"/>';
 	if(isLogOn ==''||isLogOn==null){
 		alert("세션만료로 로그아웃되었습니다.다시 로그인후 이용해주세요"+isLogOn);
-		location.href="${contextPath}/member/loginForm.do";
+		location.href=contextPath+"/member/loginForm.do";
 		return false;
 	}
 	else if(document.sendReply.contents.value=="")
@@ -26,7 +26,12 @@ function inputCheck()
 			return false;
 		}
 }
-
+function report(){
+	var ok=confirm("이 편지를 신고하시겠습니까?\n신고후에 편지는 자동으로 삭제됩니다.");
+	if(ok){
+		document.reportForm.submit();
+	}
+}
 </script>
 	</head>
 	
@@ -52,9 +57,20 @@ function inputCheck()
 					
 					<label for="name">고민 제목</label>
 					<div style="position:absolute">
-							<div style="position:relative; top:-40px; left:20px;">
-							<img src="/images/icons/alarm.png" width="20px" onclick="report()"/>
-						</div></div> 
+					  <div style="position:relative; top:-40px; left:20px;">
+					  <form name="reportForm" action="${contextPath }/mail/reportWorry.do" method="post">
+						<button type="button" class="report" onclick="location.href='javascript:report()'"><img src="/images/icons/alarm.png"width="20px" />
+						 신고하기
+						</button>
+						<input type="hidden" name="idx" id="idx" value="${receiveWorry.idx }">
+						<input type="hidden" name="sender_idx" id="sender_idx" value="${receiveWorry.sender_idx }">
+						<input type="hidden" name="receiver_idx" id="receiver_idx" value=1>
+						<input type="hidden" name="title" id="title" value="${receiveWorry.title}">
+						<input type="hidden" name="content" id="content" value="${receiveWorry.content}">
+						<input type="hidden" name="reply_yn" id="reply_yn" value="${receiveWorry.reply_yn}">
+						<input type="hidden" name="reporter_idx" id="reporter_idx" value="${member.idx }">
+					</form>
+					 </div></div> 
 					<input type="text" size="248" value="${receiveWorry.title }" readonly>
 			
 				<br>
@@ -62,7 +78,6 @@ function inputCheck()
 							<textarea rows="15" readonly>${receiveWorry.content }</textarea>
 			</div>		
 	</div>
-			
 	<br><br><br>
 		
 			<center>

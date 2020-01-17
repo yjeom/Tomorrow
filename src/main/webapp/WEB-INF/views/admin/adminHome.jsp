@@ -6,33 +6,10 @@
 <html>
 
 	<head>
-<c:if test='${not empty msg }'>
-<script>
-window.onload=function()
-{
-  result();
-}
-function result(){
-	alert("${msg}");
-}
-</script>
-</c:if>
 <script type="text/javascript">
-
+var contextPath= '<c:out value="${contextPath}"/>';
 function paging(page) {
-		location.href="${contextPath}/adminHome.do?curPage="+page;
-		}
-function logout()
-		{
-			if(confirm("로그아웃 하시겠습니까?")==true)
-		{
-
-			location.href="${contextPath}/member/logout.do";
-		}
-			else
-		{
-			return;
-		}
+		location.href=contextPath+"/adminHome.do?curPage="+page;
 		}
 
 
@@ -47,7 +24,14 @@ function logout()
 					<div class="flex">
 
 						<div>
-						<input type="image" src="/images/icons/alarm_rhksflwk.png" width="40px" onclick="location.href='admin_report.jsp'"/>
+						<c:choose>
+							<c:when test="${newReport>0}">
+							<input type="image" src="/images/icons/siren_rhksflwk.gif" width="40px" onclick="location.href='${contextPath}/admin/reportList.do'">
+							</c:when>
+							<c:otherwise>
+							<input type="image" src="/images/icons/alarm_rhksflwk.png" width="40px" onclick="location.href='${contextPath}/admin/reportList.do'"/>
+							</c:otherwise>
+						</c:choose>
 							<h3>신고관리</h3>
 							
 						</div>

@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,68 +9,64 @@
 <script type="text/javascript">
 var contextPath= '<c:out value="${contextPath}"/>';
 function paging(page) {
-		location.href=contextPath+"/mail/receiveReplyList.do?curPage="+page;
+		location.href=contextPath+"/admin/reportList.do?curPage="+page;
 		}
-function receiveWorry(){
-	var isLogOn ='<c:out value="${isLogOn}"/>';
-	if(isLogOn){
-		location.href=contextPath+"/mail/receiveWorryList.do";
-	}
-	else{
-	alert("로그인후 이용할 수 있습니다.");
-	location.href=contextPath+"/member/loginForm.do";
-	}
-}
+
 	</script>
 </head>
 <body>
      <!-- Banner -->
-   				<section id="banner">
+   			<section id="banner">
 				<div class="inner">
 					<div class="flex">					
 						<div>
-							<img src="/images/icons/contact.png" width="30px" /><br><br>
-							<h3>받 은 답 장 함</h3>
-							<p>누군가의 위로가 당신에게 도착했습니다.<br>
-							 </p>							
+							<img src="/images/icons/alarm_rhksflwk.png" width="30px" /><br>
+							<h3>신 고 관 리</h3>
+													
 						</div>
 					</div>					
 				</div>
 			</section>
          <br>
      <table>
-			<colgroup>
-			<col width="20%" />
+		<colgroup>
+			<col width="10%" />
+			<col width="10%" />
 			<col width="60%" />
-			<col width="20%" />
-			</colgroup>
+			<col width="10%" />
+			<col width="10%" />
+		</colgroup>
 			<thead>
 				<tr>
-					<th>No.</th>
-					<th>TITLE</th>
-					<th>DATE</th>
-				</tr>
+				<th>No.</th>
+				<th>신고한 회원</th>
+				<th>글 제목</th>
+				<th>신고 당한 회원</th>
+				<th>신고 날짜</th>
+			</tr>
 			</thead>
 
 			<tbody>
 
   <c:choose>
-  	<c:when test="${empty receiveReplyList}">
+  	<c:when test="${empty reportList}">
 		<tr>
-			<td colspan="3" align="center">받은 답장 편지가 없습니다.</td>
+			<td colspan="4" align="center">신고된 편지가 없습니다</td>
 		</tr>
 	</c:when>
-	<c:when test="${not empty receiveReplyList}">
-	<c:forEach  var="receiveReplyList" items="${receiveReplyList}" varStatus="rNum" >
+	<c:when test="${not empty reportList}">
+	<c:forEach  var="reportList" items="${reportList}" varStatus="rNum" >
 		<tr>
-			<td>${receiveReplyList.rnum}</td>
+			<td>${reportList.rnum}</td>
+			<td>${reportList.reporter}</td>
 			<td>
-			<c:if test="${receiveReplyList.views==0 }">
+			  <c:if test="${reportList.views==0 }">
 				<input type="image" src="/images/icons/newMessage.jpg"" width="10px" />
-			</c:if>
-			<a href="${contextPath}/mail/getReceiveReply.do?idx=${receiveReplyList.idx}">${receiveReplyList.title }</a>
+			  </c:if>
+			<a href="${contextPath}/admin/getReport.do?idx=${reportList.idx}">${reportList.title }</a>
 			</td>
-			<td>${receiveReplyList.regdate}</td>
+			<td>${reportList.sender}</td>
+			<td>${reportList.regdate}</td>
 		</tr>
 		</c:forEach>
 	</c:when>
@@ -101,8 +96,6 @@ function receiveWorry(){
                     </c:if>
             </div>			
 
-   <br>
-   		  		<input type="button" class="button" value="받은 고민함" onclick="location='javascript:receiveWorry()'">
 	<br>
 	<br>
 </body>

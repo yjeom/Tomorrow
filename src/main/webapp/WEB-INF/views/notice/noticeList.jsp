@@ -8,9 +8,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <script type="text/javascript">
-
+var contextPath= '<c:out value="${contextPath}"/>';
 function paging(page) {
-		location.href="${contextPath}/notice/noticeList.do?curPage="+page;
+		location.href=contextPath+"/notice/noticeList.do?curPage="+page;
 		}
 
 	</script>

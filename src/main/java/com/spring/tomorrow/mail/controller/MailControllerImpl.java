@@ -134,7 +134,7 @@ public class MailControllerImpl implements MailController {
 	}
 
 	@RequestMapping(value="/mail/sendReply.do", method=RequestMethod.POST)
-	public ResponseEntity sendReply(MailVO mailVO, HttpServletRequest request, HttpServletResponse response)
+	public ResponseEntity sendReply(@ModelAttribute MailVO mailVO, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String message = null;
 		ResponseEntity resEntity = null;
@@ -192,14 +192,15 @@ public class MailControllerImpl implements MailController {
 		return mav;
 	}
 
-	@RequestMapping(value="/mail/deleteReceiveReply.do",method=RequestMethod.POST)
+	@RequestMapping(value= {"/mail/deleteReceiveReply.do","/mail/deleteReceiveReport"},method= {RequestMethod.POST,RequestMethod.GET})
 	public ResponseEntity deleteReceiveMail(@RequestParam int idx, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String message = null;
 		ResponseEntity resEntity = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-		try {
+		if(request.getServletPath().equals("/mail/deleteReceiveReply.do")) {
+			try {
 			mailService.deleteReceiveMail(idx);
 			
 		    message  = "<script>";
@@ -207,12 +208,29 @@ public class MailControllerImpl implements MailController {
 		    message += " location.href='"+request.getContextPath()+"/mail/receiveReplyList.do';";
 		    message += " </script>";
 		    
-		}catch(Exception e) {
+			}catch(Exception e) {
 			message  = "<script>";
 		    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
 		    message += " location.href='"+request.getContextPath()+"/mail/getReceiveReply.do?idx="+idx+"';";
 		    message += " </script>";
 			e.printStackTrace();
+			}
+		}
+		else {
+			try {
+				mailService.deleteReceiveMail(idx);
+				
+			    message  = "<script>";
+			    message += " location.href='"+request.getContextPath()+"/admin/reportList.do';";
+			    message += " </script>";
+			    
+				}catch(Exception e) {
+				message  = "<script>";
+			    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+			    message += " location.href='"+request.getContextPath()+"/admin/getReport.do?idx="+idx+"';";
+			    message += " </script>";
+				e.printStackTrace();
+				}
 		}
 		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
@@ -262,6 +280,79 @@ public class MailControllerImpl implements MailController {
 		}
 		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
+	}
+
+	@RequestMapping(value= {"/mail/reportWorry.do","/mail/reportReply.do"},method=RequestMethod.POST)
+	public ResponseEntity report(@ModelAttribute MailVO mailVO, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		if(request.getServletPath().equals("/mail/reportWorry.do")) {
+			try {
+				mailService.report(mailVO);
+			
+				message  = "<script>";
+				message +=" alert('해당 편지가 신고되었습니다');";
+				message += " location.href='"+request.getContextPath()+"/mail/receiveWorryList.do';";
+				message += " </script>";
+		    
+			}catch(Exception e) {
+				message  = "<script>";
+				message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+				message += " location.href='"+request.getContextPath()+"/mail/getReceiveWorry.do?idx="+mailVO.getIdx()+"';";
+				message += " </script>";
+				e.printStackTrace();
+			}
+		
+		}
+		else {
+			try {
+				mailService.report(mailVO);
+			
+				message  = "<script>";
+				message +=" alert('해당 편지가 신고되었습니다');";
+				message += " location.href='"+request.getContextPath()+"/mail/receiveReplyList.do';";
+				message += " </script>";
+		    
+			}catch(Exception e) {
+				message  = "<script>";
+				message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+				message += " location.href='"+request.getContextPath()+"/mail/getReceiveReply.do?idx="+mailVO.getIdx()+"';";
+				message += " </script>";
+				e.printStackTrace();
+			}
+		
+		}
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
+	}
+
+	@RequestMapping(value="/admin/reportList",method=RequestMethod.GET)
+	public ModelAndView reportList(@RequestParam(defaultValue="1")int curPage, HttpServletRequest request, HttpServletResponse response)
+			throws DataAccessException {
+		HttpSession session = request.getSession();
+		MemberVO member=(MemberVO) session.getAttribute("member");
+		ModelAndView mav=new ModelAndView();
+		int totalCount=mailService.reportCount(member.getIdx());
+		Paging paging=new Paging(totalCount, curPage);
+		List<MailVO> reportList=mailService.reportList(member.getIdx(), paging.getStartIndex(),paging.getEndIndex());
+		mav.addObject("paging", paging);
+		mav.addObject("reportList", reportList);
+		mav.setViewName("/admin/reportList");
+		return mav;
+	}
+	
+	@RequestMapping(value="/admin/getReport.do",method=RequestMethod.GET)
+	public ModelAndView getReport(@RequestParam int idx, HttpServletRequest request, HttpServletResponse response)
+			throws DataAccessException {
+		ModelAndView mav=new ModelAndView();
+		MailVO report=mailService.getReceiveMail(idx);
+		mav.addObject("report", report);
+		mav.setViewName("/admin/getReport");
+		
+		return mav;
 	}
 
 }

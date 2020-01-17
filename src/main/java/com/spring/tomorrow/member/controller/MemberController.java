@@ -15,10 +15,12 @@ public interface MemberController {
 	public ModelAndView listMembers(@RequestParam(defaultValue="1") int curPage,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity addMember(@ModelAttribute("info") MemberVO memberVO,
 			HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView removeMember(@RequestParam("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView removeMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView login(@ModelAttribute("member") MemberVO member,
                               RedirectAttributes rAttr,
                               HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView idCheck(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ResponseEntity reportMember(int member_idx,int receive_idx,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView reportCheck(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

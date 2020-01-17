@@ -1,5 +1,7 @@
 package com.spring.tomorrow.mail.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,4 +36,9 @@ public interface MailController {
 			throws DataAccessException;
 	public ResponseEntity deleteReceiveMail(int idx,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity deleteSendMail(int idx,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ResponseEntity report(MailVO mailVO,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView reportList(@RequestParam(defaultValue="1") int curPage,HttpServletRequest request, HttpServletResponse response)
+			throws DataAccessException;
+	public ModelAndView getReport(@RequestParam int idx,HttpServletRequest request, HttpServletResponse response)
+			throws DataAccessException;
 }

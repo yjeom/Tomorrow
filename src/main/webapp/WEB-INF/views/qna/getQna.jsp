@@ -11,11 +11,12 @@
 
 <title>QnA : Tomorrow is...</title>
 <script type="text/javascript">
-
+var contextPath= '<c:out value="${contextPath}"/>';
 function inputCheck() {
-	if(${empty member}){
+	var isLogOn='<c:out value="${isLogOn}"/>';
+	if(isLogOn != true){
 		alert("로그인후 작성할 수 있습니다.");
-		location.href="${contextPath}/member/loginForm.do";
+		location.href=contextPath+"/member/loginForm.do";
 		return false;
 	}
 	if (document.reFrm.content.value=="") {
@@ -31,16 +32,16 @@ function inputCheck() {
 function delete_(){
 	var ok=confirm("게시물을 삭제 하시겠습니까?");
 	if (ok) {
-		location.href= "${contextPath}/qna/deleteQna.do?idx=${qna.idx}";
+		location.href= contextPath+"/qna/deleteQna.do?idx=${qna.idx}";
 	} 
 }
 function update_(){
-	location.href="${contextPath}/qna/qnaForm.do?idx=${qna.idx}";
+	location.href=contextPath+"/qna/qnaForm.do?idx=${qna.idx}";
 }
 function deleteReply(idx){
 	var delRe=confirm("답변을 삭제 하시겠습니까?");
 	if (delRe) {
-		document.deleteReFrm.action = "${contextPath}/qna/deleteReply.do?idx="+idx;
+		document.deleteReFrm.action = contextPath+"/qna/deleteReply.do?idx="+idx;
 		document.deleteReFrm.submit();
 	} 
 }
@@ -50,14 +51,6 @@ function updateReply(){
 		return true;
 	}
 }
-function list() {
-	document.listFrm.action= "3.QnARead.jsp";
-	document.listFrm.submit();
-	}
-	function paging(value) {
-		
-		location.href="${contextPath}/qna/getQna.do?idx=${qna.idx}&curPage="+value;
-		}
 
 
 </script>

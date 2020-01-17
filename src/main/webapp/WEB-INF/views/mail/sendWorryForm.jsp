@@ -7,12 +7,13 @@
 <html>
 <head>
 <script type="text/javascript">
+var contextPath= '<c:out value="${contextPath}"/>';
 function inputCheck()
 {
 	var isLogOn='<c:out value="${isLogOn}"/>';
 	if(isLogOn ==''||isLogOn==null){
 		alert("세션만료로 로그아웃되었습니다.다시 로그인후 이용해주세요"+isLogOn);
-		location.href="${contextPath}/member/loginForm.do";
+		location.href=contextPath+"/member/loginForm.do";
 		return false;
 	}
 	if(document.sendWorry.title.value=="")

@@ -7,17 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
-<c:if test='${not empty msg }'>
-<script>
-window.onload=function()
-{
-  result();
-}
-function result(){
-	alert("${msg}");
-}
-</script>
-</c:if>
 </head>
 <body>
 		

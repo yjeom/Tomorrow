@@ -8,28 +8,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <script type="text/javascript">
-
+var contextPath= '<c:out value="${contextPath}"/>';
 function paging(page) {
-		location.href="${contextPath}/mail/sendWorryList.do?curPage="+page;
+		location.href=contextPath+"/mail/sendWorryList.do?curPage="+page;
 		}
 function sendWorry(){
 	var isLogOn ='<c:out value="${isLogOn}"/>';
 	if(isLogOn){
-		location.href="${contextPath}/mail/sendWorryForm.do";
+		location.href=contextPath+"/mail/sendWorryForm.do";
 	}
 	else{
 	alert("로그인후 작성할 수 있습니다.");
-	location.href="${contextPath}/member/loginForm.do";
+	location.href=contextPath+"/member/loginForm.do";
 	}
 }
 function sendReply(){
 	var isLogOn ='<c:out value="${isLogOn}"/>';
 	if(isLogOn){
-		location.href="${contextPath}/mail/sendReplyList.do";
+		location.href=contextPath+"/mail/sendReplyList.do";
 	}
 	else{
 	alert("로그인후 이용할 수 있습니다.");
-	location.href="${contextPath}/member/loginForm.do";
+	location.href=contextPath+"/member/loginForm.do";
 	}
 }
 	</script>

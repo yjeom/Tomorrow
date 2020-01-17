@@ -24,6 +24,11 @@ public interface MailService {
 	public int getNewReceiveReply(int idx)throws DataAccessException;
 	public void deleteSendMail(int idx)throws DataAccessException;
 	public void deleteReceiveMail(int idx)throws DataAccessException;
+	public void report(MailVO mailVO)throws DataAccessException;
+	public List<MailVO> reportList(int idx,int start,int end)throws DataAccessException;
+	public int reportCount(int idx)throws DataAccessException;
+	public int newReport(int idx)throws DataAccessException;
+	
 	
 
 }

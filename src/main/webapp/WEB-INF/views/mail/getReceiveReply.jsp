@@ -22,7 +22,12 @@ function del()
 	return false;
 }
 }
-
+function report(){
+	var ok=confirm("이 편지를 신고하시겠습니까?\n신고후에 편지는 자동으로 삭제됩니다.");
+	if(ok){
+		document.reportForm.submit();
+	}
+}
 </script>
 	</head>
 	
@@ -47,25 +52,38 @@ function del()
 	<br><br>
 		
 			<center>
-	<form name="deleRe" class="form" action="${contextPath }/mail/deleteReceiveReply.do" method="post" onsubmit="return del()">
 		<label for="name"><font color="#11214a">답 장</font></center>
 			<div class="inner">
 			<div class="field">
-					
+					<div style="position:absolute">
+					  <div style="position:relative; top:-40px; left:20px;">
+					  <form name="reportForm" action="${contextPath }/mail/reportReply.do" method="post">
+						<button type="button" class="report" onclick="location.href='javascript:report()'"><img src="/images/icons/alarm.png"width="20px" />
+						 신고하기
+						</button>
+						<input type="hidden" name="idx" id="idx" value="${receiveReply.idx }">
+						<input type="hidden" name="sender_idx" id="sender_idx" value="${receiveReply.sender_idx }">
+						<input type="hidden" name="receiver_idx" id="receiver_idx" value=1>
+						<input type="hidden" name="title" id="title" value="${receiveReply.title}">
+						<input type="hidden" name="content" id="content" value="${receiveReply.content}">
+						<input type="hidden" name="reply_yn" id="reply_yn" value="${receiveReply.reply_yn}">
+						<input type="hidden" name="reporter_idx" id="reporter_idx" value="${member.idx }">
+					</form>
+					 </div></div> 
 				<input type="text" size="248" name="title" id="title"  value="Re:[${receiveReply.title}] 위로의 답장" readonly></div>
 			<br>
 				<div class="field">
-							<label for="content">어떤 위로가 좋을까요?</label>
+							<label for="content">답장을 받고 조금 위로가 되셨나요?</label>
 							<textarea name="content" id="content" rows="15"readonly>${receiveReply.content }</textarea>
 				</div>		
 			</div>
 			
 		<br> 
 	
-
+	<form name="deleRe" class="form" action="${contextPath }/mail/deleteReceiveReply.do" method="post" onsubmit="return del()">
 				<center>
 				
-						<input type="submit" class="button" value="삭제하기" onclick="javascript:del()">
+						<input type="submit" class="button" value="삭제하기" >
 						<input type="button" class="button" value="목록으로" onclick="location.href='${contextPath}/mail/receiveReplyList.do'">
 						
 						<input type="hidden" id="idx" name="idx" value="${receiveReply.idx }">

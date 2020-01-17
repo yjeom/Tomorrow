@@ -11,8 +11,10 @@ public interface MemberDAO {
 	 public List selectAllMemberList(int start,int end) throws DataAccessException;
 	 public int selectMemberCount() throws DataAccessException;
 	 public int insertMember(MemberVO memberVO) throws DataAccessException ;
-	 public int deleteMember(String id) throws DataAccessException;
+	 public int deleteMember(int idx) throws DataAccessException;
 	 public MemberVO login(MemberVO memberVO) throws DataAccessException;
 	 public String idCheck(String id) throws DataAccessException;
+	 public void updateReportCount(int idx)throws DataAccessException;
+	 public void updateReportCheck(int idx)throws DataAccessException;
 
 }

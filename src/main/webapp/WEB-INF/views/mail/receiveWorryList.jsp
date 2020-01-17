@@ -8,18 +8,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <script type="text/javascript">
-
+var contextPath= '<c:out value="${contextPath}"/>';
 function paging(page) {
-		location.href="${contextPath}/mail/receiveWorryList.do?curPage="+page;
+		location.href=contextPath+"/mail/receiveWorryList.do?curPage="+page;
 		}
 function receiveReply(){
 	var isLogOn ='<c:out value="${isLogOn}"/>';
 	if(isLogOn){
-		location.href="${contextPath}/mail/receiveReplyList.do";
+		location.href=contextPath+"/mail/receiveReplyList.do";
 	}
 	else{
 	alert("로그인후 이용할 수 있습니다.");
-	location.href="${contextPath}/member/loginForm.do";
+	location.href=contextPath+"/member/loginForm.do";
 	}
 }
 	</script>
@@ -66,7 +66,7 @@ function receiveReply(){
 		<tr>
 			<td>${receiveWorryList.rnum}</td>
 			<td>
-			  <c:if test="${receiveReplyList.views==0 }">
+			  <c:if test="${receiveWorryList.views==0 }">
 				<input type="image" src="/images/icons/newMessage.jpg"" width="10px" />
 			  </c:if>
 			<a href="${contextPath}/mail/getReceiveWorry.do?idx=${receiveWorryList.idx}">${receiveWorryList.title }</a>

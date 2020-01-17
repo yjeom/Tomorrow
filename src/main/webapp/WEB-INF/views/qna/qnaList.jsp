@@ -5,24 +5,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <script type="text/javascript">
-
+var contextPath= '<c:out value="${contextPath}"/>';
 function paging(page) {
-	location.href="${contextPath}/qna/qnaList.do?curPage="+page;
+	location.href=contextPath+"/qna/qnaList.do?curPage="+page;
 	}
 
 function login(){
 	var isLogOn ='<c:out value="${isLogOn}"/>';
 	if(isLogOn){
-		location.href="${contextPath}/qna/qnaForm.do";
+		location.href=contextPath+"/qna/qnaForm.do";
 	}
 	else{
-	alert("로그인후 작성할 수 있습니다."+isLogOn);
-	location.href="${contextPath}/member/loginForm.do";
+	alert("로그인후 작성할 수 있습니다.");
+	location.href=contextPath+"/member/loginForm.do";
 	}
 }
 function read(){
 	alert("로그인후 조회할 수 있습니다.");
-	location.href="${contextPath}/member/loginForm.do";
+	location.href=contextPath+"/member/loginForm.do";
 
 	}
 

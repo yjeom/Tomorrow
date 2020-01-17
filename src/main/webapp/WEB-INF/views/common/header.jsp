@@ -11,12 +11,13 @@
 <!DOCTYPE html>
 <html>
 <script type="text/javascript">
+var contextPath= '<c:out value="${contextPath}"/>';
 function logout()
 {
 	if(confirm("로그아웃 하시겠습니까?")==true)
 {
 
-	location.href="${contextPath}/member/logout.do";
+	location.href=contextPath+"/member/logout.do";
 }
 	else
 {
@@ -26,21 +27,21 @@ function logout()
 function sendMail(){
 	var isLogOn ='<c:out value="${isLogOn}"/>';
 	if(isLogOn){
-		location.href="${contextPath}/mail/sendWorryList.do";
+		location.href=contextPath+"/mail/sendWorryList.do";
 	}
 	else{
 	alert("로그인후 이용할 수 있습니다."+isLogOn);
-	location.href="${contextPath}/member/loginForm.do";
+	location.href=contextPath+"/member/loginForm.do";
 	}
 }
 function receiveMail(){
 	var isLogOn ='<c:out value="${isLogOn}"/>';
 	if(isLogOn){
-		location.href="${contextPath}/mail/receiveWorryList.do";
+		location.href=contextPath+"/mail/receiveWorryList.do";
 	}
 	else{
 	alert("로그인후 이용할 수 있습니다."+isLogOn);
-	location.href="${contextPath}/member/loginForm.do";
+	location.href=contextPath"+/member/loginForm.do";
 	}
 }
 </script>
@@ -69,6 +70,22 @@ function receiveMail(){
 				background-color: transparent;
 				color:#6cc091 !important;
 			}
+button.report,
+.button.report{
+	color:red !important;
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px transparent;
+  font-size: 0.75em;
+}
+button.report:hover,
+.button.report:hover{
+	background-color: transparent;
+	font-weight: bold;
+}
+.btn_image {
+  width: 20px;
+  height: 20px;
+}
 </style>
 <head>
   <meta charset="UTF-8">
@@ -83,8 +100,8 @@ function receiveMail(){
 	<c:when test="${isLogOn==true and member.id eq 'rhksflwk'}">
 						<header id="header">
 				<div class="inner">
-					<a href="${contextPath}/adminHome.do" class="logo">Tomorrow is...</a>
-						<a href="admin_report.jsp">신고관리</a>
+					<a href="${contextPath}/admin/adminHome.do" class="logo">Tomorrow is...</a>
+						<a href="${contextPath }/admin/reportList.do">신고관리</a>
 						<a href="${contextPath}/qna/qnaList.do">QnA</a>
 						<a href="${contextPath}/notice/noticeList.do">Notice</a>
 						<a href="javascript:logout()"><font color="red">Logout</a> </font>

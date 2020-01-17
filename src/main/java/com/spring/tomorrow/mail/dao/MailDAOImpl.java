@@ -112,5 +112,25 @@ public class MailDAOImpl implements MailDAO{
 		
 	}
 
+	public void reportAdmin(MailVO mailVO) throws DataAccessException {
+		sqlSession.insert("mapper.mail.reportAdmin",mailVO);
+	}
+
+	public List<MailVO> reportList(int idx, int start, int end) throws DataAccessException {
+		Map<String,Object> map=new HashMap<String, Object>();
+		map.put("idx", idx);
+		map.put("start", start);
+		map.put("end", end);
+		return sqlSession.selectList("mapper.mail.reportList",map);
+	}
+
+	public int reportCount(int idx) throws DataAccessException {
+		return sqlSession.selectOne("mapper.mail.reportCount",idx);
+	}
+
+	public int newReport(int idx) throws DataAccessException {
+		return sqlSession.selectOne("mapper.mail.newReport",idx);
+	}
+
 
 }
