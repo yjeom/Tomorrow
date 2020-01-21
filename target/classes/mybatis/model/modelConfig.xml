@@ -9,5 +9,6 @@
 		<typeAlias type="com.spring.tomorrow.qna.vo.QnaVO"  alias="qnaVO" />
 		<typeAlias type="com.spring.tomorrow.qna.vo.ReplyVO"  alias="replyVO" />
 		<typeAlias type="com.spring.tomorrow.mail.vo.MailVO"  alias="mailVO" />
+		<typeAlias type="com.spring.tomorrow.diary.vo.DiaryVO"  alias="diaryVO" />
 	</typeAliases>
 </configuration>

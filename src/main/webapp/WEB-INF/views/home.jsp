@@ -36,12 +36,13 @@ function result(){
 </script>
 </c:if>
 <script type="text/javascript">
+var contextPath= '<c:out value="${contextPath}"/>';
 function logout()
 {
 	if(confirm("로그아웃 하시겠습니까?")==true)
 {
 
-	location.href="${contextPath}/member/logout.do";
+	location.href=contextPath+"/member/logout.do";
 }
 	else
 {
@@ -52,22 +53,32 @@ function sendMail(){
 	var isLogOn ='<c:out value="${isLogOn}"/>';
 	if(isLogOn){
 		alert(isLogOn);
-		location.href="${contextPath}/mail/sendWorryList.do";
+		location.href=contextPath+"/mail/sendWorryList.do";
 	}
-	if(isLogOn ==null || isLogOn==''){
-	alert("로그인후 이용할 수 있습니다.");
-	location.href="${contextPath}/member/loginForm.do";
-	}
+	else{
+		alert("로그인후 이용할 수 있습니다.");
+		location.href=contextPath+"/member/loginForm.do";
+		}
 }
 function receiveMail(){
 	var isLogOn ='<c:out value="${isLogOn}"/>';
 	if(isLogOn){
-		location.href="${contextPath}/mail/receiveWorryList.do";
+		location.href=contextPath+"/mail/receiveWorryList.do";
 	}
 	else{
 	alert("로그인후 이용할 수 있습니다.");
-	location.href="${contextPath}/member/loginForm.do";
+	location.href=contextPath+"/member/loginForm.do";
 	}
+}
+function diary(){
+	var isLogOn ='<c:out value="${isLogOn}"/>';
+	if(isLogOn){
+		location.href=contextPath+"/diary/diaryList.do";
+	}
+	else{
+		alert("로그인후 이용할 수 있습니다.");
+		location.href=contextPath+"/member/loginForm.do";
+		}
 }
 </script>
 <head>
@@ -107,7 +118,7 @@ function receiveMail(){
 						</div>
 
 						<div>
-							<input type="image" src="/images/icons/like.png" width="40px"  onclick="location.href='MenuCheck.jsp'"/>
+							<input type="image" src="/images/icons/like.png" width="40px"  onclick="location.href='javascript:diary()'"/>
 							<h3>To. 오늘의 나</h3>
 					    	<p>오늘의 나는 어떤 하루였나요?</p>
 						</div>

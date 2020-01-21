@@ -18,11 +18,8 @@ public class NoticeDAOImpl implements NoticeDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<NoticeVO> selectNoticeList(int start,int end) throws DataAccessException {
+	public List<NoticeVO> selectNoticeList(HashMap<String, Object> map) throws DataAccessException {
 		List<NoticeVO> noticeList = null;
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("start", start);
-		map.put("end", end);
 		noticeList = sqlSession.selectList("mapper.notice.selectNoticeList",map);
 		return noticeList;
 	}
@@ -58,5 +55,6 @@ public class NoticeDAOImpl implements NoticeDAO{
 		int totalCount=sqlSession.selectOne("mapper.notice.selectNoticeCount");
 		return totalCount;
 	}
+
 
 }

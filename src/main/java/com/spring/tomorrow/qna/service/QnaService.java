@@ -9,17 +9,17 @@ import com.spring.tomorrow.qna.vo.ReplyVO;
 
 public interface QnaService {
 	
-	public List<QnaVO> selectQnaList(int start,int end)throws DataAccessException;
-	public int selectQnaCount()throws DataAccessException;
-	public int insertQna(QnaVO qnaVO)throws DataAccessException;
-	public List<ReplyVO> selectReplyList(int qna_idx,int start,int end)throws DataAccessException;
-	public int selectReplyCount(int qna_idx)throws DataAccessException;
-	public QnaVO getQna(int idx)throws DataAccessException;
-	public int insertReply(ReplyVO replyVO)throws DataAccessException;
-	public QnaVO passwordCheck(int idx,int pwd)throws DataAccessException;
-	public int updateQna(QnaVO qnaVO)throws DataAccessException;
-	public int deleteQna(int idx)throws DataAccessException;
-	public int updateReply(ReplyVO replyVO)throws DataAccessException;
-	public int deleteReply(int idx)throws DataAccessException;
-	public int updateViews(int idx)throws DataAccessException;
+	public List<QnaVO> selectQnaList(int start,int end);
+	public int selectQnaCount();
+	public int insertQna(QnaVO qnaVO);
+	public List<ReplyVO> selectReplyList(int qna_idx,int start,int end);
+	public int selectReplyCount(int qna_idx);
+	public QnaVO getQna(int idx);
+	public int insertReply(ReplyVO replyVO);
+	public QnaVO passwordCheck(int idx,int pwd);
+	public int updateQna(QnaVO qnaVO);
+	public int deleteQna(int idx);
+	public int updateReply(ReplyVO replyVO);
+	public int deleteReply(int idx);
+	public int updateViews(int idx);
 }

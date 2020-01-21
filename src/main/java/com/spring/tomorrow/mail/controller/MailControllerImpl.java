@@ -33,7 +33,7 @@ public class MailControllerImpl implements MailController {
 
 	@RequestMapping(value="/mail/sendWorryList.do" ,method=RequestMethod.GET)
 	public ModelAndView sendWorryList(@RequestParam(defaultValue="1") int curPage, HttpServletRequest request, HttpServletResponse response)
-			throws DataAccessException {
+			throws Exception {
 		ModelAndView mav=new ModelAndView(); 
 		HttpSession session = request.getSession();
 		MemberVO member=(MemberVO) session.getAttribute("member");
@@ -47,7 +47,7 @@ public class MailControllerImpl implements MailController {
 	
 	@RequestMapping(value="/mail/sendReplyList.do" ,method=RequestMethod.GET)
 	public ModelAndView sendReplyList(@RequestParam(defaultValue="1") int curPage, HttpServletRequest request, HttpServletResponse response)
-			throws DataAccessException {
+			throws Exception {
 		ModelAndView mav=new ModelAndView(); 
 		HttpSession session = request.getSession();
 		MemberVO member=(MemberVO) session.getAttribute("member");
@@ -61,7 +61,7 @@ public class MailControllerImpl implements MailController {
 
 	@RequestMapping(value="/mail/sendWorryForm.do",method=RequestMethod.GET)
 	public ModelAndView sendWorryForm(HttpServletRequest request, HttpServletResponse response)
-			throws DataAccessException {
+			throws Exception {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("/mail/sendWorryForm");
 		return mav;
@@ -94,7 +94,7 @@ public class MailControllerImpl implements MailController {
 	}
 	@RequestMapping(value="/mail/receiveWorryList.do" ,method=RequestMethod.GET)
 	public ModelAndView receiveWorryList(@RequestParam(defaultValue="1") int curPage, HttpServletRequest request, HttpServletResponse response)
-			throws DataAccessException {
+			throws Exception {
 		ModelAndView mav=new ModelAndView(); 
 		HttpSession session = request.getSession();
 		MemberVO member=(MemberVO) session.getAttribute("member");
@@ -110,7 +110,7 @@ public class MailControllerImpl implements MailController {
 	
 	@RequestMapping(value="/mail/receiveReplyList.do" ,method=RequestMethod.GET)
 	public ModelAndView receiveReplyList(@RequestParam(defaultValue="1") int curPage, HttpServletRequest request, HttpServletResponse response)
-			throws DataAccessException {
+			throws Exception {
 		ModelAndView mav=new ModelAndView(); 
 		HttpSession session = request.getSession();
 		MemberVO member=(MemberVO) session.getAttribute("member");
@@ -124,7 +124,7 @@ public class MailControllerImpl implements MailController {
 
 	@RequestMapping(value="/mail/getReceiveWorry.do", method=RequestMethod.GET)
 	public ModelAndView getReceiveWorry(@RequestParam int idx, HttpServletRequest request, HttpServletResponse response)
-			throws DataAccessException {
+			throws Exception {
 		ModelAndView mav=new ModelAndView();
 		MailVO receiveWorry=null;
 		receiveWorry=mailService.getReceiveMail(idx);
@@ -161,7 +161,7 @@ public class MailControllerImpl implements MailController {
 
 	@RequestMapping(value="/mail/getSendWorry.do",method=RequestMethod.GET)
 	public ModelAndView getSendWorry(@RequestParam int idx, HttpServletRequest request, HttpServletResponse response)
-			throws DataAccessException {
+			throws Exception {
 		ModelAndView mav=new ModelAndView();
 		MailVO sendWorry=mailService.getSendMail(idx);
 		mav.addObject("sendWorry", sendWorry);
@@ -171,7 +171,7 @@ public class MailControllerImpl implements MailController {
 
 	@RequestMapping(value="/mail/getReceiveReply.do",method=RequestMethod.GET)
 	public ModelAndView getReceiveReply(@RequestParam int idx, HttpServletRequest request, HttpServletResponse response)
-			throws DataAccessException {
+			throws Exception {
 		ModelAndView mav =new ModelAndView();
 		MailVO receiveReply=mailService.getReceiveMail(idx);
 		
@@ -184,7 +184,7 @@ public class MailControllerImpl implements MailController {
 
 	@RequestMapping(value="/mail/getSendReply.do",method=RequestMethod.GET)
 	public ModelAndView getSendReply(@RequestParam int idx, HttpServletRequest request, HttpServletResponse response)
-			throws DataAccessException {
+			throws Exception {
 		ModelAndView mav=new ModelAndView();
 		MailVO sendReply=mailService.getSendMail(idx);
 		mav.addObject("sendReply", sendReply);
@@ -331,7 +331,7 @@ public class MailControllerImpl implements MailController {
 
 	@RequestMapping(value="/admin/reportList",method=RequestMethod.GET)
 	public ModelAndView reportList(@RequestParam(defaultValue="1")int curPage, HttpServletRequest request, HttpServletResponse response)
-			throws DataAccessException {
+			throws Exception {
 		HttpSession session = request.getSession();
 		MemberVO member=(MemberVO) session.getAttribute("member");
 		ModelAndView mav=new ModelAndView();
@@ -346,7 +346,7 @@ public class MailControllerImpl implements MailController {
 	
 	@RequestMapping(value="/admin/getReport.do",method=RequestMethod.GET)
 	public ModelAndView getReport(@RequestParam int idx, HttpServletRequest request, HttpServletResponse response)
-			throws DataAccessException {
+			throws Exception {
 		ModelAndView mav=new ModelAndView();
 		MailVO report=mailService.getReceiveMail(idx);
 		mav.addObject("report", report);

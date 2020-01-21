@@ -14,8 +14,7 @@
 var contextPath= '<c:out value="${contextPath}"/>';
 function logout()
 {
-	if(confirm("로그아웃 하시겠습니까?")==true)
-{
+	if(confirm("로그아웃 하시겠습니까?")==true){
 
 	location.href=contextPath+"/member/logout.do";
 }
@@ -42,6 +41,16 @@ function receiveMail(){
 	else{
 	alert("로그인후 이용할 수 있습니다."+isLogOn);
 	location.href=contextPath"+/member/loginForm.do";
+	}
+}
+function diary(){
+	var isLogOn ='<c:out value="${isLogOn}"/>';
+	if(isLogOn){
+		location.href="${contextPath}/diary/diaryList.do";
+	}
+	if(isLogOn ==null || isLogOn==''){
+	alert("로그인후 이용할 수 있습니다.");
+	location.href="${contextPath}/member/loginForm.do";
 	}
 }
 </script>
@@ -114,7 +123,7 @@ button.report:hover,
 					<a href="${contextPath}/home.do" class="logo">Tomorrow is...</a>
 						<a href="javascript:receiveMail()">받은 편지함</a>
 						<a href="javascript:sendMail()">보낸 편지함</a>
-						<a href="MenuCheck.jsp">To.오늘의 나</a>
+						<a href="javascript:diary()">To.오늘의 나</a>
 						<a href="${contextPath}/qna/qnaList.do">QnA</a>
 						<a href="${contextPath}/notice/noticeList.do">Notice</a>
 					<c:choose>

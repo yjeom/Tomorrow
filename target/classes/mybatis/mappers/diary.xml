@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.diary">
+	<resultMap id="diaryVO" type="diaryVO">
+		<result property="rnum" column="rnum"/>
+		<result property="idx" column="idx"/>
+		<result property="member_idx" column="member_idx"/>
+		<result property="question_idx" column="question_idx"/>
+		<result property="question" column="question"/>
+		<result property="answer" column="answer"/>
+		<result property="good" column="good"/>
+		<result property="bad" column="bad"/>
+		<result property="resolution" column="resolution"/>
+        <result property="regdate" column="regdate" />
+	</resultMap> 
+
+	<select id="diaryList" resultMap="diaryVO" parameterType="java.util.HashMap">
+		<![CDATA[
+		select * from(
+   		 select rownum as rnum ,diary.* from diary
+   		 where member_idx=#{idx}
+   		 order by idx desc
+		)where rnum between #{start} and #{end}
+		
+		]]>
+	</select>
+	<select id="diaryListCount" resultType="int" parameterType="int">
+		<![CDATA[
+			select count(*) from diary where member_idx=#{idx}	
+		]]>
+	</select>
+	
+	<select id="questionCheck" resultType="int" parameterType="int">
+		<![CDATA[
+			select nvl(max(question_idx),0) from diary where member_idx=#{idx} and to_char(regdate)=to_char(sysdate)
+		]]>
+	</select>
+	
+	<select id="getQuestion" resultMap="diaryVO" parameterType="int">
+		<![CDATA[
+			select idx as question_idx, question from diary_q where idx=#{idx}
+		]]>
+	</select>
+	
+	<insert id="insertDiary"  parameterType="diaryVO">
+		<![CDATA[
+			insert into diary (idx, member_idx,question_idx,answer,good,bad,resolution,regdate)
+			values(diary_seq.nextval,#{member_idx},#{question_idx},#{answer},
+			#{good},#{bad},#{resolution},sysdate)
+		]]>
+	</insert>
+</mapper>

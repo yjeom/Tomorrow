@@ -23,11 +23,7 @@ public class MailDAOImpl implements MailDAO{
 		return totalCount;
 	}
 
-	public List<MailVO> sendWorryList(int idx, int start, int end) throws DataAccessException {
-		Map<String,Object> map=new HashMap<String, Object>();
-		map.put("sender_idx", idx);
-		map.put("start", start);
-		map.put("end", end);
+	public List<MailVO> sendWorryList(HashMap<String, Object>map) throws DataAccessException {
 		return sqlSession.selectList("mapper.mail.sendWorryList",map);
 	}
 
@@ -36,11 +32,7 @@ public class MailDAOImpl implements MailDAO{
 		return totalCount;
 	}
 
-	public List<MailVO> sendReplyList (int idx, int start, int end) throws DataAccessException {
-		Map<String,Object> map=new HashMap<String, Object>();
-		map.put("sender_idx", idx);
-		map.put("start", start);
-		map.put("end", end);
+	public List<MailVO> sendReplyList (HashMap<String, Object>map) throws DataAccessException {
 		return sqlSession.selectList("mapper.mail.sendReplyList",map);
 	}
 
@@ -59,11 +51,7 @@ public class MailDAOImpl implements MailDAO{
 		return totalCount;
 	}
 
-	public List<MailVO> receiveWorryList(int idx, int start, int end) throws DataAccessException {
-		Map<String,Object> map=new HashMap<String, Object>();
-		map.put("receiver_idx", idx);
-		map.put("start", start);
-		map.put("end", end);
+	public List<MailVO> receiveWorryList(HashMap<String, Object>map) throws DataAccessException {
 		return sqlSession.selectList("mapper.mail.receiveWorryList",map);
 	}
 
@@ -72,11 +60,7 @@ public class MailDAOImpl implements MailDAO{
 		return totalCount;
 	}
 
-	public List<MailVO> receiveReplyList (int idx, int start, int end) throws DataAccessException {
-		Map<String,Object> map=new HashMap<String, Object>();
-		map.put("receiver_idx", idx);
-		map.put("start", start);
-		map.put("end", end);
+	public List<MailVO> receiveReplyList (HashMap<String, Object>map) throws DataAccessException {
 		return sqlSession.selectList("mapper.mail.receiveReplyList",map);
 	}
 
@@ -116,11 +100,7 @@ public class MailDAOImpl implements MailDAO{
 		sqlSession.insert("mapper.mail.reportAdmin",mailVO);
 	}
 
-	public List<MailVO> reportList(int idx, int start, int end) throws DataAccessException {
-		Map<String,Object> map=new HashMap<String, Object>();
-		map.put("idx", idx);
-		map.put("start", start);
-		map.put("end", end);
+	public List<MailVO> reportList(HashMap<String, Object>map) throws DataAccessException {
 		return sqlSession.selectList("mapper.mail.reportList",map);
 	}
 

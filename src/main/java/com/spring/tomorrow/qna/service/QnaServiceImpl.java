@@ -18,65 +18,72 @@ public class QnaServiceImpl implements QnaService{
 	@Autowired
 	private QnaDAO qnaDAO;
 	
-	public List<QnaVO> selectQnaList(int start,int end) throws DataAccessException {
+	public List<QnaVO> selectQnaList(int start,int end)  {
 		List<QnaVO> qnaList=null;
-		qnaList=qnaDAO.selectQnaList(start,end);
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		qnaList=qnaDAO.selectQnaList(map);
 		return qnaList;
 	}
 
-	public int selectQnaCount() throws DataAccessException {
+	public int selectQnaCount()  {
 		int totalCount=0;
 		totalCount=qnaDAO.selectQnaCount();
 		return totalCount;
 	}
 
-	public int insertQna(QnaVO qnaVO) throws DataAccessException {
+	public int insertQna(QnaVO qnaVO)  {
 		return qnaDAO.insertQna(qnaVO);
 	}
 
-	public List<ReplyVO> selectReplyList(int qna_idx, int start,int end) throws DataAccessException {
-		List<ReplyVO> replyList=qnaDAO.selectReplyList(qna_idx, start,end);
+	public List<ReplyVO> selectReplyList(int qna_idx, int start,int end)  {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("qna_idx", qna_idx);
+		map.put("start", start);
+		map.put("end", end);
+		List<ReplyVO> replyList=qnaDAO.selectReplyList(map);
 		return replyList;
 	}
 
-	public int selectReplyCount(int qna_idx) throws DataAccessException {
+	public int selectReplyCount(int qna_idx)  {
 		int totalCount=qnaDAO.selectReplyCount(qna_idx);
 		return totalCount;
 	}
 
-	public QnaVO getQna(int idx) throws DataAccessException {
+	public QnaVO getQna(int idx)  {
 		QnaVO qnaVO=qnaDAO.getQna(idx);
 		return qnaVO;
 	}
 
-	public int insertReply(ReplyVO replyVO) throws DataAccessException {
+	public int insertReply(ReplyVO replyVO)  {
 		return qnaDAO.insertReply(replyVO);
 	}
 	
-	public QnaVO passwordCheck(int idx, int pwd) throws DataAccessException {
-		Map<String, Object> map=new HashMap<String, Object>();
+	public QnaVO passwordCheck(int idx, int pwd)  {
+		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("idx", idx);
 		map.put("pwd", pwd);
-		return qnaDAO.passwordCheck(idx, pwd);
+		return qnaDAO.passwordCheck(map);
 	}
 
-	public int updateQna(QnaVO qnaVO) throws DataAccessException {
+	public int updateQna(QnaVO qnaVO)  {
 		return qnaDAO.updateQna(qnaVO);
 	}
 
-	public int deleteQna(int idx) throws DataAccessException {
+	public int deleteQna(int idx)  {
 		return qnaDAO.deleteQna(idx);
 	}
 
-	public int updateReply(ReplyVO replyVO) throws DataAccessException {
+	public int updateReply(ReplyVO replyVO)  {
 		return qnaDAO.updateReply(replyVO);
 	}
 
-	public int deleteReply(int idx) throws DataAccessException {
+	public int deleteReply(int idx)  {
 		return qnaDAO.deleteReply(idx);
 	}
 
-	public int updateViews(int idx) throws DataAccessException {
+	public int updateViews(int idx)  {
 		return qnaDAO.updateViews(idx);
 	}
 }

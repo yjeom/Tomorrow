@@ -18,11 +18,8 @@ public class QnaDAOImpl implements QnaDAO{
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<QnaVO> selectQnaList(int start,int end) throws DataAccessException {
+	public List<QnaVO> selectQnaList(HashMap<String, Object>map) throws DataAccessException {
 		List<QnaVO> qnaList=null;
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("start", start);
-		map.put("end", end);		
 		qnaList=sqlSession.selectList("mapper.qna.selectQnaList", map);
 		return qnaList;
 	}
@@ -38,11 +35,7 @@ public class QnaDAOImpl implements QnaDAO{
 		
 	}
 
-	public List<ReplyVO> selectReplyList(int qna_idx, int start,int end) throws DataAccessException {
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("qna_idx", qna_idx);
-		map.put("start", start);
-		map.put("end", end);
+	public List<ReplyVO> selectReplyList(HashMap<String, Object>map) throws DataAccessException {
 		List<ReplyVO> replyList=sqlSession.selectList("mapper.qna.selectReplyList",map);
 		return replyList;
 	}
@@ -61,10 +54,7 @@ public class QnaDAOImpl implements QnaDAO{
 		return sqlSession.insert("mapper.qna.insertReply", replyVO);
 	}
 
-	public QnaVO passwordCheck(int idx, int pwd) throws DataAccessException {
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("idx", idx);
-		map.put("pwd", pwd);
+	public QnaVO passwordCheck(HashMap<String, Object>map) throws DataAccessException {
 		return sqlSession.selectOne("mapper.qna.passwordCheck",map);
 	}
 

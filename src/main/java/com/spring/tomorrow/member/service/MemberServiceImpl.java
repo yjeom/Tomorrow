@@ -1,5 +1,6 @@
 package com.spring.tomorrow.member.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,35 +20,38 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 
-	public int membersCount() throws DataAccessException {
+	public int membersCount()  {
 		int totalCount=memberDAO.selectMemberCount();
 		return totalCount;
 	}
-	public List listMembers(int start,int end) throws DataAccessException {
+	public List listMembers(int start,int end)  {
 		List membersList = null;
-		membersList = memberDAO.selectAllMemberList(start,end);
+		HashMap<String,Object>map =new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end",end);
+		membersList = memberDAO.selectAllMemberList(map);
 		return membersList;
 	}
 
-	public int addMember(MemberVO member) throws DataAccessException {
+	public int addMember(MemberVO member)  {
 		return memberDAO.insertMember(member);
 	}
 
-	public int removeMember(int idx) throws DataAccessException {
+	public int removeMember(int idx)  {
 		return memberDAO.deleteMember(idx);
 	}
 	
-	public MemberVO login(MemberVO memberVO) throws DataAccessException{
+	public MemberVO login(MemberVO memberVO) {
 		return memberDAO.login(memberVO);
 	}
-	public String idCheck(String id) throws DataAccessException {
+	public String idCheck(String id)  {
 		return memberDAO.idCheck(id);
 	}
-	public void reportMember(int idx) throws DataAccessException {
+	public void reportMember(int idx)  {
 		memberDAO.updateReportCount(idx);
 		
 	}
-	public void reportCheck(int idx) throws DataAccessException {
+	public void reportCheck(int idx)  {
 		memberDAO.updateReportCheck(idx);
 		
 	}

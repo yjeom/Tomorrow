@@ -23,12 +23,9 @@ public class MemberDAOImpl implements MemberDAO {
 		return totalCount;
 	}
 	
-	public List selectAllMemberList(int start,int end) throws DataAccessException {
+	public List selectAllMemberList(HashMap<String, Object>map) throws DataAccessException {
 		
 		List<MemberVO> membersList = null;
-		Map<String,Object>map =new HashMap<String, Object>();
-		map.put("start", start);
-		map.put("end",end);
 		membersList = sqlSession.selectList("mapper.member.selectAllMemberList",map);
 		return membersList;
 	}
