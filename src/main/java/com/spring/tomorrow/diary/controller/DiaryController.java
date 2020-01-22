@@ -14,5 +14,7 @@ public interface DiaryController {
 	public ResponseEntity getQuestion(HttpServletRequest request,HttpServletResponse response)throws Exception;
 	public ModelAndView diaryForm(HttpServletRequest request,HttpServletResponse response)throws Exception;
 	public ResponseEntity insertDiary(DiaryVO diaryVO,HttpServletRequest request,HttpServletResponse response)throws Exception;
+	public ModelAndView getDiary(int idx,HttpServletRequest request,HttpServletResponse response)throws Exception;
+	public ResponseEntity updateDiary(DiaryVO diaryVO,HttpServletRequest request,HttpServletResponse response)throws Exception;
 
 }

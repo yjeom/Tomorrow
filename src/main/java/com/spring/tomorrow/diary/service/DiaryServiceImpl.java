@@ -32,9 +32,11 @@ public class DiaryServiceImpl implements DiaryService{
 
 	public DiaryVO getQuestion(int idx) {
 		int question_idx=0;
-		question_idx=diaryDAO.qeustionCheck(idx);
+		int check=0;
+		check=diaryDAO.qeustionCheck(idx);
 		DiaryVO diaryVO=null;
-		if(question_idx==0) {//오늘 받은 질문이 없을 경우
+		if(check==0) {//오늘 받은 질문이 없을 경우
+			question_idx=diaryDAO.questionCount(idx);
 			diaryVO=diaryDAO.getQuestion(question_idx+1);
 		}
 		return diaryVO;
@@ -43,6 +45,14 @@ public class DiaryServiceImpl implements DiaryService{
 	public void insertDiary(DiaryVO diaryVO) {
 		diaryDAO.insertDiary(diaryVO);
 		
+	}
+
+	public DiaryVO getDiary(int idx) {
+		return diaryDAO.getDiary(idx);
+	}
+
+	public void updateDiary(DiaryVO diaryVO) {
+		diaryDAO.updateDiary(diaryVO);
 	}
 
 }

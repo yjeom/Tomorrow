@@ -120,4 +120,44 @@ public class DiaryControllerImpl implements DiaryController{
 		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		return resEntity;
 	}
+
+	@RequestMapping(value= {"/diary/getDiary.do","/diary/updateForm.do"},method=RequestMethod.GET)
+	public ModelAndView getDiary(@RequestParam int idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav=new ModelAndView();
+		DiaryVO getDiary=diaryService.getDiary(idx);
+		
+		if(request.getServletPath().equals("/diary/getDiary.do")) {
+			mav.addObject("readDiary", getDiary);
+		}
+		else {
+			mav.addObject("updateDiary", getDiary);
+		}
+		mav.setViewName("/diary/getDiary");
+		return mav;
+	}
+
+	@RequestMapping(value="/diary/updateDiary.do",method=RequestMethod.POST)
+	public ResponseEntity updateDiary(@ModelAttribute DiaryVO diaryVO, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			diaryService.updateDiary(diaryVO);
+				 message  = "<script>";
+				 message +=" alert('기록을 수정했습니다.');";
+				 message += " location.href='"+request.getContextPath()+"/diary/diaryList.do';";
+				 message += " </script>";
+				    
+		}catch(Exception e) {
+			message  = "<script>";
+		    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+		    message += " location.href='"+request.getContextPath()+"/diary/updateForm.do';";
+		    message += " </script>";
+			e.printStackTrace();
+		}
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
+	}
 }

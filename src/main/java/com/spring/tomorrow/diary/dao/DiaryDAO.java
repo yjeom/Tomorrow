@@ -14,5 +14,8 @@ public interface DiaryDAO {
 	public int qeustionCheck(int idx)throws DataAccessException;
 	public DiaryVO getQuestion(int idx)throws DataAccessException;
 	public void insertDiary(DiaryVO diaryVO)throws DataAccessException;
+	public int questionCount(int idx)throws DataAccessException;
+	public DiaryVO getDiary(int idx)throws DataAccessException;
+	public void updateDiary(DiaryVO diaryVO)throws DataAccessException;
 
 }

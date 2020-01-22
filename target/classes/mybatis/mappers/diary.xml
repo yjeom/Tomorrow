@@ -26,6 +26,15 @@
 		
 		]]>
 	</select>
+	<select id="getDiary" resultMap="diaryVO" parameterType="int">
+		<![CDATA[
+			select 
+				(select question from diary_q where idx=question_idx)as question,
+				diary.*
+			from diary
+			where idx=#{idx}
+		]]>
+	</select>
 	<select id="diaryListCount" resultType="int" parameterType="int">
 		<![CDATA[
 			select count(*) from diary where member_idx=#{idx}	
@@ -35,6 +44,11 @@
 	<select id="questionCheck" resultType="int" parameterType="int">
 		<![CDATA[
 			select nvl(max(question_idx),0) from diary where member_idx=#{idx} and to_char(regdate)=to_char(sysdate)
+		]]>
+	</select>
+	<select id="questionCount" resultType="int" parameterType="int">
+		<![CDATA[
+			select nvl(max(question_idx),0) from diary where member_idx=#{idx} 
 		]]>
 	</select>
 	
@@ -51,4 +65,10 @@
 			#{good},#{bad},#{resolution},sysdate)
 		]]>
 	</insert>
+	<update id="updateDiary"  parameterType="diaryVO">
+	<![CDATA[
+		update diary set answer=#{answer}, good=#{good},bad=#{bad},resolution=#{resolution}
+		where idx=#{idx}
+		]]>
+	</update>
 </mapper>

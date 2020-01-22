@@ -11,4 +11,6 @@ public interface DiaryService {
 	public int diaryListCount (int idx);
 	public DiaryVO getQuestion(int idx);
 	public void insertDiary(DiaryVO diaryVO);
+	public DiaryVO getDiary(int idx);
+	public void updateDiary(DiaryVO diaryVO);
 }

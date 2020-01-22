@@ -37,4 +37,16 @@ public class DiaryDAOImpl implements DiaryDAO{
 		sqlSession.insert("mapper.diary.insertDiary", diaryVO);
 		
 	}
+
+	public int questionCount(int idx) throws DataAccessException {
+		return sqlSession.selectOne("mapper.diary.questionCount",idx);
+	}
+
+	public DiaryVO getDiary(int idx) throws DataAccessException {
+		return sqlSession.selectOne("mapper.diary.getDiary", idx);
+	}
+
+	public void updateDiary(DiaryVO diaryVO) throws DataAccessException {
+		sqlSession.update("mapper.diary.updateDiary",diaryVO);
+	}
 }

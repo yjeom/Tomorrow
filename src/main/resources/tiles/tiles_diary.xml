@@ -11,6 +11,9 @@
       <put-attribute name="title" value="Diary" />
       <put-attribute name="body" value="/WEB-INF/views/diary/diaryForm.jsp" />
    </definition>
-   
+     <definition name="/diary/getDiary" extends="baseLayout">
+      <put-attribute name="title" value="Diary" />
+      <put-attribute name="body" value="/WEB-INF/views/diary/diaryForm.jsp" />
+   </definition>
    
 </tiles-definitions>
