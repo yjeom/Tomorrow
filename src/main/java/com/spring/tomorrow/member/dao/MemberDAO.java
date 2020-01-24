@@ -17,5 +17,6 @@ public interface MemberDAO {
 	 public String idCheck(String id) throws DataAccessException;
 	 public void updateReportCount(int idx)throws DataAccessException;
 	 public void updateReportCheck(int idx)throws DataAccessException;
+	 public void updateMember(MemberVO memberVO)throws DataAccessException;
 
 }

@@ -52,7 +52,6 @@ function logout()
 function sendMail(){
 	var isLogOn ='<c:out value="${isLogOn}"/>';
 	if(isLogOn){
-		alert(isLogOn);
 		location.href=contextPath+"/mail/sendWorryList.do";
 	}
 	else{
@@ -126,7 +125,7 @@ function diary(){
 			<c:choose>
 				<c:when test="${isLogOn==true and not empty member}">
 					<footer>
-						<input type="button" class="button" value="Logout" onclick="location.href='javascript:logout()'" >
+						<input type="button" class="button" value="myPage" onclick="location.href='${contextPath}/member/myPage.do'" >
 						
 					</footer>
 				</c:when>

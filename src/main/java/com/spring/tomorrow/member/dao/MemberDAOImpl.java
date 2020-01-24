@@ -59,5 +59,11 @@ public class MemberDAOImpl implements MemberDAO {
 		
 	}
 
+	
+	public void updateMember(MemberVO memberVO) throws DataAccessException {
+		sqlSession.update("mapper.member.updateMember",memberVO);
+		
+	}
+
 
 }

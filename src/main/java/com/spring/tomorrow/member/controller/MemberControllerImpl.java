@@ -83,15 +83,28 @@ public class MemberControllerImpl   implements MemberController {
 		
 	}
 	
-	@RequestMapping(value="/member/removeMember.do" ,method = RequestMethod.GET)
-	public ModelAndView removeMember(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		request.setCharacterEncoding("utf-8");
-		HttpSession session = request.getSession();
-		MemberVO member=(MemberVO) session.getAttribute("member");
-		memberService.removeMember(member.getIdx());
-		session.invalidate();
-		ModelAndView mav = new ModelAndView("redirect:/home.do");
-		return mav;
+	@RequestMapping(value="/member/removeMember.do" ,method = RequestMethod.POST)
+	public ResponseEntity removeMember(@RequestParam int idx,HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			memberService.removeMember(idx);
+		    message  = "<script>";
+		    message +=" alert('회원 탈퇴가 정상적으로 수행되었습니다');";
+		    message += " location.href='"+request.getContextPath()+"/member/logout.do';";
+		    message += " </script>";
+		    
+		}catch(Exception e) {
+			message  = "<script>";
+		    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+		    message += " location.href='"+request.getContextPath()+"/member/myPage.do';";
+		    message += " </script>";
+			e.printStackTrace();
+		}
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
 	}
 	
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
@@ -200,6 +213,38 @@ public class MemberControllerImpl   implements MemberController {
 		return mav;
 	}
 
+	@RequestMapping(value="/member/myPage.do",method=RequestMethod.GET)
+	public ModelAndView myPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("/member/myPage");
+		return mav;
+	}
+
+	@RequestMapping(value="/member/updateMember.do",method=RequestMethod.POST)
+	public ResponseEntity updateMember(@ModelAttribute MemberVO memberVO, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			memberService.updateMember(memberVO);
+		    message  = "<script>";
+		    message +=" alert('회원정보를 수정했습니다');";
+		    message += " location.href='"+request.getContextPath()+"/home.do';";
+		    message += " </script>";
+		    
+		}catch(Exception e) {
+			message  = "<script>";
+		    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+		    message += " location.href='"+request.getContextPath()+"/member/myPage.do';";
+		    message += " </script>";
+			e.printStackTrace();
+		}
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
+		
+	}
 
 
 

@@ -26,4 +26,10 @@
       <put-attribute name="body" value="/WEB-INF/views/member/idCheck.jsp" />
       <put-attribute name="footer" value="/" />
    </definition>
+   
+    <definition name="/member/myPage" extends="baseLayout2">
+      <put-attribute name="title" value="MyPage" />
+      <put-attribute name="header" value="/" />
+      <put-attribute name="body" value="/WEB-INF/views/member/myPage.jsp" />
+   </definition>
 </tiles-definitions>

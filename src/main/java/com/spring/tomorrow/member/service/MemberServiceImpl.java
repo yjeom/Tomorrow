@@ -55,6 +55,10 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.updateReportCheck(idx);
 		
 	}
+	public void updateMember(MemberVO memberVO) {
+		memberDAO.updateMember(memberVO);
+		
+	}
 
 
 }

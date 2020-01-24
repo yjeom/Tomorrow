@@ -15,4 +15,5 @@ public interface MemberService {
 	 public MemberVO login(MemberVO memberVO) ;
 	 public void reportMember(int idx);
 	 public void reportCheck(int idx);
+	 public void updateMember(MemberVO memberVO);
 }
