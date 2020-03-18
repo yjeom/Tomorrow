@@ -11,6 +11,7 @@
         <result property="email" column="email" />
         <result property="google_email" column="email" />
         <result property="naver_email" column="email" />
+        <result property="kakao_email" column="email" />
         <result property="join_date" column="join_date" />
         <result property="report_count" column="report_count" />
         <result property="report_check" column="report_check" />
@@ -78,10 +79,10 @@
     
      <insert id="insertMember"  parameterType="memberVO">
 		<![CDATA[
-		 insert into member(idx,id,pwd,email,google_email,naver_email,access_token,refresh_token)
+		 insert into member(idx,id,pwd,email,google_email,naver_email,kakao_email,access_token,refresh_token)
 		 values(member_seq.nextval,#{id,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
-				 #{google_email,jdbcType=VARCHAR},#{naver_email,jdbcType=VARCHAR},#{access_token,jdbcType=VARCHAR},
-				 #{refresh_token,jdbcType=VARCHAR})
+				 #{google_email,jdbcType=VARCHAR},#{naver_email,jdbcType=VARCHAR},#{kakao_email,jdbcType=VARCHAR},
+				 #{access_token,jdbcType=VARCHAR}, #{refresh_token,jdbcType=VARCHAR})
 		]]>      
 	</insert>
 	
