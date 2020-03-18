@@ -12,24 +12,26 @@
 
  <definition name="/member/loginForm" extends="baseLayout2">
       <put-attribute name="title" value="Login" />
+       <put-attribute name="header" value="/WEB-INF/views/common/header2.jsp" />
       <put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />
    </definition>
    
  <definition name="/member/joinForm" extends="baseLayout2">
       <put-attribute name="title" value="Login" />
+      <put-attribute name="header" value="/WEB-INF/views/common/header2.jsp" />
       <put-attribute name="body" value="/WEB-INF/views/member/joinForm.jsp" />
    </definition>
    
  <definition name="/member/idCheck" template="/WEB-INF/views/common/layout2.jsp">
-  	<put-attribute name="header" value="/" />
+  	<put-attribute name="header" value="" />
       <put-attribute name="title" value="Join" />
       <put-attribute name="body" value="/WEB-INF/views/member/idCheck.jsp" />
-      <put-attribute name="footer" value="/" />
+      <put-attribute name="footer" value="" />
    </definition>
    
     <definition name="/member/myPage" extends="baseLayout2">
       <put-attribute name="title" value="MyPage" />
-      <put-attribute name="header" value="/" />
+      <put-attribute name="header" value="/WEB-INF/views/common/header2.jsp" />
       <put-attribute name="body" value="/WEB-INF/views/member/myPage.jsp" />
    </definition>
 </tiles-definitions>

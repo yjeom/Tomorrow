@@ -10,6 +10,7 @@
 
 <!DOCTYPE html>
 <html>
+
 <script type="text/javascript">
 var contextPath= '<c:out value="${contextPath}"/>';
 function logout()
@@ -40,7 +41,7 @@ function receiveMail(){
 	}
 	else{
 	alert("로그인후 이용할 수 있습니다."+isLogOn);
-	location.href=contextPath"+/member/loginForm.do";
+	location.href=contextPath+"/member/loginForm.do";
 	}
 }
 function diary(){
@@ -102,6 +103,7 @@ button.report:hover,
 		<link rel="stylesheet" href="/assets/css/main.css" />
 		<link href="//fonts.googleapis.com/css?family=Pattaya&subset=latin" rel="stylesheet" type="text/css">
 		<link rel="icon" type="image/png" href="/images/icons/favicon_main.ico"/>
+		
 <title>헤더</title>
 </head>
 <body>

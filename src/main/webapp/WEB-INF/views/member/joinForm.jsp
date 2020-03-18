@@ -98,7 +98,7 @@ function check() {
 					<span class="focus-input100"></span>
 				</div>
 				<div class="wrap-input100 validate-input m-b-25" >
-					<input class="input100" type="text" name="email" placeholder="e-mail">
+					<input class="input100" type="email" name="email" placeholder="e-mail">
 					<span class="focus-input100"></span>
 				</div>
 

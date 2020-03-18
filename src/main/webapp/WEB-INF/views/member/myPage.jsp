@@ -45,11 +45,6 @@ function remove(){
 <title>Insert title here</title>
 </head>
 <body>
-<header id="header">
-	<div class="inner">
-		<a href="${contextPath}/home.do" class="logo">Tomorrow is...</a>
-	</div>
-</header>
 <form name="regFrm" method="post" onsubmit="return check()" action="${contextPath }/member/updateMember.do">
 <div class="container-login100">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30" >

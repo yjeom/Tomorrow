@@ -16,4 +16,7 @@ public interface MemberService {
 	 public void reportMember(int idx);
 	 public void reportCheck(int idx);
 	 public void updateMember(MemberVO memberVO);
+	 public MemberVO getToken(String apiUrl,String param,MemberVO memberVO);
+	 public MemberVO getSNSUserInfo(String sns,String apiUrl,MemberVO memberVO);
+	 public MemberVO getSNSJoinCheck(String sns,String email);
 }

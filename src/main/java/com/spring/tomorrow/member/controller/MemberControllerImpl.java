@@ -1,11 +1,16 @@
 package com.spring.tomorrow.member.controller;
 
+import java.io.IOException;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +26,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.spring.tomorrow.Paging;
+import com.spring.tomorrow.SNSOauth;
+import com.spring.tomorrow.SocialLogin;
 import com.spring.tomorrow.mail.service.MailService;
 import com.spring.tomorrow.member.service.MemberService;
 import com.spring.tomorrow.member.vo.MemberVO;
+
+import com.spring.tomorrow.Token;
 
 
 
@@ -37,7 +47,124 @@ public class MemberControllerImpl   implements MemberController {
 	MemberVO memberVO ;
 	@Autowired
 	private MailService mailService;
+
+	SocialLogin login;
 	
+	@RequestMapping(value = "/member/oauth/googlecallback", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView googleCallback(@RequestParam String code,RedirectAttributes rAttr, HttpServletRequest request)  {
+		System.out.println("googlecallback######");
+		ModelAndView mav = new ModelAndView();
+		MemberVO member = new MemberVO();
+		try {
+			String param = "code=" + code
+					+ "&client_id="+SNSOauth.getGoogleclientid()
+					+ "&client_secret="+SNSOauth.getGooglesecret()
+					+ "&redirect_uri="+SNSOauth.getGoogleredirecturl()
+					+ "&grant_type=authorization_code";
+			//getToken
+			member = memberService.getToken("https://oauth2.googleapis.com/token", param, member);
+			//getUserInfo
+			member = memberService.getSNSUserInfo("google",
+					"https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + member.getAccess_token(), member);
+			
+			//Join Check
+			MemberVO check = memberService.getSNSJoinCheck("google", member.getGoogle_email());
+			if (check == null) {
+				memberService.addMember(member);
+			}
+			HttpSession session = request.getSession();
+			session.setAttribute("member", member);
+			session.setAttribute("isLogOn", true);
+			mav.setViewName("redirect:/home.do");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rAttr.addAttribute("result", "loginFailed");
+			String msg = "죄송합니다. 로그인에 실패했습니다.";
+			mav.addObject("msg", msg);
+			mav.setViewName("/member/loginForm");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value = "/member/oauth/naver", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView naverCallback(@RequestParam String code, @RequestParam String state, RedirectAttributes rAttr,
+			HttpServletRequest request) {
+		System.out.println("naver");
+		ModelAndView mav = new ModelAndView();
+		try {
+			MemberVO member = new MemberVO();
+			String storedState = request.getSession().getAttribute("state").toString();
+
+			if (!state.equals(storedState)) {
+				System.out.println("err");
+				
+			} else {
+				String param = "client_id="+SNSOauth.getNaverclientid() 
+								+ "&client_secret="+SNSOauth.getNaversecret()
+						+ "&grant_type=authorization_code&" + "state=" + state + "&" + "code=" + code;
+				login = new SocialLogin();
+				//getToken
+				member = memberService.getToken("https://nid.naver.com/oauth2.0/token", param, member);
+				//getUserInfo
+				member = memberService.getSNSUserInfo("naver",
+						"https://openapi.naver.com/v1/nid/me?access_token=" + member.getAccess_token(), member);
+				//JoinCheck
+				MemberVO check = memberService.getSNSJoinCheck("naver", member.getNaver_email());
+				if (check == null) {
+					System.out.println("이제 회원가입 후 로그인!");
+					memberService.addMember(member);
+				}
+				HttpSession session = request.getSession();
+				session.setAttribute("member", member);
+				session.setAttribute("isLogOn", true);
+				mav.setViewName("redirect:/home.do");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			rAttr.addAttribute("result", "loginFailed");
+			String msg = "죄송합니다. 로그인에 실패했습니다.";
+			mav.addObject("msg", msg);
+			mav.setViewName("/member/loginForm");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/member/oauth/kakao" ,method = {RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView kakaoCallback(@RequestParam String code, RedirectAttributes rAttr,HttpServletRequest request) throws ServletException, IOException {
+		System.out.println("kakao");
+		ModelAndView mav = new ModelAndView();
+		try {
+			MemberVO member = new MemberVO();
+				String param = "client_id="+SNSOauth.getKakaoclientid()
+								+ "&client_secret="+SNSOauth.getKakaosecret()
+								+ "&grant_type=authorization_code" 
+								+ "&redirect_uri="+SNSOauth.getKakaoredirecturl() 
+								+ "&code=" + code;
+				login = new SocialLogin();
+				//getToken
+				member = memberService.getToken("https://kauth.kakao.com/oauth/token", param, member);
+				//getUserInfo
+				member = memberService.getSNSUserInfo("kakao",
+						"https://kapi.kakao.com/v2/user/me?access_token=" + member.getAccess_token(), member);
+				//JoinCheck
+				MemberVO check = memberService.getSNSJoinCheck("kakao", member.getKakao_email());
+				if (check == null) {
+					System.out.println("이제 회원가입 후 로그인!");
+					memberService.addMember(member);
+				}
+				HttpSession session = request.getSession();
+				session.setAttribute("member", member);
+				session.setAttribute("isLogOn", true);
+				mav.setViewName("redirect:/home.do");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rAttr.addAttribute("result", "loginFailed");
+			String msg = "죄송합니다. 로그인에 실패했습니다.";
+			mav.addObject("msg", msg);
+			mav.setViewName("/member/loginForm");
+		}
+		return mav;
+	}
 	@RequestMapping(value="/admin/adminHome.do" ,method = {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView listMembers(@RequestParam(defaultValue="1") int curPage,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -57,17 +184,20 @@ public class MemberControllerImpl   implements MemberController {
 	}
 
 	@RequestMapping(value="/member/addMember.do" ,method = RequestMethod.POST)
-	public ResponseEntity addMember(@ModelAttribute("member") MemberVO member,
+	public ResponseEntity addMember(@ModelAttribute("member") MemberVO member,String sns,
 			                  HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String message = null;
 		ResponseEntity resEntity = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-			memberService.addMember(member);
+				memberService.addMember(member);
+				HttpSession session = request.getSession();
+			    session.setAttribute("member", member);
+			    session.setAttribute("isLogOn", true);
 		    message  = "<script>";
-		    message +=" alert('가입을 환영합니다.로그인창으로 이동합니다.');";
-		    message += " location.href='"+request.getContextPath()+"/member/loginForm.do';";
+		    message +=" alert('가입을 환영합니다.');";
+		    message += " location.href='"+request.getContextPath()+"/home.do';";
 		    message += " </script>";
 		    
 		}catch(Exception e) {
@@ -151,6 +281,36 @@ public class MemberControllerImpl   implements MemberController {
 		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result",result);
+		
+		//googleURL
+		String googleUrl ="https://accounts.google.com/o/oauth2/v2/auth?"
+				+ "redirect_uri="+SNSOauth.getGoogleredirecturl()
+				+ "&response_type=code&client_id="+SNSOauth.getGoogleclientid()
+				+ "&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&"
+				+ "access_type=offline";
+		mav.addObject("googleURL", googleUrl);
+		
+		//naverURL
+		SecureRandom random=new SecureRandom();
+		String state=new BigInteger(130,random).toString();
+		HttpSession session=request.getSession();
+		session.setAttribute("state", state);
+
+
+		String naverUrl="https://nid.naver.com/oauth2.0/authorize?"
+				+ "client_id="+SNSOauth.getNaverclientid()
+				+ "&response_type=code&"
+				+ "&redirect_uri="+SNSOauth.getNaverredirecturl()
+				+ "&state="+state;
+		mav.addObject("naverURL", naverUrl);
+		
+		//kakaoURL
+		String kakaoUrl="https://kauth.kakao.com/oauth/authorize?client_id="
+				+ SNSOauth.getKakaoclientid()
+				+ "&redirect_uri="+SNSOauth.getKakaoredirecturl()
+				+ "&response_type=code";
+		mav.addObject("kakaoURL", kakaoUrl);
+		
 		mav.setViewName(viewName);
 		return mav;
 	}

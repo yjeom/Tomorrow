@@ -13,7 +13,7 @@ import com.spring.tomorrow.member.vo.MemberVO;
 
 public interface MemberController {
 	public ModelAndView listMembers(@RequestParam(defaultValue="1") int curPage,HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ResponseEntity addMember(@ModelAttribute("info") MemberVO memberVO,
+	public ResponseEntity addMember(@ModelAttribute("info") MemberVO memberVO,String sns,
 			HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity removeMember(int idx,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView login(@ModelAttribute("member") MemberVO member,

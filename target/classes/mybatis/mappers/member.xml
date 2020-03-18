@@ -9,9 +9,13 @@
 		<result property="id" column="id" />
         <result property="pwd" column="pwd" />
         <result property="email" column="email" />
+        <result property="google_email" column="email" />
+        <result property="naver_email" column="email" />
         <result property="join_date" column="join_date" />
         <result property="report_count" column="report_count" />
         <result property="report_check" column="report_check" />
+        <result property="access_token" column="access_token" />
+        <result property="refresh_token" column="refresh_token" />
 	</resultMap> 
 	 
 	<resultMap id="memList" type="java.util.HashMap">
@@ -55,11 +59,29 @@
 			)where rnum between #{start} and #{end}
       ]]>
 	</select>
+
+	<select id="selectGoogleEmail" resultType="memberVO" parameterType="String">
+	<![CDATA[
+		select * from member where google_email = #{email}
+	]]>
+	</select>
+	<select id="selectNaverEmail" resultType="memberVO" parameterType="String">
+	<![CDATA[
+		select * from member where naver_email = #{email}
+	]]>
+	</select>
+	<select id="selectKakaoEmail" resultType="memberVO" parameterType="String">
+	<![CDATA[
+		select * from member where kakao_email = #{email}
+	]]>
+	</select>
     
      <insert id="insertMember"  parameterType="memberVO">
 		<![CDATA[
-		 insert into member(idx,id,pwd,email)
-		 values(member_seq.nextval,#{id}, #{pwd}, #{email})
+		 insert into member(idx,id,pwd,email,google_email,naver_email,access_token,refresh_token)
+		 values(member_seq.nextval,#{id,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+				 #{google_email,jdbcType=VARCHAR},#{naver_email,jdbcType=VARCHAR},#{access_token,jdbcType=VARCHAR},
+				 #{refresh_token,jdbcType=VARCHAR})
 		]]>      
 	</insert>
 	
