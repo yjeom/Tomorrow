@@ -21,7 +21,7 @@ function paging(page) {
             <div class="inner">
                <div class="flex">               
                   <div>
-                     <img src="/images/icons/microphone.png" width="30px" /><br><br>
+                     <img src="/tomorrow/resources/images/icons/microphone.png" width="30px" /><br><br>
                      <h3>공 지 사 항</h3>
                         <p>관리자가 소통하는 방법입니다.<br>
                       </p>                  

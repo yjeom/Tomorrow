@@ -13,7 +13,7 @@
 		<div class="inner">
 			<div class="flex">
 				<div>
-					<img src="/images/icons/microphone.png" width="30px"  />
+					<img src="/tomorrow/resources/images/icons/microphone.png" width="30px"  />
 					<br> <br>
 					<h3>공 지 사 항 (수정)</h3>
 						<p>관리자 전용 페이지입니다.<br>

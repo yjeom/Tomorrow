@@ -10,21 +10,9 @@ function paging(page) {
 	location.href=contextPath+"/qna/qnaList.do?curPage="+page;
 	}
 
-function login(){
-	var isLogOn ='<c:out value="${isLogOn}"/>';
-	if(isLogOn){
+function qna(){
 		location.href=contextPath+"/qna/qnaForm.do";
-	}
-	else{
-	alert("로그인후 작성할 수 있습니다.");
-	location.href=contextPath+"/member/loginForm.do";
-	}
 }
-function read(){
-	alert("로그인후 조회할 수 있습니다.");
-	location.href=contextPath+"/member/loginForm.do";
-
-	}
 
 </script>
 <head>
@@ -38,7 +26,7 @@ function read(){
 		<div class="inner">
 			<div class="flex">
 				<div>
-					<img src="/images/icons/question.png" width="30px" /><br><br>
+					<img src="/tomorrow/resources/images/icons/question.png" width="30px" /><br><br>
 							<h3>QnA</h3>
 							<p>문의사항은 언제든 환영합니다.<br>
 							 </p>
@@ -74,7 +62,7 @@ function read(){
 					<td>
 					<c:choose>
 						<c:when test="${qnaList.secret_yn==1}">
-							<img src="/images/icons/lock.png" width="15px"/><span style=padding-left:10px></span>
+							<img src="/tomorrow/resources/images/icons/lock.png" width="15px"/><span style=padding-left:10px></span>
 							<a href="${contextPath}/qna/passwordForm.do?idx=${qnaList.idx}">${qnaList.title}</a>
 						</c:when>
 						<c:otherwise>
@@ -83,7 +71,7 @@ function read(){
 					</c:choose>
 						<c:if test="${qnaList.reply_count>0 }">
 						<span style=padding-left:5px></span>
-						<img src="/images/icons/comment.png" width="15px"/>
+						<img src="/tomorrow/resources/images/icons/comment.png" width="15px"/>
 						<span style=padding-left:3px></span>${qnaList.reply_count}
 						</c:if>
 						
@@ -123,7 +111,7 @@ function read(){
                 </div>			
 
 	<br>
-			<input type="button" value="글 작성" onclick="location='javascript:login()'">
+			<input type="button" value="글 작성" onclick="location='javascript:qna()'">
 			
 		<br><br>
 		

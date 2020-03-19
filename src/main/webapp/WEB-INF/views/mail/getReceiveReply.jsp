@@ -58,7 +58,7 @@ function report(){
 					<div style="position:absolute">
 					  <div style="position:relative; top:-40px; left:20px;">
 					  <form name="reportForm" action="${contextPath }/mail/reportReply.do" method="post">
-						<button type="button" class="report" onclick="location.href='javascript:report()'"><img src="/images/icons/alarm.png"width="20px" />
+						<button type="button" class="report" onclick="location.href='javascript:report()'"><img src="/tomorrow/resources/images/icons/alarm.png"width="20px" />
 						 신고하기
 						</button>
 						<input type="hidden" name="idx" id="idx" value="${receiveReply.idx }">

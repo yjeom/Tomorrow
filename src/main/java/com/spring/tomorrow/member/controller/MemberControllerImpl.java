@@ -52,7 +52,7 @@ public class MemberControllerImpl   implements MemberController {
 	
 	@RequestMapping(value = "/member/oauth/googlecallback", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView googleCallback(@RequestParam String code,RedirectAttributes rAttr, HttpServletRequest request)  {
-		System.out.println("googlecallback######");
+		System.out.println("google");
 		ModelAndView mav = new ModelAndView();
 		MemberVO member = new MemberVO();
 		try {
@@ -73,7 +73,7 @@ public class MemberControllerImpl   implements MemberController {
 				memberService.addMember(member);
 			}
 			HttpSession session = request.getSession();
-			session.setAttribute("member", member);
+			session.setAttribute("member", check);
 			session.setAttribute("isLogOn", true);
 			mav.setViewName("redirect:/home.do");
 		} catch (Exception e) {
@@ -115,7 +115,7 @@ public class MemberControllerImpl   implements MemberController {
 					memberService.addMember(member);
 				}
 				HttpSession session = request.getSession();
-				session.setAttribute("member", member);
+				session.setAttribute("member", check);
 				session.setAttribute("isLogOn", true);
 				mav.setViewName("redirect:/home.do");
 			}
@@ -130,7 +130,7 @@ public class MemberControllerImpl   implements MemberController {
 	}
 	
 	@RequestMapping(value="/member/oauth/kakao" ,method = {RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView kakaoCallback(@RequestParam String code, RedirectAttributes rAttr,HttpServletRequest request) throws ServletException, IOException {
+	public ModelAndView kakaoCallback(@RequestParam String code, RedirectAttributes rAttr,HttpServletRequest request)  {
 		System.out.println("kakao");
 		ModelAndView mav = new ModelAndView();
 		try {
@@ -153,7 +153,7 @@ public class MemberControllerImpl   implements MemberController {
 					memberService.addMember(member);
 				}
 				HttpSession session = request.getSession();
-				session.setAttribute("member", member);
+				session.setAttribute("member", check);
 				session.setAttribute("isLogOn", true);
 				mav.setViewName("redirect:/home.do");
 		} catch (Exception e) {
@@ -404,6 +404,18 @@ public class MemberControllerImpl   implements MemberController {
 		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
 		
+	}
+
+	@RequestMapping(value="/member/sendLoginForm.do",method=RequestMethod.GET)
+	public ResponseEntity sendLoginForm(HttpServletRequest request) throws Exception {
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		 String message  = "<script> alert('로그인후 이용하실 수 있습니다');"
+		    +" location.href='"+request.getContextPath()+"/member/loginForm.do';"
+		    + " </script>";
+		 resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
 	}
 
 

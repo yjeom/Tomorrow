@@ -50,34 +50,13 @@ function logout()
 }
 }
 function sendMail(){
-	var isLogOn ='<c:out value="${isLogOn}"/>';
-	if(isLogOn){
 		location.href=contextPath+"/mail/sendWorryList.do";
-	}
-	else{
-		alert("로그인후 이용할 수 있습니다.");
-		location.href=contextPath+"/member/loginForm.do";
-		}
 }
 function receiveMail(){
-	var isLogOn ='<c:out value="${isLogOn}"/>';
-	if(isLogOn){
 		location.href=contextPath+"/mail/receiveWorryList.do";
-	}
-	else{
-	alert("로그인후 이용할 수 있습니다.");
-	location.href=contextPath+"/member/loginForm.do";
-	}
 }
 function diary(){
-	var isLogOn ='<c:out value="${isLogOn}"/>';
-	if(isLogOn){
 		location.href=contextPath+"/diary/diaryList.do";
-	}
-	else{
-		alert("로그인후 이용할 수 있습니다.");
-		location.href=contextPath+"/member/loginForm.do";
-		}
 }
 </script>
 <head>
@@ -98,7 +77,7 @@ function diary(){
 						<div>
 						<c:choose>
 							<c:when test="${newWorry >0}">
-							<input type="image" src="/images/icons/new.gif" width="40px" onclick="location.href='javascript:receiveMail()'">
+							<input type="image" src="/tomorrow/resources/images/icons/new.gif" width="40px" onclick="location.href='javascript:receiveMail()'">
 							</c:when>
 							<c:otherwise>
 							<input type="image" src="/images/icons/contact.png" width="40px" onclick="location.href='javascript:receiveMail()'"/>

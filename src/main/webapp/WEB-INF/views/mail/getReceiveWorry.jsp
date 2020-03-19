@@ -12,13 +12,6 @@
 <script type="text/javascript">
 var contextPath= '<c:out value="${contextPath}"/>';
 function inputCheck()
-{
-	var isLogOn='<c:out value="${isLogOn}"/>';
-	if(isLogOn ==''||isLogOn==null){
-		alert("세션만료로 로그아웃되었습니다.다시 로그인후 이용해주세요"+isLogOn);
-		location.href=contextPath+"/member/loginForm.do";
-		return false;
-	}
 	else if(document.sendReply.contents.value=="")
 		{
 			alert("내용을 입력하세요.");
@@ -59,7 +52,7 @@ function report(){
 					<div style="position:absolute">
 					  <div style="position:relative; top:-40px; left:20px;">
 					  <form name="reportForm" action="${contextPath }/mail/reportWorry.do" method="post">
-						<button type="button" class="report" onclick="location.href='javascript:report()'"><img src="/images/icons/alarm.png"width="20px" />
+						<button type="button" class="report" onclick="location.href='javascript:report()'"><img src="/tomorrow/resources/images/icons/alarm.png"width="20px" />
 						 신고하기
 						</button>
 						<input type="hidden" name="idx" id="idx" value="${receiveWorry.idx }">

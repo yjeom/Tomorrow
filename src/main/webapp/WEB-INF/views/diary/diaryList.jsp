@@ -10,14 +10,7 @@ function paging(page) {
 	location.href=contextPath+"/diary/diaryList.do?curPage="+page;
 	}
 function question(){
-	var isLogOn='<c:out value="${isLogOn}"/>';
-	if(isLogOn){
 		location.href=contextPath+"/diary/getQuestion.do";
-	}
-	else{
-		alert("세션만료로 로그아웃되셨습니다. 다시 로그인후 이용해 주세요");
-		location.href=contextPath+"/member/loginForm.do";
-	}
 }
 
 </script>

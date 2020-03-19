@@ -45,31 +45,33 @@ function remove(){
 <title>Insert title here</title>
 </head>
 <body>
-<form name="regFrm" method="post" onsubmit="return check()" action="${contextPath }/member/updateMember.do">
 <div class="container-login100">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30" >
 			<form class="login100-form validate-form">
 				<span class="login100-form-title p-b-37">
-					Modify 
+					MyPage
 				</span>
-				<div class="wrap-input100 validate-input m-b-20"  data-validate="Enter username or id">
+		<c:choose>
+			<c:when test="${member.id !=null}">
+			<form name="regFrm" method="post" onsubmit="return check()" action="${contextPath }/member/updateMember.do">
+					<div class="wrap-input100 validate-input m-b-20"  data-validate="아이디">
 					<span class="focus-input100 "></span>
 					아이디<input class="input100" type="text" name="id" value="${member.id }" readonly>
 				</div>
 
-				<div class="wrap-input100 validate-input m-b-25"  data-validate="Enter password">
+				<div class="wrap-input100 validate-input m-b-25"  data-validate="비밀번호">
 					비밀번호<input class="input100" type="password" name="pwd" value="">
 					<span class="focus-input100"></span>
 				</div>
-				<div class="wrap-input100 validate-input m-b-25"  data-validate="Enter password Check">
+				<div class="wrap-input100 validate-input m-b-25"  data-validate="비밀번호 확인">
 					비밀번호 확인<input class="input100" type="password" name="pwdCheck" value="">
 					<span class="focus-input100"></span>
 				</div>
-				<div class="wrap-input100 validate-input m-b-25" data-validate="Enter email">
+				<div class="wrap-input100 validate-input m-b-25" data-validate="이메일">
 					이메일<input class="input100" type="text" name="email" value="${member.email }">
 					<span class="focus-input100"></span>
 				</div>
-				<div class="wrap-input100 validate-input m-b-25" data-validate="">
+					<div class="wrap-input100 validate-input m-b-25" data-validate="경고">
 					경고횟수<input class="input100" type="text" name="report_count" value="${member.report_count }" readonly>
 					<span class="focus-input100"></span>
 				</div>
@@ -79,15 +81,42 @@ function remove(){
 					<input type="hidden" name="idx" value="${member.idx }">
 					<br>
 					<br>
-					
+				</form>
+			</c:when>
+			<c:otherwise>
+				<c:if test="${member.google_email !=null }">
+					<div class="wrap-input100 validate-input m-b-20"  data-validate="Google Email">
+					<span class="focus-input100 "></span>
+					구글이메일<input class="input100" type="text" name="id" value="${member.google_email }" readonly>
+					</div>
+				</c:if>
+				<c:if test="${member.naver_email !=null }">
+					<div class="wrap-input100 validate-input m-b-20"  data-validate="Naver Email">
+					<span class="focus-input100 "></span>
+					네이버이메일<input class="input100" type="text" name="id" value="${member.naver_email }" readonly>
+					</div>
+				</c:if>
+				<c:if test="${member.kakao_email !=null }">
+					<div class="wrap-input100 validate-input m-b-20"  data-validate="Kakao Email">
+					<span class="focus-input100 "></span>
+					카카오이메일<input class="input100" type="text" name="id" value="${member.kakao_email }" readonly>
+					</div>
+				</c:if>
+					<div class="wrap-input100 validate-input m-b-25" data-validate="경고">
+					경고횟수<input class="input100" type="text" name="report_count" value="${member.report_count }" readonly>
+					<span class="focus-input100"></span>
+					</div>
+			</c:otherwise>
+		
+		</c:choose>
+		</form>		
 					<div class="text-center">
 					<a href="javascript:remove()" class="txt2 hov1">
 					<font color="grey">회원탈퇴</font>	</a>	
 					
 					
 					</div>
-			</form>
-<form name="del" action="${contextPath }/member/removeMember.do" method="post">
+				<form name="del" action="${contextPath }/member/removeMember.do" method="post">
 						<input type="hidden" name="idx" value="${member.idx }">
 					</form>
 			

@@ -79,22 +79,22 @@ function check() {
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30" >
 			<form class="login100-form validate-form">
 				<span class="login100-form-title p-b-37">
-					Join 
+					회원가입
 				</span><br>
 				<div class="text-right">
 					<a href="javascript:idCheck()" class="txt2 hov1"><font color="grey" size="2px">
-					ID check
+					중복확인
 					</a></font>
 				</div>
 				<div class="wrap-input100 validate-input m-b-20" >
-					<input class="input100" type="text" name="id"   id="id" placeholder="username or id">
+					<input class="input100" type="text" name="id"   id="id" placeholder="아이디">
 					<span class="focus-input100"></span>
 						<input type="hidden" id="joongbokID" name="joongbokID" value=0>	
 					
 				</div>
 
 				<div class="wrap-input100 validate-input m-b-25"  >
-					<input class="input100" type="password" name="pwd" placeholder="password (more than 6 letters)">
+					<input class="input100" type="password" name="pwd" placeholder="비밀번호(6자이상)">
 					<span class="focus-input100"></span>
 				</div>
 				<div class="wrap-input100 validate-input m-b-25" >
@@ -103,7 +103,7 @@ function check() {
 				</div>
 
 				<div class="container-login100-form-btn">
-					<input type="submit" class="login100-form-btn" value="Sign Up">
+					<input type="submit" class="login100-form-btn" value="회원가입">
 					</div>
 			</form>
 

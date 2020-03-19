@@ -13,7 +13,7 @@
 		<div class="inner">
 			<div class="flex">
 				<div>
-					<img src="/images/icons/microphone.png" width="30px"  />
+					<img src="/tomorrow/resources/images/icons/microphone.png" width="30px"  />
 					<br> <br>
 					<h3>공지사항 읽기</h3>
 						<p>꼭 알려야 할 사항들이니 주의 깊게 읽어주세요.<br>

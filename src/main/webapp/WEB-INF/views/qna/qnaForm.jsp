@@ -54,7 +54,7 @@ function inputCheck() {
 		<div class="inner">
 			<div class="flex">
 				<div>
-					<img src="/images/icons/question.png" width="30px" /><br>
+					<img src="/tomorrow/resources/images/icons/question.png" width="30px" /><br>
 							<h3>QnA 작성</h3>
 							<p>문의 사항은 언제든 환영입니다.<br>
 							 </p>

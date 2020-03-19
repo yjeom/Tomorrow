@@ -25,4 +25,9 @@ public interface MemberController {
 	public ModelAndView reportCheck(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView myPage(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity updateMember( MemberVO memberVO,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView googleCallback(@RequestParam String code,RedirectAttributes rAttr, HttpServletRequest request) ;
+	public ModelAndView naverCallback(@RequestParam String code, @RequestParam String state, RedirectAttributes rAttr,
+			HttpServletRequest request) ;
+	public ModelAndView kakaoCallback(@RequestParam String code, RedirectAttributes rAttr,HttpServletRequest request);
+	public ResponseEntity sendLoginForm(HttpServletRequest request) throws Exception;
 }

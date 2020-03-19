@@ -25,34 +25,13 @@ function logout()
 }
 }
 function sendMail(){
-	var isLogOn ='<c:out value="${isLogOn}"/>';
-	if(isLogOn){
 		location.href=contextPath+"/mail/sendWorryList.do";
-	}
-	else{
-	alert("로그인후 이용할 수 있습니다."+isLogOn);
-	location.href=contextPath+"/member/loginForm.do";
-	}
 }
 function receiveMail(){
-	var isLogOn ='<c:out value="${isLogOn}"/>';
-	if(isLogOn){
 		location.href=contextPath+"/mail/receiveWorryList.do";
-	}
-	else{
-	alert("로그인후 이용할 수 있습니다."+isLogOn);
-	location.href=contextPath+"/member/loginForm.do";
-	}
 }
 function diary(){
-	var isLogOn ='<c:out value="${isLogOn}"/>';
-	if(isLogOn){
 		location.href="${contextPath}/diary/diaryList.do";
-	}
-	if(isLogOn ==null || isLogOn==''){
-	alert("로그인후 이용할 수 있습니다.");
-	location.href="${contextPath}/member/loginForm.do";
-	}
 }
 </script>
 <style>

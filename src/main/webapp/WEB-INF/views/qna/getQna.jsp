@@ -13,12 +13,6 @@
 <script type="text/javascript">
 var contextPath= '<c:out value="${contextPath}"/>';
 function inputCheck() {
-	var isLogOn='<c:out value="${isLogOn}"/>';
-	if(isLogOn != true){
-		alert("로그인후 작성할 수 있습니다.");
-		location.href=contextPath+"/member/loginForm.do";
-		return false;
-	}
 	if (document.reFrm.content.value=="") {
 		alert("내용을 입력해주세요.");
 		document.reFrm.content.value = "";
@@ -63,7 +57,7 @@ function updateReply(){
 		<div class="inner">
 			<div class="flex">
 				<div>
-					<img src="/images/icons/question.png" width="30px" /><br><br>
+					<img src="/tomorrow/resources/images/icons/question.png" width="30px" /><br><br>
 							<h3>QnA 읽기</h3>
 							<p>문의해주셔서 감사합니다.<br>
 							 </p>
@@ -79,10 +73,9 @@ function updateReply(){
 				<br><br><br>
 				<table>
 					<tr style=" border:0px;">
-						<td col width="10%"><label for="name">작성자</label></td>
-						<td col width="10%"><input type="text" size="350" value="${qna.writer}" readonly></td>
-						<td col width="10%"><label for="name">문의 제목</label></td>
-						<td col width="80%"><input type="text" size="350" value="${qna.title }" readonly></td>
+			
+						<label for="name">문의 제목</label></td>
+						<input type="text" size="350" value="${qna.title }" readonly></td>
 					</tr>
 				</table>
 				<br><br>
@@ -124,7 +117,7 @@ function updateReply(){
 						<td align="right"><br>관리자<br>(${reList.regdate })</td>
 					</c:when>
 					<c:otherwise>
-					<td align="right"><br>${reList.writer}<br>(${reList.regdate })</td>
+					<td align="right"><br>익명님<br>(${reList.regdate })</td>
 					</c:otherwise>
 				</c:choose>
 				<c:choose>

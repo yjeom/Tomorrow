@@ -25,7 +25,13 @@
 			<mvc:mapping path="/*/*.do"/>
 			<beans:bean class="com.spring.tomorrow.ViewNameInterceptor"/>
 		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/*/*.do"/>
+			<beans:bean class="com.spring.tomorrow.LoginInterceptor"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
+	
 	<beans:bean id="tilesConfigurer" 
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<beans:property name="definitions">

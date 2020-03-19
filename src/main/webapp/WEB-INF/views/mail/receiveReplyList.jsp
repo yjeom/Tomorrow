@@ -13,14 +13,7 @@ function paging(page) {
 		location.href=contextPath+"/mail/receiveReplyList.do?curPage="+page;
 		}
 function receiveWorry(){
-	var isLogOn ='<c:out value="${isLogOn}"/>';
-	if(isLogOn){
 		location.href=contextPath+"/mail/receiveWorryList.do";
-	}
-	else{
-	alert("로그인후 이용할 수 있습니다.");
-	location.href=contextPath+"/member/loginForm.do";
-	}
 }
 	</script>
 </head>
@@ -67,7 +60,7 @@ function receiveWorry(){
 			<td>${receiveReplyList.rnum}</td>
 			<td>
 			<c:if test="${receiveReplyList.views==0 }">
-				<input type="image" src="/images/icons/newMessage.jpg"" width="10px" />
+				<input type="image" src="/tomorrow/resources/images/icons/newMessage.jpg"" width="10px" />
 			</c:if>
 			<a href="${contextPath}/mail/getReceiveReply.do?idx=${receiveReplyList.idx}">${receiveReplyList.title }</a>
 			</td>

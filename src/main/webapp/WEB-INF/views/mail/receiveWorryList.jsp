@@ -13,14 +13,7 @@ function paging(page) {
 		location.href=contextPath+"/mail/receiveWorryList.do?curPage="+page;
 		}
 function receiveReply(){
-	var isLogOn ='<c:out value="${isLogOn}"/>';
-	if(isLogOn){
 		location.href=contextPath+"/mail/receiveReplyList.do";
-	}
-	else{
-	alert("로그인후 이용할 수 있습니다.");
-	location.href=contextPath+"/member/loginForm.do";
-	}
 }
 	</script>
 </head>
@@ -67,7 +60,7 @@ function receiveReply(){
 			<td>${receiveWorryList.rnum}</td>
 			<td>
 			  <c:if test="${receiveWorryList.views==0 }">
-				<input type="image" src="/images/icons/newMessage.jpg"" width="10px" />
+				<input type="image" src="/tomorrow/resources/images/icons/newMessage.jpg"" width="10px" />
 			  </c:if>
 			<a href="${contextPath}/mail/getReceiveWorry.do?idx=${receiveWorryList.idx}">${receiveWorryList.title }</a>
 			</td>
@@ -105,7 +98,7 @@ function receiveReply(){
    		  		<input type="button" class="button" value="받은 답장함" onclick="location='javascript:receiveReply()'">
    		  		<c:if test="${newReply >0 }">
    		  		<div style="position:relative; top:-35px; left:47px;">
-							<input type="image" src="/images/icons/newMessage.jpg"" width="10px" /></div>
+							<input type="image" src="/tomorrow/resources/images/icons/newMessage.jpg"" width="10px" /></div>
    		  		</c:if>
    		  		</div>
 	<br>
