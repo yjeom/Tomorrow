@@ -33,17 +33,32 @@ public class QnaControllerImpl implements QnaController{
 	@Autowired
 	ReplyVO replyVO;
 	
-	@RequestMapping(value="/qna/qnaList.do", method = RequestMethod.GET)
-	public ModelAndView qnaList(@RequestParam(defaultValue="1") int curPage,
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int totalCount=qnaService.selectQnaCount();
-		Paging paging=new Paging(totalCount, curPage);
-		List<QnaVO> qnaList=null;
-		qnaList=qnaService.selectQnaList(paging.getStartIndex(),paging.getEndIndex());
+	@RequestMapping(value = { "/qna/qnaList.do", "/qna/myQnaList.do" }, method = RequestMethod.GET)
+	public ModelAndView qnaList(@RequestParam(defaultValue = "1") int curPage,
+			@RequestParam(defaultValue = "0", required = false) int idx, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		int totalCount = 0;
+		if (request.getServletPath().equals("/qna/myQnaList.do")) {
+			totalCount = qnaService.selectMyQnaCount(idx);
+			System.out.println(totalCount);
+		} else {
+			totalCount = qnaService.selectQnaCount();
+		}
+		Paging paging = new Paging(totalCount, curPage);
+		List<QnaVO> qnaList = null;
+		if (request.getServletPath().equals("/qna/myQnaList.do")) {
+			qnaList = qnaService.selectMyQnaList(idx, paging.getStartIndex(), paging.getEndIndex());
+			mav.addObject("isMy", true);
+			System.out.println("내질문만 받아와저장");
+
+		} else {
+			qnaList = qnaService.selectQnaList(paging.getStartIndex(), paging.getEndIndex());
+			mav.addObject("isMy", false);
+		}
 		System.out.println(qnaList.isEmpty());
-		ModelAndView mav=new ModelAndView();
-		mav.addObject("qnaList",qnaList);
-		mav.addObject("paging",paging);
+		mav.addObject("qnaList", qnaList);
+		mav.addObject("paging", paging);
 		mav.setViewName("/qna/qnaList");
 		return mav;
 	}

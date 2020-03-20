@@ -11,7 +11,6 @@ public class QnaVO {
 	private int rnum;
 	private int idx;
 	private int writer_idx;
-	private String writer;
 	private String title;
 	private String content;
 	private int secret_yn;
@@ -78,12 +77,6 @@ public class QnaVO {
 	}
 	public void setViews(int views) {
 		this.views = views;
-	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 	
 }

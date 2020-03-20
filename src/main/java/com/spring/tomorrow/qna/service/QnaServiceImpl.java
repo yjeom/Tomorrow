@@ -86,4 +86,16 @@ public class QnaServiceImpl implements QnaService{
 	public int updateViews(int idx)  {
 		return qnaDAO.updateViews(idx);
 	}
+
+	public List<QnaVO> selectMyQnaList(int idx, int start, int end) {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("idx", idx);
+		map.put("start", start);
+		map.put("end", end);
+		return qnaDAO.selectMyQnaList(map);
+	}
+
+	public int selectMyQnaCount(int idx) {
+		return qnaDAO.selectMyQnaCount(idx);
+	}
 }

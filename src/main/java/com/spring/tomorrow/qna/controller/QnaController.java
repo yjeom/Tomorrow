@@ -15,7 +15,7 @@ import com.spring.tomorrow.qna.vo.ReplyVO;
 
 public interface QnaController {
 	
-	public ModelAndView qnaList(@RequestParam(defaultValue="1") int curPage,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView qnaList(@RequestParam(defaultValue="1") int curPage,@RequestParam(value= "idx", required=false)int idx,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView qnaForm(@ModelAttribute("qna") QnaVO qna,HttpServletRequest request, 
 			HttpServletResponse response) throws Exception;
 	public ResponseEntity addQna(@ModelAttribute("qna") QnaVO qna,HttpServletRequest request, 

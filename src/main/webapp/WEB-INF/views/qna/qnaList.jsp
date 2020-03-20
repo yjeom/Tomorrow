@@ -9,7 +9,9 @@ var contextPath= '<c:out value="${contextPath}"/>';
 function paging(page) {
 	location.href=contextPath+"/qna/qnaList.do?curPage="+page;
 	}
-
+function myPaging(page,idx) {
+		location.href=contextPath+"/qna/myQnaList.do?idx="+idx+"&curPage="+page;
+	}
 function qna(){
 		location.href=contextPath+"/qna/qnaForm.do";
 }
@@ -36,7 +38,11 @@ function qna(){
 			</div>
 		</div>
 		</section>
-<br>
+		<br>
+		<a class="qnaList" href="${contextPath }/qna/myQnaList.do?idx=${member.idx}" style="text-decoration: none; color:gray; 
+        margin-left: 1285px;">내 QnA만 보기</a>
+        <br>
+        <br>
 		<table>
 			<colgroup>
 			<col width="10%" />
@@ -90,8 +96,29 @@ function qna(){
 			</tbody>
 		</table>
 			<center>
-			
-<div>
+<c:choose>
+	<c:when test="${isMy==true}">
+	<div>
+                    <c:if test="${paging.curPage > 1 }">
+                        <a href="javascript:myPaging('${paging.curPage-1}','${member.idx}')">[이전]</a> 
+                    </c:if>
+                    <c:forEach var="pageNum" begin="${paging.startPage }" end="${paging.endPage}">
+                        <c:choose>
+                            <c:when test="${pageNum  eq  paging.curPage}">
+                              <font color="blue"><Strong>${pageNum}</Strong></font> 
+                            </c:when>
+                            <c:otherwise>
+                                <a href="javascript:myPaging('${pageNum}'),'${member.idx}'">${pageNum }</a> 
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <c:if test="${paging.curPage != paging.totalPage && paging.totalPage> 0}">
+                        <a href="javascript:myPaging('${paging.curPage+1}','${member.idx}')">[다음]</a> 
+                    </c:if>
+</div>	
+	</c:when>
+	<c:otherwise>
+	<div>
                     <c:if test="${paging.curPage > 1 }">
                         <a href="javascript:paging('${paging.curPage-1}')">[이전]</a> 
                     </c:if>
@@ -108,7 +135,9 @@ function qna(){
                     <c:if test="${paging.curPage != paging.totalPage && paging.totalPage> 0}">
                         <a href="javascript:paging('${paging.curPage+1}')">[다음]</a> 
                     </c:if>
-                </div>			
+</div>	
+	</c:otherwise>
+</c:choose>			
 
 	<br>
 			<input type="button" value="글 작성" onclick="location='javascript:qna()'">

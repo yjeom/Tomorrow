@@ -8,22 +8,25 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.spring.tomorrow.member.vo.MemberVO;
+
 public class LoginInterceptor extends HandlerInterceptorAdapter{
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
-		String uri=request.getRequestURI();
-		System.out.println("uri"+uri);
+		String path=request.getServletPath();
+		System.out.println("path::"+path);
 		HttpSession session=request.getSession();
-		Object isLogOn=session.getAttribute("isLogOn");
-		if(isLogOn!=null) {
+		MemberVO member=(MemberVO) session.getAttribute("member");
+		if(member!=null) {
+			System.out.println("로그인되어있어 통과@@@@");
 			return true;
 		}
-		else if(uri.contains("/member/loginForm")||uri.contains("/member/joinForm")||uri.contains("/member/idCheck")
-				||uri.contains("/home")||uri.contains("/member/sendLoginForm")||uri.contains("/qna/qnaList")||uri.contains("/notice/noticeList")
-				||uri.contains("/member/login")||uri.contains("/member/addMember")) {
+		else if(path.equals("/")||path.equals("/member/loginForm.do")||path.equals("/member/joinForm.do")||path.equals("/member/idCheck.do")
+				||path.equals("/home.do")||path.equals("/member/sendLoginForm.do")||path.equals("/qna/qnaList.do")||path.equals("/notice/noticeList.do")
+				||path.equals("/member/login.do")||path.equals("/member/addMember.do")) {
 			System.out.println("제외페이지");
 			return true;
 			

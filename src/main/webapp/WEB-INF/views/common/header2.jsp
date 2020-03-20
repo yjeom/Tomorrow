@@ -24,7 +24,7 @@
 <body>
 						<header id="header">
 				<div class="inner">
-						<a href="${contextPath}/home.do" class="logo">Tomorrow is...</a>
+						<a href="${contextPath}/" class="logo">Tomorrow is...</a>
 				</div>
 			</header>
 </body>

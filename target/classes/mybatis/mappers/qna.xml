@@ -9,7 +9,6 @@
 		<result property="rnum" column="rnum"/>
 		<result property="idx" column="idx"/>
 		<result property="writer_idx" column="writer_idx" />
-		<result property="writer" column="writer" />
         <result property="title" column="title" />
         <result property="content" column="content" />
         <result property="secret_yn" column="secret_yn" />
@@ -23,7 +22,6 @@
 		<result property="idx" column="idx"/>
 		<result property="qna_idx" column="qna_idx"/>
 		<result property="writer_idx" column="writer_idx" />
-		<result property="writer" column="writer" />
         <result property="content" column="content" />
         <result property="regdate" column="regdate" />
         <result property="views" column="views" />
@@ -40,12 +38,21 @@
    		 )where rnum between #{start} and #{end}
       ]]>
 	</select>
+	<select id="selectMyQnaList" resultMap="qnaVO" parameterType="java.util.HashMap">
+      <![CDATA[
+		select * from(
+    		select rownum as rnum ,qna.* ,
+    		(select count(*) from qnareply where qnareply.qna_idx=qna.idx)as reply_count
+   			 from qna where writer_idx=#{idx}
+   			 order by idx desc
+   		 )where rnum between #{start} and #{end}
+      ]]>
+	</select>
     
     <select id="selectReplyList" resultMap="replyVO" parameterType="java.util.HashMap">
       <![CDATA[
 	select * from(
-    select qnareply.*,rownum as rnum, 
-    	(select id from member where member.idx=qnareply.writer_idx) as writer
+    select qnareply.*,rownum as rnum
     from qnareply where qna_idx=#{qna_idx} order by idx desc
 	)where rnum between #{start} and #{end}
       ]]>
@@ -56,12 +63,14 @@
    		select count(*) from qna
       ]]>
 	</select>
-	
+		<select id="selectMyQnaCount" resultType="int"  parameterType="int">
+      <![CDATA[
+   		select count(*) from qna where writer_idx=#{idx}
+      ]]>
+	</select>
 	<select id="selectQna" resultType="qnaVO" parameterType="int">
       <![CDATA[
-   		select qna.* ,
-   		(select id from member where member.idx=(select writer_idx from qna where idx=#{idx})) as writer 
-		from qna where idx=#{idx}
+   		select * from qna where idx=#{idx}
       ]]>
 	</select>
 	

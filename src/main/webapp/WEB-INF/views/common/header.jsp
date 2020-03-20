@@ -75,6 +75,7 @@ button.report:hover,
   width: 20px;
   height: 20px;
 }
+
 </style>
 <head>
   <meta charset="UTF-8">
@@ -101,7 +102,7 @@ button.report:hover,
 	<c:when test="${member.id ne 'rhksflwk' }">
 			<header id="header">
 				<div class="inner">
-					<a href="${contextPath}/home.do" class="logo">Tomorrow is...</a>
+					<a href="${contextPath}/" class="logo">Tomorrow is...</a>
 						<a href="javascript:receiveMail()">받은 편지함</a>
 						<a href="javascript:sendMail()">보낸 편지함</a>
 						<a href="javascript:diary()">To.오늘의 나</a>

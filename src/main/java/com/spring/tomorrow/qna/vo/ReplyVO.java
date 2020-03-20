@@ -11,7 +11,6 @@ public class ReplyVO {
 	private int idx;
 	private int qna_idx;
 	private int writer_idx;
-	private String writer;
 	private String content;
 	private Date regdate;
 	private int views;
@@ -58,12 +57,6 @@ public class ReplyVO {
 	}
 	public void setViews(int views) {
 		this.views = views;
-	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 	
 

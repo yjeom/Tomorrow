@@ -11,7 +11,9 @@ import com.spring.tomorrow.qna.vo.ReplyVO;
 public interface QnaDAO {
 	
 	public List<QnaVO> selectQnaList(HashMap<String, Object>map)throws DataAccessException;
+	public List<QnaVO> selectMyQnaList(HashMap<String, Object>map)throws DataAccessException;
 	public int selectQnaCount()throws DataAccessException;
+	public int selectMyQnaCount(int idx)throws DataAccessException;
 	public int insertQna(QnaVO qnaVO)throws DataAccessException;
 	public QnaVO getQna(int idx)throws DataAccessException;
 	public List<ReplyVO> selectReplyList(HashMap<String, Object>map)throws DataAccessException;

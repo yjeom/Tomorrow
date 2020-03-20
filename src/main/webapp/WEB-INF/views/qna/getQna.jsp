@@ -113,7 +113,7 @@ function updateReply(){
 			<c:forEach var="reList" items="${reList}" varStatus="rNum">
 			<tr style="background-color:white; border:0px;">
 				<c:choose>
-					<c:when test="${reList.writer=='rhksflwk' }">
+					<c:when test="${reList.writer_idx==1}">
 						<td align="right"><br>°ü¸®ÀÚ<br>(${reList.regdate })</td>
 					</c:when>
 					<c:otherwise>

@@ -25,7 +25,7 @@ public class HomeController {
 	@Autowired
 	private MailService mailService;
 	
-	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
+	@RequestMapping(value = {"/home.do","/"}, method = RequestMethod.GET)
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
 		mav=new ModelAndView();
 		HttpSession session = request.getSession();

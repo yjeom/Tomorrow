@@ -10,7 +10,9 @@ import com.spring.tomorrow.qna.vo.ReplyVO;
 public interface QnaService {
 	
 	public List<QnaVO> selectQnaList(int start,int end);
+	public List<QnaVO> selectMyQnaList(int idx,int start,int end);
 	public int selectQnaCount();
+	public int selectMyQnaCount(int idx);
 	public int insertQna(QnaVO qnaVO);
 	public List<ReplyVO> selectReplyList(int qna_idx,int start,int end);
 	public int selectReplyCount(int qna_idx);

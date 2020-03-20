@@ -78,4 +78,13 @@ public class QnaDAOImpl implements QnaDAO{
 		return sqlSession.update("mapper.qna.updateViews",idx);
 	}
 
+	public List<QnaVO> selectMyQnaList(HashMap<String, Object> map) throws DataAccessException {
+		return sqlSession.selectList("mapper.qna.selectMyQnaList",map);
+	}
+
+	@Override
+	public int selectMyQnaCount(int idx) throws DataAccessException {
+		return sqlSession.selectOne("mapper.qna.selectMyQnaCount",idx);
+	}
+
 }

@@ -98,7 +98,7 @@ function receiveReply(){
    		  		<input type="button" class="button" value="받은 답장함" onclick="location='javascript:receiveReply()'">
    		  		<c:if test="${newReply >0 }">
    		  		<div style="position:relative; top:-35px; left:47px;">
-							<input type="image" src="/tomorrow/resources/images/icons/newMessage.jpg"" width="10px" /></div>
+				<input type="image" src="/tomorrow/resources/images/icons/newMessage.jpg"" width="10px" /></div>
    		  		</c:if>
    		  		</div>
 	<br>
