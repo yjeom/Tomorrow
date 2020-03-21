@@ -68,9 +68,11 @@ public class MemberControllerImpl   implements MemberController {
 					"https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + member.getAccess_token(), member);
 			
 			//Join Check
-			MemberVO check = memberService.getSNSJoinCheck("google", member.getGoogle_email());
+			MemberVO check = memberService.idCheck(member.getGoogle_email());
 			if (check == null) {
+				member.setId(member.getGoogle_email());
 				memberService.addMember(member);
+				check = memberService.idCheck(member.getGoogle_email());
 			}
 			HttpSession session = request.getSession();
 			session.setAttribute("member", check);
@@ -109,10 +111,11 @@ public class MemberControllerImpl   implements MemberController {
 				member = memberService.getSNSUserInfo("naver",
 						"https://openapi.naver.com/v1/nid/me?access_token=" + member.getAccess_token(), member);
 				//JoinCheck
-				MemberVO check = memberService.getSNSJoinCheck("naver", member.getNaver_email());
+				MemberVO check = memberService.idCheck(member.getNaver_email());
 				if (check == null) {
-					System.out.println("이제 회원가입 후 로그인!");
+					member.setId(member.getNaver_email());
 					memberService.addMember(member);
+					check = memberService.idCheck(member.getNaver_email());
 				}
 				HttpSession session = request.getSession();
 				session.setAttribute("member", check);
@@ -147,10 +150,11 @@ public class MemberControllerImpl   implements MemberController {
 				member = memberService.getSNSUserInfo("kakao",
 						"https://kapi.kakao.com/v2/user/me?access_token=" + member.getAccess_token(), member);
 				//JoinCheck
-				MemberVO check = memberService.getSNSJoinCheck("kakao", member.getKakao_email());
+				MemberVO check = memberService.idCheck(member.getKakao_email());
 				if (check == null) {
-					System.out.println("이제 회원가입 후 로그인!");
+					member.setId(member.getKakao_email());
 					memberService.addMember(member);
+					check = memberService.idCheck(member.getKakao_email());
 				}
 				HttpSession session = request.getSession();
 				session.setAttribute("member", check);

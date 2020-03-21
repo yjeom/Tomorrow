@@ -11,8 +11,8 @@
 </head>
 <script type="text/javascript">
 var contextPath= '<c:out value="${contextPath}"/>';
-function inputCheck()
-	else if(document.sendReply.contents.value=="")
+function inputCheck(){
+	if(document.sendReply.contents.value=="")
 		{
 			alert("내용을 입력하세요.");
 			document.sendReply.contents.focus();

@@ -43,7 +43,7 @@ function inputCheck()
 		<div class="inner">
 			<div class="flex">
 				<div>
-					<img src="/images/icons/chat.png" width="30px"  />
+					<img src="/tomorrow/resources/images/icons/chat.png" width="30px"  />
 					<br><br>
 					<h3>고민 작성하기</h3>
 						<p>당신의 고민은 무엇인가요?<br>

@@ -1658,12 +1658,6 @@
 		a:hover {
 			text-decoration: none;
 		}
- .qnaList a{
- color: #6cc091;
-		text-decoration: none;
-        font-family: 'Jeju Gothic', serif;
-        font-size:14px;
- }
 	strong, b {
 		color: #555;
 		font-weight: 600;

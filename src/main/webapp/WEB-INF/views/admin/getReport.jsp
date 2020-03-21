@@ -38,7 +38,7 @@ function del()
 		<div class="inner">
 			<div class="flex">
 				<div>
-					<img src="/images/icons/alarm_rhksflwk.png" width="30px" /><br><br>
+					<img src="/tomorrow/resources/images/icons/alarm_rhksflwk.png" width="30px" /><br><br>
 							<h3>신 고 관 리</h3>
 							 </p>
 			</div>

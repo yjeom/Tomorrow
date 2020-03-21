@@ -10,7 +10,7 @@ public interface MemberService {
 	 public List listMembers(int start,int end) ;
 	 public int membersCount() ;
 	 public int addMember(MemberVO memberVO) ;
-	 public String idCheck(String id);
+	 public MemberVO idCheck(String id);
 	 public int removeMember(int idx) ;
 	 public MemberVO login(MemberVO memberVO) ;
 	 public void reportMember(int idx);
@@ -18,5 +18,4 @@ public interface MemberService {
 	 public void updateMember(MemberVO memberVO);
 	 public MemberVO getToken(String apiUrl,String param,MemberVO memberVO);
 	 public MemberVO getSNSUserInfo(String sns,String apiUrl,MemberVO memberVO);
-	 public MemberVO getSNSJoinCheck(String sns,String email);
 }

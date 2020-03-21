@@ -20,7 +20,7 @@ function paging(page) {
 				<div class="inner">
 					<div class="flex">					
 						<div>
-							<img src="/images/icons/alarm_rhksflwk.png" width="30px" /><br>
+							<img src="/tomorrow/resources/images/icons/alarm_rhksflwk.png" width="30px" /><br>
 							<h3>신 고 관 리</h3>
 													
 						</div>
@@ -61,7 +61,7 @@ function paging(page) {
 			<td>${reportList.reporter}</td>
 			<td>
 			  <c:if test="${reportList.views==0 }">
-				<input type="image" src="/images/icons/newMessage.jpg"" width="10px" />
+				<input type="image" src="/tomorrow/resources/images/icons/newMessage.jpg"" width="10px" />
 			  </c:if>
 			<a href="${contextPath}/admin/getReport.do?idx=${reportList.idx}">${reportList.title }</a>
 			</td>

@@ -75,7 +75,7 @@ function inputCheck()
 	</div>
 	</section>
 
-			<br><br><br>
+			<br>
 			
 		<c:choose>
 			<c:when test="${not empty updateDiary}">

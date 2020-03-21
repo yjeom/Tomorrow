@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO login(MemberVO memberVO) {
 		return memberDAO.login(memberVO);
 	}
-	public String idCheck(String id)  {
+	public MemberVO idCheck(String id)  {
 		return memberDAO.idCheck(id);
 	}
 	public void reportMember(int idx)  {
@@ -81,37 +81,19 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO getSNSUserInfo(String sns,String apiUrl, MemberVO memberVO) {
 		login=new SocialLogin();
 		String UserJson=login.getHttpConnection(apiUrl);
-		System.out.println(UserJson.toString());
 		JSONObject jsonObj=new JSONObject(UserJson);
 		if(sns.equals("google")) {
 		memberVO.setGoogle_email(jsonObj.getString("email").toString());
-		System.out.println(jsonObj.getString("email").toString()+"¿Ã∏ﬁ¿œ");
 		}
 		else if(sns.equals("naver")) {
 			JSONObject response=jsonObj.getJSONObject("response");
-			System.out.println(response.get("email").toString());
 			memberVO.setNaver_email(response.get("email").toString());
 		}
 		else if(sns.equals("kakao")) {
 			JSONObject response=jsonObj.getJSONObject("kakao_account");
-			System.out.println(response.get("email").toString());
 			memberVO.setKakao_email(response.get("email").toString());
 		}
 		
-		return memberVO;
-	}
-	@Override
-	public MemberVO getSNSJoinCheck(String sns, String email) {
-		MemberVO memberVO=null;
-		if(sns.equals("google")) {
-			memberVO= memberDAO.googleJoinCheck(email);
-		}
-		else if(sns.equals("naver")) {
-			memberVO=memberDAO.naverJoinCheck(email);
-		}
-		else if(sns.equals("kakao")) {
-			memberVO=memberDAO.kakaoJoinCheck(email);
-		}
 		return memberVO;
 	}
 

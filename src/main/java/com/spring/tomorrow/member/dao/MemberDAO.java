@@ -14,12 +14,9 @@ public interface MemberDAO {
 	 public int insertMember(MemberVO memberVO) throws DataAccessException ;
 	 public int deleteMember(int idx) throws DataAccessException;
 	 public MemberVO login(MemberVO memberVO) throws DataAccessException;
-	 public String idCheck(String id) throws DataAccessException;
+	 public MemberVO idCheck(String id) throws DataAccessException;
 	 public void updateReportCount(int idx)throws DataAccessException;
 	 public void updateReportCheck(int idx)throws DataAccessException;
 	 public void updateMember(MemberVO memberVO)throws DataAccessException;
-	 public MemberVO googleJoinCheck(String email) throws DataAccessException;
-	 public MemberVO naverJoinCheck(String email) throws DataAccessException;
-	 public MemberVO kakaoJoinCheck(String email)throws DataAccessException;
 
 }

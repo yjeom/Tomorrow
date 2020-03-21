@@ -45,9 +45,9 @@ public class MemberDAOImpl implements MemberDAO {
 		return vo;
 	}
 	@Override
-	public String idCheck(String id) throws DataAccessException {
-		id=sqlSession.selectOne("mapper.member.joinIdCheck", id);
-		return id;
+	public MemberVO idCheck(String id) throws DataAccessException {
+		MemberVO memberVO=sqlSession.selectOne("mapper.member.joinIdCheck", id);
+		return memberVO;
 	}
 	@Override
 	public void updateReportCount(int idx) throws DataAccessException {
@@ -63,19 +63,6 @@ public class MemberDAOImpl implements MemberDAO {
 	public void updateMember(MemberVO memberVO) throws DataAccessException {
 		sqlSession.update("mapper.member.updateMember",memberVO);
 		
-	}
-	@Override
-	public MemberVO googleJoinCheck(String email) throws DataAccessException {
-		return sqlSession.selectOne("mapper.member.selectGoogleEmail", email);
-	}
-
-	@Override
-	public MemberVO naverJoinCheck(String email) throws DataAccessException {
-		return sqlSession.selectOne("mapper.member.selectNaverEmail", email);
-	}
-	@Override
-	public MemberVO kakaoJoinCheck(String email) throws DataAccessException {
-		return sqlSession.selectOne("mapper.member.selectKakaoEmail", email);
 	}
 
 

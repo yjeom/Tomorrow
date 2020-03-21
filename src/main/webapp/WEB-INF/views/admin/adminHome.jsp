@@ -9,7 +9,7 @@
 <script type="text/javascript">
 var contextPath= '<c:out value="${contextPath}"/>';
 function paging(page) {
-		location.href=contextPath+"/adminHome.do?curPage="+page;
+		location.href=contextPath+"/admin/adminHome.do?curPage="+page;
 		}
 
 
@@ -26,22 +26,22 @@ function paging(page) {
 						<div>
 						<c:choose>
 							<c:when test="${newReport>0}">
-							<input type="image" src="/images/icons/siren_rhksflwk.gif" width="40px" onclick="location.href='${contextPath}/admin/reportList.do'">
+							<input type="image" src="/tomorrow/resources/images/icons/siren_rhksflwk.gif" width="40px" onclick="location.href='${contextPath}/admin/reportList.do'">
 							</c:when>
 							<c:otherwise>
-							<input type="image" src="/images/icons/alarm_rhksflwk.png" width="40px" onclick="location.href='${contextPath}/admin/reportList.do'"/>
+							<input type="image" src="/tomorrow/resources/images/icons/alarm_rhksflwk.png" width="40px" onclick="location.href='${contextPath}/admin/reportList.do'"/>
 							</c:otherwise>
 						</c:choose>
 							<h3>신고관리</h3>
 							
 						</div>
 						<div>
-							<input type="image" src="/images/icons/question2.png" width="35px" onclick="location.href='${contextPath}/qna/qnaList.do'"/>
+							<input type="image" src="/tomorrow/resources/images/icons/question2.png" width="35px" onclick="location.href='${contextPath}/qna/qnaList.do'"/>
 							<h3>QnA관리</h3>
 						</div>
 
 						<div>
-							<input type="image" src="/images/icons/microphone.png" width="35px"  onclick="location.href='${contextPath}/notice/noticeList.do'"/>
+							<input type="image" src="/tomorrow/resources/images/icons/microphone.png" width="35px"  onclick="location.href='${contextPath}/notice/noticeList.do'"/>
 							<h3>공지사항</h3>
 						</div>
 					</div>
@@ -53,8 +53,7 @@ function paging(page) {
 <table>
 			<colgroup>
 			<col width="20%" />
-			<col width="20%" />
-			<col width="20%" />
+			<col width="40%" />
 			<col width="20%" />
 			<col width="20%" />
 			</colgroup>
@@ -63,7 +62,6 @@ function paging(page) {
 					<th>No.</th>
 					<th>ID</th>
 					<th>Password</th>
-					<th>Email</th>
 					<th>Report</th>
 				</tr>
 			</thead>
@@ -81,8 +79,7 @@ function paging(page) {
 		<tr>
 			<td>${memberList.rnum}</td>
 			<td>${memberList.id }</td>
-			<td>${memberList.pwd }</td>
-			<td>${memberList.email }</td>
+			<td>*******</td>
 			<td>${memberList.report_count }</td>
 		</tr>
 		</c:forEach>

@@ -131,7 +131,7 @@ function diary(){
 							<p>몸이든 마음이든 비우면 시원하고 편안해집니다.<br/>반대로 안에 오랫동안 간직하고 있으면<br/>몸이든 마음이든 병이 납니다.<br />뭐든 비워야 좋습니다.<br/><font size="2px">#혜민스님, 멈추면 비로소 보이는 것들</font>
 							<br/>
 							<footer>
-								<a href="MenuCheck.jsp" class="button">고민 비우기</a>
+								<a href="${contextPath }/mail/sendWorryForm.do" class="button">고민 비우기</a>
 							</footer>
 						</article>
 						<article>
@@ -142,7 +142,7 @@ function diary(){
 							<p>몸멋있는 사람은 아무렇게나 살아도 멋있다.<br/>안 씻는 사람은 안 씻어도 멋있다.<br />일생 정리정돈 못하는 사람은 그게 멋이다.<br/>아등바등 살아가는 너같은 사람은 그대로도 멋이다.<br/>
 							<font size="2px">#이병률, 끌림</font>
 							<footer>
-								<a href="MenuCheck.jsp" class="button">To.오늘의 나</a>
+								<a href="${contextPath }/diary/diaryForm.do" class="button">To.오늘의 나</a>
 							</footer>
 						</article>
 						
